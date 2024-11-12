@@ -285,16 +285,16 @@ export default function Home() {
             <span className="bg-red-500 p-2 rounded">GSR</span>
           </motion.div>
           <div className="flex gap-8 text-gray-300">
-            <a href="#home" className="hover:text-red-500">
+            <a href={process.env.NODE_ENV === 'production' ? '/your-repo-name/#home' : '/#home'} className="hover:text-red-500">
               Home
             </a>
-            <a href="#experience" className="hover:text-red-500">
+            <a href={process.env.NODE_ENV === 'production' ? '/your-repo-name/#experience' : '/#experience'} className="hover:text-red-500">
               Experience
             </a>
-            <a href="#projects" className="hover:text-red-500">
+            <a href={process.env.NODE_ENV === 'production' ? '/your-repo-name/#projects' : '/#projects'} className="hover:text-red-500">
               Projects
             </a>
-            <a href="#education" className="hover:text-red-500">
+            <a href={process.env.NODE_ENV === 'production' ? '/your-repo-name/#education' : '/#education'} className="hover:text-red-500">
               Education
             </a>
           </div>
