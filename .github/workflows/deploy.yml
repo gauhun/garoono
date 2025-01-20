@@ -24,11 +24,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Add .nojekyll file
-        run: touch ./out/.nojekyll
-
-      - name: Add CNAME file
-        run: echo "garoono.in" > ./out/CNAME
+      - name: Prepare deployment
+        run: |
+          touch ./out/.nojekyll
+          echo "garoono.in" > ./out/CNAME
+          ls -la ./out/
+          cat ./out/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
