@@ -7,6 +7,8 @@ const nextConfig = {
         loaderFile: './src/utils/imageLoader.ts',
     },
     trailingSlash: true,
+    assetPrefix: process.env.NODE_ENV === 'production' ? 'https://garoono.in' : '',
+    basePath: '',
 };
 
 export default nextConfig; 
