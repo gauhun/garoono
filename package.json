@@ -2,6 +2,7 @@
   "name": "gautam-singh-rathor",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://garoono.in",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
