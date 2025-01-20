@@ -1,3 +1,4 @@
 export function getAssetPath(path: string): string {
-    return path;
+    const basePath = process.env.NODE_ENV === 'production' ? '/garoono' : '';
+    return `${basePath}${path}`;
 } 

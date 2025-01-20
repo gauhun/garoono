@@ -3,20 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-<<<<<<< HEAD
-      - main  # or your default branch
-=======
       - main
->>>>>>> 26bea40 (changes)
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-<<<<<<< HEAD
-    permissions:
-      contents: write
-=======
->>>>>>> 26bea40 (changes)
     steps:
       - uses: actions/checkout@v4
 
@@ -31,24 +22,10 @@ jobs:
       - name: Build
         run: npm run build
 
-<<<<<<< HEAD
-      - name: Add .nojekyll file
-        run: touch ./out/.nojekyll
-
-      - name: Add CNAME file
-        run: |
-          echo "garoono.in" > ./out/CNAME
-          touch ./out/.nojekyll
-
-=======
->>>>>>> 26bea40 (changes)
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
           publish_branch: gh-pages
-<<<<<<< HEAD
-=======
           cname: ${{ secrets.CNAME }} 
->>>>>>> 26bea40 (changes)
