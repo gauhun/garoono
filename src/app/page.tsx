@@ -6,7 +6,7 @@ import HireModal from "./components/HireModal";
 import { useState, useRef, useEffect } from "react";
 import { getAssetPath } from "../utils/assetPath";
 import { getReviewImages } from "../utils/getReviewImages";
-import Image from 'next/image';
+import Image from "next/image";
 
 // Animation variants
 const containerVariants = {
@@ -149,11 +149,15 @@ const techLogos = [
   { name: "GitHub", icon: getAssetPath("/logos/github.png") },
   { name: "Firebase", icon: getAssetPath("/logos/firebase.png") },
   { name: "Flutter", icon: getAssetPath("/logos/flutter.png") },
-  { name: "Dart", icon: getAssetPath("/logos/dart.png") },
-  { name: "Zeplin", icon: getAssetPath("/logos/zeplin.png") },
-  { name: "Figma", icon: getAssetPath("/logos/figma.png") },
-  { name: "YouTube", icon: getAssetPath("/logos/youtube.png") },
-  { name: "Node.js", icon: getAssetPath("/logos/nodejs.png") },
+  // { name: "Dart", icon: getAssetPath("/logos/dart.png") },
+  // { name: "Zeplin", icon: getAssetPath("/logos/zeplin.png") },
+  // { name: "Figma", icon: getAssetPath("/logos/figma.png") },
+  // { name: "YouTube", icon: getAssetPath("/logos/youtube.png") },
+  // { name: "Node.js", icon: getAssetPath("/logos/nodejs.png") },
+  { name: "Bhakti Dhun", icon: getAssetPath("/logos/bhakti_dhun_logo.png") },
+  { name: "FocusOn", icon: getAssetPath("/logos/focuson_brand.png") },
+  { name: "HabiTide", icon: getAssetPath("/logos/habitide_logo.png") },
+  { name: "Apna RSS", icon: getAssetPath("/logos/rss_transparent.png") },
 ];
 
 function ProjectCard({ project }: { project: Project }) {
@@ -299,14 +303,14 @@ function ReviewsSection() {
   useEffect(() => {
     const loadImages = async () => {
       const images = reviewImages.map((imagePath: string) => {
-        const img = document.createElement('img');
+        const img = document.createElement("img");
         img.src = getAssetPath(imagePath);
         return new Promise((resolve) => {
           img.onload = () => resolve(imagePath);
         });
       });
 
-      const loadedPaths = await Promise.all(images) as string[];
+      const loadedPaths = (await Promise.all(images)) as string[];
       setLoadedImages([...loadedPaths, ...loadedPaths, ...loadedPaths]);
     };
 
@@ -314,11 +318,17 @@ function ReviewsSection() {
   }, []);
 
   useEffect(() => {
-    if (!scrollRef.current || loadedImages.length === 0 || isMouseOver || isLongPress) return;
-    
+    if (
+      !scrollRef.current ||
+      loadedImages.length === 0 ||
+      isMouseOver ||
+      isLongPress
+    )
+      return;
+
     const scrollContainer = scrollRef.current;
     let scrollPos = scrollContainer.scrollLeft;
-    
+
     const intervalId = setInterval(() => {
       scrollPos += SCROLL_SPEED;
       if (scrollPos >= scrollContainer.scrollWidth / 3) {
@@ -326,7 +336,7 @@ function ReviewsSection() {
       }
       scrollContainer.scrollLeft = scrollPos;
     }, 16);
-    
+
     return () => clearInterval(intervalId);
   }, [loadedImages, isMouseOver, isLongPress]);
 
@@ -354,12 +364,13 @@ function ReviewsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold mb-12 text-center text-white">
+          className="text-3xl font-bold mb-12 text-center text-white"
+        >
           App Reviews
         </motion.h2>
 
         <div className="relative overflow-hidden">
-          <div 
+          <div
             ref={scrollRef}
             onMouseEnter={() => setIsMouseOver(true)}
             onMouseLeave={() => setIsMouseOver(false)}
@@ -367,17 +378,14 @@ function ReviewsSection() {
             onTouchEnd={handleTouchEnd}
             onTouchCancel={handleTouchEnd}
             className="flex gap-4 overflow-x-auto whitespace-nowrap cursor-grab active:cursor-grabbing"
-            style={{ 
-              scrollbarWidth: 'none', 
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch'
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
             }}
           >
             {loadedImages.map((image, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 w-[400px] inline-block"
-              >
+              <div key={index} className="flex-shrink-0 w-[400px] inline-block">
                 <Image
                   src={getAssetPath(image)}
                   alt={`Client Review ${index + 1}`}
@@ -388,8 +396,8 @@ function ReviewsSection() {
                     objectFit: "contain",
                     objectPosition: "center",
                     backgroundColor: "#1A1A1A",
-                    WebkitTouchCallout: 'none', // Prevents iOS callout
-                    WebkitUserSelect: 'none',   // Prevents selection
+                    WebkitTouchCallout: "none", // Prevents iOS callout
+                    WebkitUserSelect: "none", // Prevents selection
                   }}
                   draggable={false}
                   onContextMenu={(e) => e.preventDefault()}
@@ -417,17 +425,17 @@ function ScrollToTopButton() {
       }
     };
 
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
 
     return () => {
-      window.removeEventListener('scroll', toggleVisibility);
+      window.removeEventListener("scroll", toggleVisibility);
     };
   }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
@@ -438,7 +446,7 @@ function ScrollToTopButton() {
       transition={{ duration: 0.2 }}
       onClick={scrollToTop}
       className="fixed bottom-8 right-8 bg-red-500 text-white p-3 rounded-full shadow-lg hover:bg-red-600 z-50"
-      style={{ display: isVisible ? 'block' : 'none' }}
+      style={{ display: isVisible ? "block" : "none" }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
     >
@@ -461,19 +469,24 @@ function ScrollToTopButton() {
 }
 
 // Add this new component for mobile menu
-function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function MobileMenu({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, x: "100%" }}
       animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : "100%" }}
       transition={{ duration: 0.3 }}
-      className={`fixed inset-0 bg-black/95 z-50 ${isOpen ? "block" : "hidden"}`}
+      className={`fixed inset-0 bg-black/95 z-50 ${
+        isOpen ? "block" : "hidden"
+      }`}
     >
       <div className="flex flex-col items-center justify-center h-full gap-8">
-        <button
-          onClick={onClose}
-          className="absolute top-6 right-6 text-white"
-        >
+        <button onClick={onClose} className="absolute top-6 right-6 text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -489,19 +502,39 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
             />
           </svg>
         </button>
-        <a href="#home" onClick={onClose} className="text-2xl text-white hover:text-red-500">
+        <a
+          href="#home"
+          onClick={onClose}
+          className="text-2xl text-white hover:text-red-500"
+        >
           Home
         </a>
-        <a href="#projects" onClick={onClose} className="text-2xl text-white hover:text-red-500">
+        <a
+          href="#projects"
+          onClick={onClose}
+          className="text-2xl text-white hover:text-red-500"
+        >
           Projects
         </a>
-        <a href="#experience" onClick={onClose} className="text-2xl text-white hover:text-red-500">
+        <a
+          href="#experience"
+          onClick={onClose}
+          className="text-2xl text-white hover:text-red-500"
+        >
           Experience
         </a>
-        <a href="#reviews" onClick={onClose} className="text-2xl text-white hover:text-red-500">
+        <a
+          href="#reviews"
+          onClick={onClose}
+          className="text-2xl text-white hover:text-red-500"
+        >
           Reviews
         </a>
-        <a href="#education" onClick={onClose} className="text-2xl text-white hover:text-red-500">
+        <a
+          href="#education"
+          onClick={onClose}
+          className="text-2xl text-white hover:text-red-500"
+        >
           Education
         </a>
       </div>
@@ -519,16 +552,32 @@ export default function Home() {
       <nav className="fixed w-full bg-[#0A0A0A]/80 backdrop-blur-sm z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <motion.div className="text-2xl font-bold text-white flex items-center gap-2">
-            <span className="bg-red-500 p-2 rounded">GSR</span>
+            <Image
+              src={getAssetPath("/logos/circle_garoono_logo.png")}
+              alt="Garoono Logo"
+              width={40}
+              height={40}
+              className="rounded-full border-2 border-white"
+            />
           </motion.div>
-          
+
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 text-gray-300">
-            <a href="#home" className="hover:text-red-500">Home</a>
-            <a href="#projects" className="hover:text-red-500">Projects</a>
-            <a href="#experience" className="hover:text-red-500">Experience</a>
-            <a href="#reviews" className="hover:text-red-500">Reviews</a>
-            <a href="#education" className="hover:text-red-500">Education</a>
+            <a href="#home" className="hover:text-red-500">
+              Home
+            </a>
+            <a href="#projects" className="hover:text-red-500">
+              Projects
+            </a>
+            <a href="#experience" className="hover:text-red-500">
+              Experience
+            </a>
+            <a href="#reviews" className="hover:text-red-500">
+              Reviews
+            </a>
+            <a href="#education" className="hover:text-red-500">
+              Education
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -577,9 +626,9 @@ export default function Home() {
       </nav>
 
       {/* Mobile Menu */}
-      <MobileMenu 
-        isOpen={isMobileMenuOpen} 
-        onClose={() => setIsMobileMenuOpen(false)} 
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
       />
 
       {/* Hero Section - Make it responsive */}
@@ -595,6 +644,141 @@ export default function Home() {
               variants={containerVariants}
               className="w-full pl-0 md:pl-8 text-center md:text-left"
             >
+              {/* Popular List Section */}
+              <motion.div
+                variants={itemVariants}
+                className="mb-8 p-6 bg-[#1A1A1A] rounded-xl border border-gray-800 relative"
+              >
+                {/* Corner banner for "Popular" */}
+                <span
+                  className="absolute top-0 right-0"
+                  style={{
+                    transform: "translate(35%, -35%) rotate(45deg)",
+                    zIndex: 20,
+                  }}
+                >
+                  <motion.a
+                    href="https://linktr.ee/garoono"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileTap={{ scale: 0.92 }}
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    className="bg-red-500 text-white px-6 py-1 shadow-lg text-xs font-bold tracking-wider rounded-md cursor-pointer focus:outline-none"
+                    style={{
+                      boxShadow: "0 2px 8px rgba(239,68,68,0.15)",
+                      display: "inline-block",
+                      minWidth: "80px",
+                      textAlign: "center",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    All Apps
+                  </motion.a>
+                </span>{" "}
+                <div className="flex flex-col md:flex-row gap-8">
+                  {/* Popular -> Productivity */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="flex items-center gap-2 text-red-500 font-semibold">
+                        <Image
+                          src="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
+                          alt="Popular"
+                          width={24}
+                          height={32}
+                          className="inline-block mr-2"
+                        />
+                        Productivity
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <a
+                          href="https://habitide.in"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-300 underline hover:text-red-400 transition-colors"
+                        >
+                          HabiTide
+                        </a>
+                        <span className="text-gray-400 text-sm">
+                          <span className="bg-red-300 text-black px-2 py-0.5 rounded font-semibold mr-1">
+                            2K+
+                          </span>
+                          installs
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <a
+                          href="https://play.google.com/store/apps/details?id=in.garoono.focuson"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-300 underline hover:text-red-400 transition-colors"
+                        >
+                          FocusOn
+                        </a>
+                        <span className="text-gray-400 text-sm">
+                          <span className="bg-red-300 text-black px-2 py-0.5 rounded font-semibold mr-1">
+                            100+
+                          </span>{" "}
+                          installs
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Regional */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-red-500 font-semibold">
+                        <Image
+                          src="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
+                          alt="Popular"
+                          width={24}
+                          height={32}
+                          className="inline-block mr-2"
+                        />
+                        Regional
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <a
+                          href="https://play.google.com/store/apps/details?id=com.garoono.apnarss"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-300 underline hover:text-red-400 transition-colors"
+                        >
+                          Apna RSS
+                        </a>
+                        <span className="text-gray-400 text-sm">
+                          <span className="bg-red-300 text-black px-2 py-0.5 rounded font-semibold mr-1">
+                            10K+
+                          </span>{" "}
+                          installs
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <a
+                          href="https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-300 underline hover:text-red-400 transition-colors"
+                        >
+                          BhaktiDhun
+                        </a>
+                        <span className="text-gray-400 text-sm">
+                          <span className="bg-red-300 text-black px-2 py-0.5 rounded font-semibold mr-1">
+                            1500+
+                          </span>{" "}
+                          installs
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
               <motion.h1
                 variants={itemVariants}
                 className="text-4xl md:text-6xl font-bold mb-4"
@@ -621,8 +805,8 @@ export default function Home() {
                 Experience Who Is Always Excited To Work With You To Creating
                 Wonderful Applications!
               </motion.p>
-              <motion.div 
-                variants={itemVariants} 
+              <motion.div
+                variants={itemVariants}
                 className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
               >
                 <button
@@ -632,7 +816,7 @@ export default function Home() {
                   Hire Me
                 </button>
                 <a
-                  href="https://drive.google.com/file/d/1sWRkxef8ZJojO1A6MtVOBX9cQjQS_hVh/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1ttdiSLCrXMSM-LGok-tMgGLb51SxBfe7/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto border border-gray-600 text-white px-8 py-3 rounded-full flex items-center justify-center gap-2 hover:border-gray-500 transition-colors"
@@ -685,7 +869,10 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]">
+      <section
+        id="projects"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]"
+      >
         <div className="max-w-7xl mx-auto">
           <motion.h2
             {...fadeIn}
@@ -702,7 +889,10 @@ export default function Home() {
       </section>
 
       {/* Experience Section - Update timeline for mobile */}
-      <section id="experience" className="py-20 md:py-32 bg-[#0A0A0A] px-4 sm:px-6 lg:px-8">
+      <section
+        id="experience"
+        className="py-20 md:py-32 bg-[#0A0A0A] px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-7xl mx-auto">
           <motion.h2
             {...fadeIn}
@@ -790,7 +980,10 @@ export default function Home() {
       <ReviewsSection />
 
       {/* Education Section */}
-      <section id="education" className="py-16 bg-[#0A0A0A] px-4 sm:px-6 lg:px-8">
+      <section
+        id="education"
+        className="py-16 bg-[#0A0A0A] px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-7xl mx-auto">
           <motion.h2
             {...fadeIn}
@@ -831,7 +1024,7 @@ export default function Home() {
         isOpen={isHireModalOpen}
         onClose={() => setIsHireModalOpen(false)}
       />
-      
+
       <ScrollToTopButton />
     </div>
   );
