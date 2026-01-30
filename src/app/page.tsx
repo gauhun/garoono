@@ -161,19 +161,7 @@ const techLogos = [
   { name: "XLSheet Ai", icon: getAssetPath("/logos/app_logo_compressed.png") },
 ];
 
-function GlitchLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <a href={href} className="relative group overflow-hidden inline-block text-gray-300 hover:text-white transition-colors font-gaming uppercase text-xs tracking-wider">
-      <span className="relative z-10 block group-hover:-translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)]">
-        {children}
-      </span>
-      <span className="absolute top-full left-0 w-full h-full block group-hover:-translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] text-red-500" aria-hidden>
-        {children}
-      </span>
-      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-red-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-    </a>
-  );
-}
+
 
 function ProjectCard({ project }: { project: Project }) {
   const [expanded, setExpanded] = useState(false);
@@ -298,7 +286,7 @@ function ReviewsSection() {
     };
 
     loadImages();
-  }, []);
+  }, [reviewImages]);
 
   useEffect(() => {
     if (
@@ -541,7 +529,7 @@ function MobileMenu({
 }
 
 
-function GameCard({ children, title, icon, color, glowColor, idx }: any) {
+function GameCard({ children, title, color }: { children: React.ReactNode; title: string; color: string; }) {
   return (
     <div className="relative overflow-hidden group">
       <div className="flex items-center relative z-10 mb-2">
@@ -556,7 +544,16 @@ function GameCard({ children, title, icon, color, glowColor, idx }: any) {
 
 import "@fontsource/press-start-2p";
 
-function GameListItem({ name, link, stat, tag, color, logo }: any) {
+interface GameListItemProps {
+  name: string;
+  link: string;
+  stat: string;
+  tag?: string;
+  color: string;
+  logo?: string;
+}
+
+function GameListItem({ name, link, stat, tag, color, logo }: GameListItemProps) {
   return (
     <motion.a
       href={link}
@@ -754,10 +751,7 @@ export default function Home() {
                   {/* Finance Card */}
                   <GameCard
                     title="Finance"
-                    icon="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
                     color="text-green-400"
-                    glowColor="rgba(74, 222, 128, 0.5)"
-                    idx={0}
                   >
                     <GameListItem
                       name="XlSheet Ai"
@@ -772,10 +766,7 @@ export default function Home() {
                   {/* Productivity Card */}
                   <GameCard
                     title="Productivity"
-                    icon="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
                     color="text-blue-400"
-                    glowColor="rgba(96, 165, 250, 0.5)"
-                    idx={1}
                   >
                     <GameListItem
                       name="HabiTide"
@@ -796,10 +787,7 @@ export default function Home() {
                   {/* Regional Card */}
                   <GameCard
                     title="Regional"
-                    icon="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
                     color="text-amber-500"
-                    glowColor="rgba(245, 158, 11, 0.5)"
-                    idx={2}
                   >
                     <GameListItem
                       name="Apna RSS"
