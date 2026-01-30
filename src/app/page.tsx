@@ -155,136 +155,119 @@ const techLogos = [
   // { name: "YouTube", icon: getAssetPath("/logos/youtube.png") },
   // { name: "Node.js", icon: getAssetPath("/logos/nodejs.png") },
   { name: "Bhakti Dhun", icon: getAssetPath("/logos/bhakti_dhun_logo.png") },
-  { name: "FocusOn", icon: getAssetPath("/logos/focuson_brand.png") },
+  { name: "FocusOn", icon: getAssetPath("/logos/focuson_icon.png") },
   { name: "HabiTide", icon: getAssetPath("/logos/habitide_logo.png") },
   { name: "Apna RSS", icon: getAssetPath("/logos/rss_transparent.png") },
+  { name: "XLSheet Ai", icon: getAssetPath("/logos/app_logo_compressed.png") },
 ];
+
+function GlitchLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a href={href} className="relative group overflow-hidden inline-block text-gray-300 hover:text-white transition-colors font-gaming uppercase text-xs tracking-wider">
+      <span className="relative z-10 block group-hover:-translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)]">
+        {children}
+      </span>
+      <span className="absolute top-full left-0 w-full h-full block group-hover:-translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] text-red-500" aria-hidden>
+        {children}
+      </span>
+      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-red-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+    </a>
+  );
+}
 
 function ProjectCard({ project }: { project: Project }) {
   const [expanded, setExpanded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        animate={{
-          scale: expanded ? 1.02 : 1,
-          zIndex: expanded ? 10 : 0,
-        }}
         whileHover={{
           y: -5,
-          transition: { duration: 0.2 },
+          boxShadow: "0 0 25px rgba(239, 68, 68, 0.4)",
+          borderColor: "rgba(239, 68, 68, 0.8)",
         }}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-        className={`bg-[#1A1A1A] rounded-xl p-6 shadow-lg border border-gray-800 
-          ${expanded ? "relative" : ""} 
-          transition-shadow duration-300
-          ${isHovered ? "shadow-red-500/20 shadow-lg" : ""}`}
+        className="bg-[#0A0A0A] rounded-sm p-6 border border-gray-800 relative group transition-all duration-300 h-full flex flex-col"
       >
-        {/* Add a subtle gradient animation on hover */}
-        <motion.div
-          initial={false}
-          animate={{
-            opacity: isHovered ? 1 : 0,
-          }}
-          className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-transparent rounded-xl"
-          style={{ zIndex: -1 }}
-        />
+        {/* Tech Decor Elements */}
+        <div className="absolute top-2 left-2 w-2 h-2 bg-red-500/50 rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute top-2 right-2 w-2 h-2 bg-red-500/50 rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute bottom-2 left-2 w-2 h-2 bg-red-500/50 rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute bottom-2 right-2 w-2 h-2 bg-red-500/50 rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
 
-        {/* Rest of your existing card content */}
-        <div className="flex items-center justify-between mb-4">
-          <motion.h3
-            className="text-xl font-bold text-white"
-            animate={{ color: isHovered ? "#ef4444" : "#ffffff" }}
-            transition={{ duration: 0.2 }}
-          >
+        <div className="absolute inset-0 bg-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+        {/* Card Header */}
+        <div className="flex items-start justify-between mb-4 relative z-10">
+          <h3 className="text-lg font-bold text-white font-gaming leading-tight group-hover:text-red-400 transition-colors">
             {project.title}
-          </motion.h3>
+          </h3>
           {project.downloads && (
-            <motion.span
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-sm bg-red-500/20 text-red-500 px-3 py-1 rounded-full"
-            >
-              {project.downloads} Downloads
-            </motion.span>
+            <div className="flex flex-col items-end">
+              <span className="text-[10px] text-gray-500 font-gaming uppercase">Score</span>
+              <span className="text-xs text-red-500 font-gaming">
+                {project.downloads.replace('+', '')} XP
+              </span>
+            </div>
           )}
         </div>
 
-        {/* Animate tags with stagger effect */}
-        <motion.div
-          className="flex flex-wrap gap-2 mb-4"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          }}
-        >
+        {/* Tags as Inventory Items */}
+        <div className="flex flex-wrap gap-2 mb-4 relative z-10">
           {project.tags.map((tag: string, index: number) => (
-            <motion.span
+            <span
               key={index}
-              variants={{
-                hidden: { opacity: 0, scale: 0.8 },
-                visible: { opacity: 1, scale: 1 },
-              }}
-              className="bg-red-500/20 text-red-500 px-3 py-1 rounded-full text-sm"
+              className="bg-gray-900 text-gray-300 border border-gray-700 px-2 py-1 text-[10px] font-gaming uppercase tracking-wider hover:border-red-500 hover:text-red-400 transition-colors cursor-default"
             >
               {tag}
-            </motion.span>
+            </span>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Animate the description */}
-        <motion.p
-          className="text-gray-400 mb-4"
-          animate={{ opacity: expanded ? 1 : 0.7 }}
-          transition={{ duration: 0.3 }}
-        >
-          {expanded ? project.fullDesc : project.shortDesc}
-        </motion.p>
+        {/* Description */}
+        <div className="relative z-10 flex-grow">
+          <p className="text-gray-400 text-sm mb-4 font-mono leading-relaxed">
+            {expanded ? project.fullDesc : project.shortDesc}
+          </p>
+        </div>
 
-        {/* Add hover effect to buttons */}
-        <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 items-center">
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-3 items-center mt-auto pt-4 border-t border-gray-800 relative z-10">
           {project.playStoreLink && (
             <motion.a
-              whileHover={{ scale: 1.05, x: 5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               href={project.playStoreLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-red-500 hover:text-red-400 inline-flex items-center gap-1 w-full sm:w-auto text-center sm:text-left"
+              className="bg-red-500 text-white px-3 py-1.5 text-xs font-gaming uppercase tracking-wider hover:bg-red-600 transition-colors shadow-lg shadow-red-500/20"
             >
-              Play Store <span>→</span>
+              Play
             </motion.a>
           )}
 
           {project.link && (
             <motion.a
-              whileHover={{ scale: 1.05, x: 5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-red-500 hover:text-red-400 inline-flex items-center gap-1 w-full sm:w-auto text-center sm:text-left"
+              className="bg-gray-800 text-white px-3 py-1.5 text-xs font-gaming uppercase tracking-wider hover:bg-gray-700 transition-colors border border-gray-700"
             >
-              View Project <span>→</span>
+              View
             </motion.a>
           )}
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
+          <button
             onClick={() => setExpanded(!expanded)}
-            className="text-gray-400 hover:text-gray-300 text-sm underline w-full sm:w-auto text-center sm:text-left"
+            className="ml-auto text-[10px] font-gaming uppercase text-gray-500 hover:text-white transition-colors"
           >
-            {expanded ? "Show Less" : "Read More"}
-          </motion.button>
+            {expanded ? "[-] Minimize" : "[+] Expand"}
+          </button>
         </div>
       </motion.div>
     </div>
@@ -298,7 +281,7 @@ function ReviewsSection() {
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [isLongPress, setIsLongPress] = useState(false);
   const longPressTimer = useRef<NodeJS.Timeout>();
-  const SCROLL_SPEED = 0.5;
+  const SCROLL_SPEED = 0.7;
 
   useEffect(() => {
     const loadImages = async () => {
@@ -328,16 +311,20 @@ function ReviewsSection() {
 
     const scrollContainer = scrollRef.current;
     let scrollPos = scrollContainer.scrollLeft;
+    let animationFrameId: number;
 
-    const intervalId = setInterval(() => {
+    const scroll = () => {
       scrollPos += SCROLL_SPEED;
       if (scrollPos >= scrollContainer.scrollWidth / 3) {
         scrollPos = 0;
       }
       scrollContainer.scrollLeft = scrollPos;
-    }, 16);
+      animationFrameId = requestAnimationFrame(scroll);
+    };
 
-    return () => clearInterval(intervalId);
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, [loadedImages, isMouseOver, isLongPress]);
 
   // Handle long press start
@@ -358,53 +345,65 @@ function ReviewsSection() {
   };
 
   return (
-    <section id="reviews" className="py-20 bg-[#0A0A0A]">
+    <section id="reviews" className="py-20 bg-[#0A0A0A] relative z-20">
       <div className="max-w-7xl mx-auto px-2">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold mb-12 text-center text-white"
+          className="flex items-center gap-4 mb-12 justify-center"
         >
-          App Reviews
-        </motion.h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-white font-gaming glitch text-center" data-text="LEVEL 4: PLAYER FEEDBACK">
+            LEVEL 4: PLAYER FEEDBACK
+          </h2>
+        </motion.div>
 
-        <div className="relative overflow-hidden">
-          <div
-            ref={scrollRef}
-            onMouseEnter={() => setIsMouseOver(true)}
-            onMouseLeave={() => setIsMouseOver(false)}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            onTouchCancel={handleTouchEnd}
-            className="flex gap-4 overflow-x-auto whitespace-nowrap cursor-grab active:cursor-grabbing"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              WebkitOverflowScrolling: "touch",
-            }}
-          >
-            {loadedImages.map((image, index) => (
-              <div key={index} className="flex-shrink-0 w-[400px] inline-block">
-                <Image
-                  src={getAssetPath(image)}
-                  alt={`Client Review ${index + 1}`}
-                  width={400}
-                  height={250}
-                  className="w-full h-[250px] rounded-xl shadow-lg select-none"
-                  style={{
-                    objectFit: "contain",
-                    objectPosition: "center",
-                    backgroundColor: "#1A1A1A",
-                    WebkitTouchCallout: "none", // Prevents iOS callout
-                    WebkitUserSelect: "none", // Prevents selection
-                  }}
-                  draggable={false}
-                  onContextMenu={(e) => e.preventDefault()}
-                  onTouchStart={(e) => e.preventDefault()}
-                />
-              </div>
-            ))}
+        <div className="relative p-1 bg-gradient-to-r from-red-500/20 via-transparent to-red-500/20 rounded-lg">
+          {/* Decor corners */}
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-500 z-10" />
+          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-red-500 z-10" />
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-red-500 z-10" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-red-500 z-10" />
+
+          <div className="relative overflow-hidden bg-[#111] rounded-md border border-gray-800">
+            {/* Scanline overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/5 to-transparent opacity-20 pointer-events-none z-20" style={{ backgroundSize: '100% 3px' }} />
+
+            <div
+              ref={scrollRef}
+              onMouseEnter={() => setIsMouseOver(true)}
+              onMouseLeave={() => setIsMouseOver(false)}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchEnd}
+              className="flex gap-4 overflow-x-hidden whitespace-nowrap py-8"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
+              {loadedImages.map((src, index) => (
+                <motion.div
+                  key={index}
+                  className="inline-block flex-shrink-0 w-[280px] md:w-[350px] relative group"
+                  whileHover={{ scale: 1.02, zIndex: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="bg-[#1A1A1A] p-2 rounded border border-gray-700 group-hover:border-red-500 transition-colors shadow-lg">
+                    <div className="flex items-center gap-2 mb-2 border-b border-gray-800 pb-2">
+                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                      <span className="text-[10px] font-mono text-gray-400 uppercase">Incoming Transmission...</span>
+                    </div>
+                    <Image
+                      src={getAssetPath(src)}
+                      alt={`Review ${index + 1}`}
+                      width={350}
+                      height={200}
+                      className="rounded opacity-80 group-hover:opacity-100 transition-opacity"
+                      style={{ width: "100%", height: "auto" }}
+                      draggable={false}
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -481,9 +480,8 @@ function MobileMenu({
       initial={{ opacity: 0, x: "100%" }}
       animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : "100%" }}
       transition={{ duration: 0.3 }}
-      className={`fixed inset-0 bg-black/95 z-50 ${
-        isOpen ? "block" : "hidden"
-      }`}
+      className={`fixed inset-0 bg-black/95 z-50 ${isOpen ? "block" : "hidden"
+        }`}
     >
       <div className="flex flex-col items-center justify-center h-full gap-8">
         <button onClick={onClose} className="absolute top-6 right-6 text-white">
@@ -542,42 +540,110 @@ function MobileMenu({
   );
 }
 
+
+function GameCard({ children, title, icon, color, glowColor, idx }: any) {
+  return (
+    <div className="relative overflow-hidden group">
+      <div className="flex items-center relative z-10 mb-2">
+        <span className={`flex items-center ${color} font-bold text-lg`}>
+          {title}
+        </span>
+      </div>
+      <div className="space-y-3 relative z-10">{children}</div>
+    </div>
+  );
+}
+
+import "@fontsource/press-start-2p";
+
+function GameListItem({ name, link, stat, tag, color, logo }: any) {
+  return (
+    <motion.a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-2 py-1 px-0 rounded-lg hover:bg-white/5 transition-colors group cursor-pointer"
+      whileHover={{ x: 5 }}
+      whileTap={{ scale: 0.98 }}
+    >
+      <div className="flex items-center gap-2">
+        <motion.span
+          initial={{ opacity: 0, x: -10 }}
+          whileHover={{ opacity: 1, x: 0 }}
+          className={`${color} font-bold text-[10px]`}
+        >
+          ►
+        </motion.span>
+        {logo && (
+          <Image
+            src={getAssetPath(logo)}
+            alt={name}
+            width={20}
+            height={20}
+            className="rounded-[4px]"
+          />
+        )}
+        <span
+          className="text-gray-300 group-hover:text-white transition-colors text-xs"
+          style={{ fontFamily: '"Press Start 2P", system-ui' }}
+        >
+          {name}
+        </span>
+      </div>
+      <div className="flex items-center gap-2 ml-auto">
+        {tag && (
+          <span className="bg-red-500/20 text-red-500 text-[8px] px-1.5 py-0.5 rounded uppercase tracking-wider font-bold">
+            {tag}
+          </span>
+        )}
+        <span className="text-gray-500 text-[10px] font-mono group-hover:text-gray-300">
+          {stat}
+        </span>
+      </div>
+    </motion.a>
+  );
+}
+
 export default function Home() {
   const [isHireModalOpen, setIsHireModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-[#0A0A0A]">
+    <div className="bg-[#0A0A0A] relative min-h-screen">
+      <div className="cyber-grid" />
       {/* Navigation */}
-      <nav className="fixed w-full bg-[#0A0A0A]/80 backdrop-blur-sm z-50">
+      <nav className="fixed w-full bg-[#0A0A0A]/90 backdrop-blur-md z-50 border-b border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <motion.div className="text-2xl font-bold text-white flex items-center gap-2">
-            <Image
-              src={getAssetPath("/logos/circle_garoono_logo.png")}
-              alt="Garoono Logo"
-              width={40}
-              height={40}
-              className="rounded-full border-2 border-white"
-            />
+          <motion.div
+            className="text-xl font-bold text-white flex items-center gap-3 font-gaming"
+            whileHover={{ textShadow: "0 0 8px rgba(255,255,255,0.5)" }}
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-red-500 blur-md opacity-50 rounded-full"></div>
+              <Image
+                src={getAssetPath("/logos/circle_garoono_logo.png")}
+                alt="Garoono Logo"
+                width={40}
+                height={40}
+                className="rounded-full border-2 border-red-500 relative z-10"
+              />
+            </div>
+            <span className="tracking-tighter">GAROONO</span>
           </motion.div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-8 text-gray-300">
-            <a href="#home" className="hover:text-red-500">
-              Home
-            </a>
-            <a href="#projects" className="hover:text-red-500">
-              Projects
-            </a>
-            <a href="#experience" className="hover:text-red-500">
-              Experience
-            </a>
-            <a href="#reviews" className="hover:text-red-500">
-              Reviews
-            </a>
-            <a href="#education" className="hover:text-red-500">
-              Education
-            </a>
+          <div className="hidden md:flex gap-8 text-gray-300 font-gaming text-xs tracking-wider">
+            {["Home", "Projects", "Experience", "Reviews", "Education"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="relative group hover:text-red-400 transition-colors uppercase"
+              >
+                <span className="group-hover:hidden">{item}</span>
+                <span className="hidden group-hover:block glitch" data-text={item}>{item}</span>
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-red-500 group-hover:w-full transition-all duration-300 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
+              </a>
+            ))}
           </div>
 
           {/* Mobile Menu Button */}
@@ -587,24 +653,25 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
-              className="bg-transparent border border-red-500 text-red-500 px-4 py-1.5 rounded-full hover:bg-red-500 hover:text-white transition-colors text-sm"
+              whileTap={{ scale: 0.95 }}
+              className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-1.5 rounded-sm hover:bg-red-500 hover:text-white transition-all text-[10px] font-gaming uppercase tracking-wide shadow-[0_0_10px_rgba(239,68,68,0.2)] hover:shadow-[0_0_15px_rgba(239,68,68,0.6)]"
             >
               Let&apos;s Talk
             </motion.a>
             <button
-              className="text-white"
+              className="text-white hover:text-red-500 transition-colors"
               onClick={() => setIsMobileMenuOpen(true)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-8 w-8 drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  strokeLinecap="square"
+                  strokeLinejoin="miter"
                   strokeWidth={2}
                   d="M4 6h16M4 12h16m-7 6h7"
                 />
@@ -618,7 +685,8 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
-            className="hidden md:block bg-transparent border border-red-500 text-red-500 px-6 py-2 rounded-full hover:bg-red-500 hover:text-white transition-colors"
+            whileTap={{ scale: 0.95 }}
+            className="hidden md:block bg-red-500/10 border border-red-500 text-red-500 px-6 py-2 rounded-sm hover:bg-red-500 hover:text-white transition-all font-gaming text-xs uppercase tracking-wide shadow-[0_0_10px_rgba(239,68,68,0.2)] hover:shadow-[0_0_20px_rgba(239,68,68,0.6)]"
           >
             Let&apos;s Talk
           </motion.a>
@@ -637,7 +705,7 @@ export default function Home() {
         className="min-h-screen pt-32 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A] text-white"
       >
         <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-8">
-          <div className="w-full md:max-w-2xl h-auto md:h-[600px] flex items-center">
+          <div className="w-full md:max-w-3xl h-auto md:h-[600px] flex items-center">
             <motion.div
               initial="hidden"
               animate="visible"
@@ -647,8 +715,14 @@ export default function Home() {
               {/* Popular List Section */}
               <motion.div
                 variants={itemVariants}
-                className="mb-8 p-6 bg-[#1A1A1A] rounded-xl border border-gray-800 relative"
+                className="mt-12 mb-8 p-4 bg-[#1A1A1A] rounded-xl border border-gray-800 relative group"
+                whileHover={{
+                  boxShadow: "0 0 25px rgba(239, 68, 68, 0.6)",
+                  borderColor: "rgba(239, 68, 68, 0.9)",
+                }}
+                transition={{ duration: 0.3 }}
               >
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 via-transparent to-red-500/10 opacity-50 rounded-xl" />
                 {/* Corner banner for "Popular" */}
                 <span
                   className="absolute top-0 right-0"
@@ -676,126 +750,93 @@ export default function Home() {
                     All Apps
                   </motion.a>
                 </span>{" "}
-                <div className="flex flex-col md:flex-row gap-8">
-                  {/* Popular -> Productivity */}
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="flex items-center gap-2 text-red-500 font-semibold">
-                        <Image
-                          src="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
-                          alt="Popular"
-                          width={24}
-                          height={32}
-                          className="inline-block mr-2"
-                        />
-                        Productivity
-                      </span>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <a
-                          href="https://habitide.in"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-300 underline hover:text-red-400 transition-colors"
-                        >
-                          HabiTide
-                        </a>
-                        <span className="text-gray-400 text-sm">
-                          <span className="bg-red-300 text-black px-2 py-0.5 rounded font-semibold mr-1">
-                            2K+
-                          </span>
-                          installs
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <a
-                          href="https://play.google.com/store/apps/details?id=in.garoono.focuson"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-300 underline hover:text-red-400 transition-colors"
-                        >
-                          FocusOn
-                        </a>
-                        <span className="text-gray-400 text-sm">
-                          <span className="bg-red-300 text-black px-2 py-0.5 rounded font-semibold mr-1">
-                            100+
-                          </span>{" "}
-                          installs
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                  {/* Finance Card */}
+                  <GameCard
+                    title="Finance"
+                    icon="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
+                    color="text-green-400"
+                    glowColor="rgba(74, 222, 128, 0.5)"
+                    idx={0}
+                  >
+                    <GameListItem
+                      name="XlSheet Ai"
+                      link="http://linktr.ee/xlsheetai"
+                      stat="1.5k+"
 
-                  {/* Regional */}
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-red-500 font-semibold">
-                        <Image
-                          src="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
-                          alt="Popular"
-                          width={24}
-                          height={32}
-                          className="inline-block mr-2"
-                        />
-                        Regional
-                      </span>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <a
-                          href="https://play.google.com/store/apps/details?id=com.garoono.apnarss"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-300 underline hover:text-red-400 transition-colors"
-                        >
-                          Apna RSS
-                        </a>
-                        <span className="text-gray-400 text-sm">
-                          <span className="bg-red-300 text-black px-2 py-0.5 rounded font-semibold mr-1">
-                            10K+
-                          </span>{" "}
-                          installs
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <a
-                          href="https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-300 underline hover:text-red-400 transition-colors"
-                        >
-                          BhaktiDhun
-                        </a>
-                        <span className="text-gray-400 text-sm">
-                          <span className="bg-red-300 text-black px-2 py-0.5 rounded font-semibold mr-1">
-                            1500+
-                          </span>{" "}
-                          installs
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                      color="text-green-400"
+                      logo="/logos/app_logo_compressed.png"
+                    />
+                  </GameCard>
+
+                  {/* Productivity Card */}
+                  <GameCard
+                    title="Productivity"
+                    icon="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
+                    color="text-blue-400"
+                    glowColor="rgba(96, 165, 250, 0.5)"
+                    idx={1}
+                  >
+                    <GameListItem
+                      name="HabiTide"
+                      link="https://habitide.in"
+                      stat="3K+"
+                      color="text-blue-400"
+                      logo="/logos/habitide_logo.png"
+                    />
+                    <GameListItem
+                      name="FocusOn"
+                      link="https://play.google.com/store/apps/details?id=in.garoono.focuson"
+                      stat="1.4k+"
+                      color="text-blue-400"
+                      logo="/logos/focuson_icon.png"
+                    />
+                  </GameCard>
+
+                  {/* Regional Card */}
+                  <GameCard
+                    title="Regional"
+                    icon="https://i.postimg.cc/y8ytTDRM/popular-12-32.png"
+                    color="text-amber-500"
+                    glowColor="rgba(245, 158, 11, 0.5)"
+                    idx={2}
+                  >
+                    <GameListItem
+                      name="Apna RSS"
+                      link="https://play.google.com/store/apps/details?id=com.garoono.apnarss"
+                      stat="15K+"
+                      color="text-amber-500"
+                      logo="/logos/rss_transparent.png"
+                    />
+                    <GameListItem
+                      name="BhaktiDhun"
+                      link="https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan"
+                      stat="2k+"
+                      color="text-amber-500"
+                      logo="/logos/bhakti_dhun_logo.png"
+                    />
+                  </GameCard>
                 </div>
               </motion.div>
 
               <motion.h1
                 variants={itemVariants}
-                className="text-4xl md:text-6xl font-bold mb-4"
+                className="text-4xl md:text-6xl font-bold mb-4 font-gaming tracking-tight"
               >
-                <span className="text-red-500">Hello,</span> I&apos;m Gautam
+                <span className="text-red-500 glitch block" data-text="HELLO, SYSTEM">HELLO, SYSTEM</span>
+                <span className="text-2xl md:text-4xl block mt-2">I&apos;M GAUTAM</span>
               </motion.h1>
               <motion.h2
                 variants={itemVariants}
-                className="text-3xl md:text-5xl font-bold mb-6"
+                className="text-xl md:text-2xl font-bold mb-2 font-mono text-green-400 tracking-widest uppercase"
               >
-                Senior Flutter Developer
+                &gt; Senior Flutter Developer_
               </motion.h2>
               <motion.h3
                 variants={itemVariants}
-                className="text-2xl md:text-4xl font-bold mb-8"
+                className="text-2xl md:text-4xl font-bold mb-4"
               >
-                Based in Delhi
+                Indie App Developer
               </motion.h3>
               <motion.p
                 variants={itemVariants}
@@ -866,116 +907,167 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Projects Section */}
-      <section
-        id="projects"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]"
-      >
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            {...fadeIn}
-            className="text-3xl font-bold mb-12 text-center text-white"
+      <section id="projects" className="py-20 bg-[#0A0A0A] relative z-20">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-12"
           >
-            Projects
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+            <span className="text-red-500 font-gaming text-4xl hidden md:inline-block animate-pulse">►</span>
+            <div>
+              <h2 className="text-3xl md:text-5xl font-bold text-white font-gaming glitch" data-text="LEVEL 2: PROJECTS">
+                LEVEL 2: PROJECTS
+              </h2>
+              <p className="text-red-500 font-mono mt-1 tracking-widest uppercase text-sm">Select Your Mission</p>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <ProjectCard key={index} project={project} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Experience Section - Update timeline for mobile */}
+      {/* Experience Section - Quest Log */}
       <section
         id="experience"
-        className="py-20 md:py-32 bg-[#0A0A0A] px-4 sm:px-6 lg:px-8"
+        className="py-20 md:py-32 bg-[#0A0A0A] px-4 sm:px-6 lg:px-8 relative z-20"
       >
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
         <div className="max-w-7xl mx-auto">
-          <motion.h2
-            {...fadeIn}
-            className="text-3xl font-bold mb-12 md:mb-20 text-center text-white"
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-16 justify-center"
           >
-            Work Experience
-          </motion.h2>
-          <div className="relative">
-            <div className="absolute left-[19px] top-[20px] bottom-0 w-[2px] bg-red-500 hidden md:block"></div>
-            <div className="space-y-12 md:space-y-24">
-              <motion.div {...fadeIn} className="relative pl-16">
-                <div className="absolute left-0 top-1.5 w-10 h-10 bg-[#0A0A0A] border-4 border-red-500 rounded-full flex items-center justify-center">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+            <h2 className="text-3xl md:text-5xl font-bold text-white font-gaming glitch text-center" data-text="LEVEL 3: QUEST LOG">
+              LEVEL 3: QUEST LOG
+            </h2>
+          </motion.div>
+
+          <div className="relative max-w-4xl mx-auto">
+            {/* Timeline Line */}
+            <div className="absolute left-[19px] top-[20px] bottom-0 w-[2px] bg-red-800/50 hidden md:block"></div>
+
+            <div className="space-y-12">
+              <motion.div {...fadeIn} className="relative pl-0 md:pl-16 group">
+                <div className="hidden md:flex absolute left-0 top-1.5 w-10 h-10 bg-[#0A0A0A] border-2 border-red-500 rounded-sm items-center justify-center z-10 group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(239,68,68,0.4)]">
+                  <div className="w-3 h-3 bg-red-500 rounded-sm animate-pulse"></div>
                 </div>
-                <h3 className="text-xl font-bold text-white">
-                  Senior Software Engineer (Flutter)
-                </h3>
-                <p className="text-gray-400">
-                  Kellton Tech • June 2022 - Present • Gurugram
-                </p>
-                <ul className="mt-4 list-disc list-inside text-gray-400 space-y-2">
-                  <li>
-                    Delivered three projects for Canara HSBC across Android,
-                    iOS, and Web platforms
-                  </li>
-                  <li>
-                    Worked with two major clients, SASAI and Canara HSBC, to
-                    deliver high-quality software solutions
-                  </li>
-                  <li>Led a team of two software developers</li>
-                  <li>
-                    Implemented bug fixes and new features, enhancing system
-                    response time by 30%
-                  </li>
-                </ul>
+
+                <div className="bg-[#111] p-6 rounded-sm border-l-4 border-red-500 relative overflow-hidden hover:bg-[#161616] transition-colors">
+                  <div className="absolute top-0 right-0 bg-red-500/20 text-red-500 text-[10px] font-gaming px-2 py-1 rounded-bl-sm uppercase">
+                    Current Mission
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white font-gaming mb-1 text-red-400">
+                    Senior Software Engineer
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-3 text-sm font-mono text-gray-500 mb-4">
+                    <span className="text-gray-300">@ Kellton Tech</span>
+                    <span>|</span>
+                    <span>June 2022 - Present</span>
+                    <span>|</span>
+                    <span>Gurugram</span>
+                  </div>
+
+                  <ul className="space-y-2">
+                    {[
+                      "Delivered 3 cross-platform projects (Android/iOS/Web)",
+                      "Client Handling: SASAI & Canara HSBC",
+                      "Team Lead: 2 Developers",
+                      "Achievement: Quick Response Time +30%"
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-gray-400 text-sm hover:text-white transition-colors">
+                        <span className="text-red-500 mt-1">►</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
-              <motion.div {...fadeIn} className="relative pl-16">
-                <div className="absolute left-0 top-1.5 w-10 h-10 bg-[#0A0A0A] border-4 border-red-500 rounded-full flex items-center justify-center">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+
+              <motion.div {...fadeIn} className="relative pl-0 md:pl-16 group">
+                <div className="hidden md:flex absolute left-0 top-1.5 w-10 h-10 bg-[#0A0A0A] border-2 border-gray-700 rounded-sm items-center justify-center z-10 group-hover:border-red-500 transition-colors">
+                  <div className="w-3 h-3 bg-gray-700 rounded-sm group-hover:bg-red-500 transition-colors"></div>
                 </div>
-                <h3 className="text-xl font-bold text-white">
-                  Software Engineer (Flutter)
-                </h3>
-                <p className="text-gray-400">
-                  Enbake Consultancy Pvt Ltd • Nov 2020 - May 2022 • New Delhi
-                </p>
-                <ul className="mt-4 list-disc list-inside text-gray-400 space-y-2">
-                  <li>
-                    Developed and maintained multiple applications, enhancing
-                    user engagement by 20%
-                  </li>
-                  <li>
-                    Collaborated with cross-functional teams to deliver
-                    high-quality software solutions
-                  </li>
-                  <li>
-                    Conducted code reviews and provided mentorship to junior
-                    developers
-                  </li>
-                </ul>
+
+                <div className="bg-[#111] p-6 rounded-sm border-l-4 border-gray-700 relative overflow-hidden hover:border-red-500 transition-colors group-hover:bg-[#161616]">
+                  <div className="absolute top-0 right-0 bg-green-500/20 text-green-500 text-[10px] font-gaming px-2 py-1 rounded-bl-sm uppercase opacity-70 group-hover:opacity-100">
+                    Mission Complete
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white font-gaming mb-1 group-hover:text-red-400 transition-colors">
+                    Software Engineer
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-3 text-sm font-mono text-gray-500 mb-4">
+                    <span className="text-gray-300">@ Enbake Consultancy</span>
+                    <span>|</span>
+                    <span>Nov 2020 - May 2022</span>
+                    <span>|</span>
+                    <span>New Delhi</span>
+                  </div>
+                  <ul className="space-y-2">
+                    {[
+                      "Enhanced user engagement by 20%",
+                      "Cross-functional team collaboration",
+                      "Mentored junior developers"
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-gray-400 text-sm hover:text-white transition-colors">
+                        <span className="text-gray-600 group-hover:text-red-500 mt-1 transition-colors">►</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
-              <motion.div {...fadeIn} className="relative pl-16">
-                <div className="absolute left-0 top-1.5 w-10 h-10 bg-[#0A0A0A] border-4 border-red-500 rounded-full flex items-center justify-center">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+
+              <motion.div {...fadeIn} className="relative pl-0 md:pl-16 group">
+                <div className="hidden md:flex absolute left-0 top-1.5 w-10 h-10 bg-[#0A0A0A] border-2 border-gray-700 rounded-sm items-center justify-center z-10 group-hover:border-red-500 transition-colors">
+                  <div className="w-3 h-3 bg-gray-700 rounded-sm group-hover:bg-red-500 transition-colors"></div>
                 </div>
-                <h3 className="text-xl font-bold text-white">
-                  Software Engineer (Flutter)
-                </h3>
-                <p className="text-gray-400">
-                  GPS Gateway India • Jan 2020 - Nov 2020 • New Delhi
-                </p>
-                <ul className="mt-4 list-disc list-inside text-gray-400 space-y-2">
-                  <li>Applied theoretical knowledge to practical projects</li>
-                  <li>
-                    Assisted in the deployment of applications, ensuring
-                    seamless integration with existing systems
-                  </li>
-                </ul>
+
+                <div className="bg-[#111] p-6 rounded-sm border-l-4 border-gray-700 relative overflow-hidden hover:border-red-500 transition-colors group-hover:bg-[#161616]">
+                  <div className="absolute top-0 right-0 bg-green-500/20 text-green-500 text-[10px] font-gaming px-2 py-1 rounded-bl-sm uppercase opacity-70 group-hover:opacity-100">
+                    Mission Complete
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white font-gaming mb-1 group-hover:text-red-400 transition-colors">
+                    Software Engineer
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-3 text-sm font-mono text-gray-500 mb-4">
+                    <span className="text-gray-300">@ GPS Gateway India</span>
+                    <span>|</span>
+                    <span>Jan 2020 - Nov 2020</span>
+                    <span>|</span>
+                    <span>New Delhi</span>
+                  </div>
+                  <ul className="space-y-2">
+                    {[
+                      "Applied theoretical knowledge to practical projects",
+                      "Full lifecycle development"
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-gray-400 text-sm hover:text-white transition-colors">
+                        <span className="text-gray-600 group-hover:text-red-500 mt-1 transition-colors">►</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       <ReviewsSection />
 
@@ -1026,6 +1118,6 @@ export default function Home() {
       />
 
       <ScrollToTopButton />
-    </div>
+    </div >
   );
 }
