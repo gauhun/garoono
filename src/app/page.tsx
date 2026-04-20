@@ -433,7 +433,7 @@ export default function Home() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {[
               { role: "Senior Software Engineer", company: "Capgemini", period: "March 2025 – Present" },
-              { role: "Software Engineer", company: "Capgemini", period: "2022 – 2025" },
+              { role: "Software Engineer", company: "Kellton", period: "2022 – 2025" },
               { role: "Software Engineer", company: "Enbake Consultancy", period: "2020 – 2022" },
               { role: "Software Engineer", company: "GPS Gateway India", period: "2020" },
             ].map((e, idx) => (
