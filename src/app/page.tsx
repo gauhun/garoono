@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -268,9 +269,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
   );
 }
 
-import { useState } from "react";
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [email, setEmail] = useState("");
