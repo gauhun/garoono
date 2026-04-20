@@ -377,7 +377,7 @@ export default function Home() {
           </p>
           {subscribed ? (
             <div style={{ display: "flex", padding: "10px 14px", background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--color-primary)", fontSize: 14, fontWeight: 600 }}>
-              🎉 Wrapped! You're on the list.
+              🎉 Wrapped! You&apos;re on the list.
             </div>
           ) : (
             <div style={{ display: "flex" }}>
