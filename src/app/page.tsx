@@ -48,6 +48,15 @@ const products: Product[] = [
   },
   {
     id: 4,
+    name: "Shots",
+    description: "Beautiful mockups & screenshot beautifier — turn raw captures into professional visuals.",
+    stat: "New 🚀",
+    icon: "/logos/shots.png",
+    link: "https://linktr.ee/shots_screenshot_beautifier",
+    color: "#6366F1",
+  },
+  {
+    id: 5,
     name: "BhaktiDhun",
     description: "Devotional music — bhajans, aartis, mantras",
     stat: "2,800+ users",
@@ -56,7 +65,7 @@ const products: Product[] = [
     color: "#EF4444",
   },
   {
-    id: 5,
+    id: 6,
     name: "FocusOn",
     description: "Minimalist flip clock focus timer for deep work",
     stat: "1,960+ users",
@@ -65,7 +74,7 @@ const products: Product[] = [
     color: "#8B5CF6",
   },
   {
-    id: 6,
+    id: 7,
     name: "JSON View : Editor",
     description: "Lightweight, privacy-first offline JSON editor and formatter",
     stat: "10+ users",
@@ -74,7 +83,7 @@ const products: Product[] = [
     color: "#10B981",
   },
   {
-    id: 7,
+    id: 8,
     name: "XML Viewer",
     description: "XML editor, tree viewer, and converter",
     stat: "10+ users",
@@ -83,13 +92,22 @@ const products: Product[] = [
     color: "#06B6D4",
   },
   {
-    id: 8,
+    id: 9,
     name: "TomyLov",
     description: "Shareable romantic websites — went viral across countries",
     stat: "Viral 🌍",
     icon: "/logos/circle_garoono_logo.png",
     link: "https://tomylov.in",
     color: "#EC4899",
+  },
+  {
+    id: 10,
+    name: "HTML Viewer",
+    description: "Ultimate HTML editor & live previewer — built for developers and students learning web dev.",
+    stat: "10+ users",
+    icon: "/logos/html.png",
+    link: "https://play.google.com/store/apps/details?id=in.garoono.htmlviewer",
+    color: "#E44D26",
   },
 ];
 
@@ -472,7 +490,7 @@ export default function Home() {
           }}
         >
           {[
-            { value: "30+", label: "Apps Shipped" },
+            { value: "32+", label: "Apps Shipped" },
             { value: "35K+", label: "Total Users" },
             { value: "6+", label: "Years Building" },
             { value: "4", label: "Revenue Apps" },
