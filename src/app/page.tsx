@@ -20,6 +20,15 @@ interface Product {
 
 const products: Product[] = [
   {
+    id: 12,
+    name: "Dress Mirror",
+    description: "Virtual trial room to try outfits instantly.",
+    stat: "New 🚀",
+    icon: "/logos/dressmirror.png",
+    link: "https://play.google.com/store/apps/details?id=in.garoono.dressmirror",
+    color: "#D946EF",
+  },
+  {
     id: 1,
     name: "Apna RSS",
     description: "Content & organisation app for volunteers",
@@ -50,10 +59,19 @@ const products: Product[] = [
     id: 4,
     name: "Shots",
     description: "Beautiful mockups & screenshot beautifier — turn raw captures into professional visuals.",
-    stat: "New 🚀",
+    stat: "700+",
     icon: "/logos/shots.png",
     link: "https://linktr.ee/shots_screenshot_beautifier",
     color: "#6366F1",
+  },
+  {
+    id: 11,
+    name: "SnapPDF Pro",
+    description: "SnapPDF is the PDF scanner, editor, and converter.",
+    stat: "50+",
+    icon: "/logos/snappdf_play.png",
+    link: "https://linktr.ee/snappdfpro",
+    color: "#EAB308",
   },
   {
     id: 5,
@@ -77,7 +95,7 @@ const products: Product[] = [
     id: 7,
     name: "JSON View : Editor",
     description: "Lightweight, privacy-first offline JSON editor and formatter",
-    stat: "10+ users",
+    stat: "200+",
     icon: "/logos/json_viewer.png",
     link: "https://play.google.com/store/apps/details?id=in.garoono.jsonviewer",
     color: "#10B981",
@@ -86,29 +104,13 @@ const products: Product[] = [
     id: 8,
     name: "XML Viewer",
     description: "XML editor, tree viewer, and converter",
-    stat: "10+ users",
+    stat: "300+",
     icon: "/logos/xml_viewer.png",
     link: "https://play.google.com/store/apps/details?id=in.garoono.xmlviewer",
     color: "#06B6D4",
   },
-  {
-    id: 9,
-    name: "TomyLov",
-    description: "Shareable romantic websites — went viral across countries",
-    stat: "Viral 🌍",
-    icon: "/logos/circle_garoono_logo.png",
-    link: "https://tomylov.in",
-    color: "#EC4899",
-  },
-  {
-    id: 10,
-    name: "HTML Viewer",
-    description: "Ultimate HTML editor & live previewer — built for developers and students learning web dev.",
-    stat: "10+ users",
-    icon: "/logos/html.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.htmlviewer",
-    color: "#E44D26",
-  },
+
+
 ];
 
 // ─── SVG Icons ───────────────────────────────────────────────────────────────
@@ -167,7 +169,15 @@ function UsersIcon() {
 
 // ─── Decorative Wave SVG (mimicking chart area) ──────────────────────────────
 
-function WaveSVG() {
+function WaveSVG({ stat }: { stat: string }) {
+  const numericValue = stat.includes("Viral") ? 50000 : parseInt(stat.replace(/,/g, "").match(/\d+/)?.[0] || "10", 10);
+  const maxVal = 25000;
+  const intensity = Math.min(numericValue / maxVal, 1.0);
+  const amp = 10 + intensity * 35;
+
+  const yBase = 70;
+  const pathData = `M0,${yBase} C40,${yBase - amp * 0.3} 60,${yBase - amp} 100,${yBase - amp * 0.6} C140,${yBase - amp * 0.2} 160,${yBase - amp} 200,${yBase - amp * 0.7} C240,${yBase - amp * 0.4} 260,${yBase - amp} 300,${yBase - amp * 0.8} C340,${yBase - amp * 0.5} 370,${yBase - amp} 400,${yBase - amp * 0.7}`;
+
   // Use the amber golden color for all graphs
   const unifiedColor = "#F5A548";
   return (
@@ -176,7 +186,7 @@ function WaveSVG() {
       fill="none"
       className="card-wave"
       preserveAspectRatio="none"
-      style={{ width: "100%", height: 64, marginTop: 8 }}
+      style={{ width: "100%", height: 32, marginTop: "auto" }}
     >
       <defs>
         <linearGradient id="grad-amber" x1="0" y1="0" x2="0" y2="1">
@@ -195,11 +205,11 @@ function WaveSVG() {
       </g>
 
       <path
-        d={`M0,60 C40,55 60,20 100,35 C140,50 160,15 200,25 C240,35 260,10 300,20 C340,30 370,15 400,25 L400,80 L0,80 Z`}
+        d={`${pathData} L400,80 L0,80 Z`}
         fill="url(#grad-amber)"
       />
       <path
-        d={`M0,60 C40,55 60,20 100,35 C140,50 160,15 200,25 C240,35 260,10 300,20 C340,30 370,15 400,25`}
+        d={pathData}
         stroke={unifiedColor}
         strokeWidth="2"
         fill="none"
@@ -237,12 +247,12 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       id={`product-${product.id}`}
     >
       {/* Header: Icon + Name + Badge */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <div
           style={{
-            width: 44,
-            height: 44,
-            borderRadius: 12,
+            width: 36,
+            height: 36,
+            borderRadius: 10,
             overflow: "hidden",
             flexShrink: 0,
             border: "1px solid var(--border)",
@@ -251,14 +261,14 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           <Image
             src={product.icon}
             alt={product.name}
-            width={44}
-            height={44}
+            width={36}
+            height={36}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", flex: 1, paddingTop: 2 }}>
+        <div style={{ display: "flex", flexDirection: "column", flex: 1, paddingTop: 0 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontWeight: 900, fontSize: 22, color: "var(--text-primary)", letterSpacing: "-0.5px" }}>
+            <span style={{ fontWeight: 800, fontSize: 18, color: "var(--text-primary)", letterSpacing: "-0.5px" }}>
               {product.name}
             </span>
             <span className={`stat-badge ${product.stat.includes("Viral") ? "stat-badge-accent" : ""}`}>
@@ -269,17 +279,53 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       </div>
 
       {/* Description */}
-      <p style={{ fontSize: 16, fontWeight: 500, color: "var(--text-secondary)", lineHeight: 1.5, marginTop: 0, marginBottom: 8 }}>
+      <p style={{ fontSize: 13, fontWeight: 500, color: "var(--text-tertiary)", lineHeight: 1.4, marginTop: 0, marginBottom: 4 }}>
         {product.description}
       </p>
 
       {/* Decorative Wave (like Marc Lou's chart) */}
-      <WaveSVG />
+      <WaveSVG stat={product.stat} />
     </motion.a>
   );
 }
 
 
+
+function ExperienceAndFooter() {
+  return (
+    <>
+      {/* Experience (compact in sidebar) */}
+      <div className="divider" />
+
+      <div>
+        <p className="section-label" style={{ marginBottom: 12 }}>Experience</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {[
+            { role: "Senior Software Engineer", company: "Capgemini", period: "March 2025 – Present" },
+            { role: "Software Engineer", company: "Kellton", period: "2022 – 2025" },
+            { role: "Software Engineer", company: "Enbake Consultancy", period: "2020 – 2022" },
+            { role: "Software Engineer", company: "GPS Gateway India", period: "2020" },
+          ].map((e, idx) => (
+            <div key={idx}>
+              <p style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3 }}>
+                {e.role}
+              </p>
+              <p style={{ fontSize: 12, color: "var(--text-tertiary)" }}>
+                {e.company} · <span className="font-mono">{e.period}</span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="divider" />
+      <p style={{ fontSize: 11, color: "var(--text-tertiary)" }}>
+        Built with ☕ and Flutter — © 2026 Garoono
+      </p>
+    </>
+  );
+}
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -434,35 +480,9 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Experience (compact in sidebar) */}
-        <div className="divider" />
-
-        <div>
-          <p className="section-label" style={{ marginBottom: 12 }}>Experience</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {[
-              { role: "Senior Software Engineer", company: "Capgemini", period: "March 2025 – Present" },
-              { role: "Software Engineer", company: "Kellton", period: "2022 – 2025" },
-              { role: "Software Engineer", company: "Enbake Consultancy", period: "2020 – 2022" },
-              { role: "Software Engineer", company: "GPS Gateway India", period: "2020" },
-            ].map((e, idx) => (
-              <div key={idx}>
-                <p style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3 }}>
-                  {e.role}
-                </p>
-                <p style={{ fontSize: 12, color: "var(--text-tertiary)" }}>
-                  {e.company} · <span className="font-mono">{e.period}</span>
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="desktop-only" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <ExperienceAndFooter />
         </div>
-
-        {/* Footer */}
-        <div className="divider" />
-        <p style={{ fontSize: 11, color: "var(--text-tertiary)" }}>
-          Built with ☕ and Flutter — © 2026 Garoono
-        </p>
       </aside>
 
       {/* ── Right Content: Product Cards ───────────────────────────────────── */}
@@ -506,6 +526,11 @@ export default function Home() {
           ))}
         </motion.div>
       </main>
+
+      {/* ── Mobile-Only Experience & Footer (shown below content) ───────── */}
+      <div className="mobile-only" style={{ display: "flex", flexDirection: "column", gap: 20, width: "100%", paddingBottom: 24 }}>
+        <ExperienceAndFooter />
+      </div>
     </div>
   );
 }
