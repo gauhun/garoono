@@ -20,6 +20,15 @@ interface Product {
 
 const products: Product[] = [
   {
+    id: 13,
+    name: "PushPass",
+    description: "App blocker — do pushups to unlock distracting apps.",
+    stat: "Free",
+    icon: "/logos/pushpass.png",
+    link: "https://play.google.com/store/apps/details?id=in.garoono.pushpass",
+    color: "#F97316",
+  },
+  {
     id: 12,
     name: "Dress Mirror",
     description: "Virtual trial room to try outfits instantly.",
