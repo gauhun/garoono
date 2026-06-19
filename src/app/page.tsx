@@ -415,7 +415,7 @@ export default function Home() {
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: "var(--text-secondary)" }}>
                 <UsersIcon />
-                <span className="font-mono" style={{ fontWeight: 600 }}>35,000+</span> total users
+                <span className="font-mono" style={{ fontWeight: 600 }}>45,000+</span> total users
               </span>
             </div>
           </div>
