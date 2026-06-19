@@ -520,7 +520,7 @@ export default function Home() {
         >
           {[
             { value: "32+", label: "Apps Shipped" },
-            { value: "35K+", label: "Total Users" },
+            { value: "45K+", label: "Total Users" },
             { value: "6+", label: "Years Building" },
             { value: "4", label: "Revenue Apps" },
           ].map((stat) => (
