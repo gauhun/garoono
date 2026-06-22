@@ -385,7 +385,7 @@ export default function Home() {
             }}
           >
             <Image
-              src="/garoono_logo.png"
+              src="/logos/garoono-latest-logo.jpg"
               alt="Gautam"
               width={88}
               height={88}

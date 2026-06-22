@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/garoono_logo.png",
+        url: "/logos/garoono-latest-logo.jpg",
         width: 400,
         height: 400,
         alt: "Garoono",
@@ -37,15 +37,15 @@ export const metadata: Metadata = {
     site: "@xgaroono",
     title: "Gautam — Indie App Maker",
     description: "Shipped 30+ apps. 4 make money. Building in public.",
-    images: ["/garoono_logo.png"],
+    images: ["/logos/garoono-latest-logo.jpg"],
   },
   icons: {
     icon: [
-      { url: "/garoono_logo.png", sizes: "32x32", type: "image/png" },
-      { url: "/garoono_logo.png", sizes: "16x16", type: "image/png" },
+      { url: "/logos/garoono-latest-logo.jpg", sizes: "32x32", type: "image/jpeg" },
+      { url: "/logos/garoono-latest-logo.jpg", sizes: "16x16", type: "image/jpeg" },
     ],
-    shortcut: "/garoono_logo.png",
-    apple: "/garoono_logo.png",
+    shortcut: "/logos/garoono-latest-logo.jpg",
+    apple: "/logos/garoono-latest-logo.jpg",
   },
 };
 
