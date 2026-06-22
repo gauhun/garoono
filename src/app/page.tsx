@@ -375,8 +375,8 @@ export default function Home() {
           <div
             className="avatar"
             style={{
-              width: 88,
-              height: 88,
+              width: 120,
+              height: 120,
               borderRadius: "50%",
               overflow: "hidden",
               // background: "#F5A548",
@@ -387,8 +387,8 @@ export default function Home() {
             <Image
               src="/logos/garoono-latest-logo.jpg"
               alt="Gautam"
-              width={88}
-              height={88}
+              width={120}
+              height={120}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
               priority
             />
