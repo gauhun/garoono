@@ -25,7 +25,7 @@ const products: Product[] = [
     description: "App blocker — do pushups to unlock distracting apps.",
     stat: "50+",
     icon: "/logos/pushpass.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.pushpass",
+    link: "https://linktr.ee/pushpass",
     color: "#F97316",
   },
   {
