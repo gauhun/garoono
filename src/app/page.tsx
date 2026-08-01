@@ -23,37 +23,28 @@ const products: Product[] = [
     id: 13,
     name: "PushPass",
     description: "App blocker — do pushups to unlock distracting apps.",
-    stat: "50+",
+    stat: "500+",
     icon: "/logos/pushpass.png",
     link: "https://linktr.ee/pushpass",
     color: "#F97316",
   },
   {
-    id: 12,
-    name: "Dress Mirror",
-    description: "Virtual trial room to try outfits instantly.",
-    stat: "100+",
-    icon: "/logos/dressmirror.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.dressmirror",
-    color: "#D946EF",
-  },
-  {
-    id: 1,
-    name: "Apna RSS",
-    description: "Content & organisation app for volunteers",
-    stat: "21,000+ users",
-    icon: "/logos/rss_transparent.png",
-    link: "https://play.google.com/store/apps/details?id=com.garoono.apnarss",
-    color: "#F59E0B",
-  },
-  {
     id: 2,
     name: "XLSheet AI",
     description: "AI spreadsheet assistant — formulas, SQL, regex & templates",
-    stat: "7,000+ users",
+    stat: "11,000+ users",
     icon: "/logos/app_logo_compressed.png",
     link: "https://xlsheetai.com",
     color: "#FF6B35",
+  },
+  {
+    id: 14,
+    name: "JapMala",
+    description: "Digital 108-bead jaap mala — count mantras & track daily practice.",
+    stat: "50+",
+    icon: "/logos/japmala.png",
+    link: "https://japmala.pro",
+    color: "#14B8A6",
   },
   {
     id: 3,
@@ -65,31 +56,22 @@ const products: Product[] = [
     color: "#3B82F6",
   },
   {
-    id: 4,
-    name: "Shots",
-    description: "Beautiful mockups & screenshot beautifier — turn raw captures into professional visuals.",
-    stat: "700+",
-    icon: "/logos/shots.png",
-    link: "https://linktr.ee/shots_screenshot_beautifier",
-    color: "#6366F1",
-  },
-  {
     id: 11,
     name: "SnapPDF Pro",
     description: "SnapPDF is the PDF scanner, editor, and converter.",
-    stat: "5000+",
+    stat: "10000+",
     icon: "/logos/snappdf_play.png",
     link: "https://linktr.ee/snappdfpro",
     color: "#EAB308",
   },
   {
-    id: 5,
-    name: "BhaktiDhun",
-    description: "Devotional music — bhajans, aartis, mantras",
-    stat: "2,800+ users",
-    icon: "/logos/bhakti_dhun_logo.png",
-    link: "https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan",
-    color: "#EF4444",
+    id: 1,
+    name: "Apna RSS",
+    description: "Content & organisation app for volunteers",
+    stat: "21,000+ users",
+    icon: "/logos/rss_transparent.png",
+    link: "https://play.google.com/store/apps/details?id=com.garoono.apnarss",
+    color: "#F59E0B",
   },
   {
     id: 6,
@@ -101,25 +83,50 @@ const products: Product[] = [
     color: "#8B5CF6",
   },
   {
-    id: 7,
-    name: "JSON View : Editor",
-    description: "Lightweight, privacy-first offline JSON editor and formatter",
-    stat: "500+",
-    icon: "/logos/json_viewer.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.jsonviewer",
-    color: "#10B981",
+    id: 5,
+    name: "BhaktiDhun",
+    description: "Devotional music — bhajans, aartis, mantras",
+    stat: "2,800+ users",
+    icon: "/logos/bhakti_dhun_logo.png",
+    link: "https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan",
+    color: "#EF4444",
+  },
+  {
+    id: 4,
+    name: "Shots",
+    description: "Beautiful mockups & screenshot beautifier — turn raw captures into professional visuals.",
+    stat: "700+",
+    icon: "/logos/shots.png",
+    link: "https://linktr.ee/shots_screenshot_beautifier",
+    color: "#6366F1",
   },
   {
     id: 8,
     name: "XML Viewer",
     description: "XML editor, tree viewer, and converter",
-    stat: "600+",
+    stat: "4000+",
     icon: "/logos/xml_viewer.png",
     link: "https://play.google.com/store/apps/details?id=in.garoono.xmlviewer",
     color: "#06B6D4",
   },
-
-
+  {
+    id: 7,
+    name: "JSON View : Editor",
+    description: "Lightweight, privacy-first offline JSON editor and formatter",
+    stat: "3500+",
+    icon: "/logos/json_viewer.png",
+    link: "https://play.google.com/store/apps/details?id=in.garoono.jsonviewer",
+    color: "#10B981",
+  },
+  {
+    id: 12,
+    name: "Dress Mirror",
+    description: "Virtual trial room to try outfits instantly.",
+    stat: "500+",
+    icon: "/logos/dressmirror.png",
+    link: "https://play.google.com/store/apps/details?id=in.garoono.dressmirror",
+    color: "#D946EF",
+  },
 ];
 
 // ─── SVG Icons ───────────────────────────────────────────────────────────────
@@ -415,7 +422,7 @@ export default function Home() {
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: "var(--text-secondary)" }}>
                 <UsersIcon />
-                <span className="font-mono" style={{ fontWeight: 600 }}>45,000+</span> total users
+                <span className="font-mono" style={{ fontWeight: 600 }}>64,000+</span> total users
               </span>
             </div>
           </div>
@@ -519,10 +526,10 @@ export default function Home() {
           }}
         >
           {[
-            { value: "32+", label: "Apps Shipped" },
-            { value: "45K+", label: "Total Users" },
+            { value: "14+", label: "Apps Shipped" },
+            { value: "64K+", label: "Total Users" },
             { value: "6+", label: "Years Building" },
-            { value: "4", label: "Revenue Apps" },
+            { value: "5", label: "Revenue Apps" },
           ].map((stat) => (
             <div key={stat.label}>
               <p className="font-mono" style={{ fontSize: 22, fontWeight: 700, color: "var(--text-primary)", lineHeight: 1 }}>
