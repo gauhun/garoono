@@ -124,7 +124,7 @@ const products: Product[] = [
     description: "Virtual trial room to try outfits instantly.",
     stat: "500+",
     icon: "/logos/dressmirror.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.dressmirror",
+    link: "https://linktr.ee/dressmirror",
     color: "#D946EF",
   },
 ];
