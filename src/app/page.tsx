@@ -47,6 +47,15 @@ const products: Product[] = [
     color: "#14B8A6",
   },
   {
+    id: 12,
+    name: "Dress Mirror",
+    description: "Virtual trial room to try outfits instantly.",
+    stat: "500+",
+    icon: "/logos/dressmirror.png",
+    link: "https://linktr.ee/dressmirror",
+    color: "#D946EF",
+  },
+  {
     id: 3,
     name: "Habitide",
     description: "Build habits with friends. Track, prove, grow.",
@@ -117,15 +126,6 @@ const products: Product[] = [
     icon: "/logos/json_viewer.png",
     link: "https://play.google.com/store/apps/details?id=in.garoono.jsonviewer",
     color: "#10B981",
-  },
-  {
-    id: 12,
-    name: "Dress Mirror",
-    description: "Virtual trial room to try outfits instantly.",
-    stat: "500+",
-    icon: "/logos/dressmirror.png",
-    link: "https://linktr.ee/dressmirror",
-    color: "#D946EF",
   },
 ];
 
