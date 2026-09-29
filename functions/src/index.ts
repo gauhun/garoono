@@ -10,7 +10,12 @@ import { canClaim, isQualifyingPayment, normalizeEmail, PAYMENT_ID_RE, revocatio
 import { verifyWebhook } from "./lib/webhook.js";
 
 initializeApp();
-setGlobalOptions({ region: "asia-south1", maxInstances: 5 });
+// Least-privilege runtime identity: Firestore, Auth lookups, read on the paid-docs bucket, and URL signing
+setGlobalOptions({
+  region: "asia-south1",
+  maxInstances: 5,
+  serviceAccount: "garoono-functions@baseproject-25dbe.iam.gserviceaccount.com",
+});
 
 const DODO_API_KEY = defineSecret("DODO_API_KEY");
 const DODO_WEBHOOK_SECRET = defineSecret("DODO_WEBHOOK_SECRET");
