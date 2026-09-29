@@ -44,9 +44,8 @@ export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => v
   const [paymentId, setPaymentId] = useState("");
   const [recoverFailed, setRecoverFailed] = useState(false);
 
-  if (access.lifetime) {
-    return <div className="unlock-banner is-owner">✓ Lifetime access. Every doc, including future ones.</div>;
-  }
+  // Owners already see "You're Pro" in the header
+  if (access.lifetime) return null;
 
   if (access.justPaid) {
     return (
