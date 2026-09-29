@@ -26,8 +26,8 @@ describe("drive urls", () => {
   it("builds view, download and thumbnail links", () => {
     expect(viewUrl(d)).toBe("https://drive.google.com/file/d/id-abc/view");
     expect(downloadUrl(d)).toBe("https://drive.google.com/uc?export=download&id=id-abc");
-    expect(thumbUrl(d)).toBe("https://drive.google.com/thumbnail?id=id-abc&sz=w600");
-    expect(thumbUrl(d, 64)).toBe("https://drive.google.com/thumbnail?id=id-abc&sz=w64");
+    expect(thumbUrl(d)).toBe("/doc-covers/abc.jpg");
+    expect(thumbUrl(d, "sm")).toBe("/doc-covers/abc-sm.jpg");
   });
 });
 

@@ -10,7 +10,9 @@
     "lint": "next lint",
     "predeploy": "npm run build && touch out/.nojekyll",
     "deploy": "gh-pages -d out -t true --dotfiles",
-    "test": "vitest run"
+    "test": "vitest run",
+    "covers": "node scripts/fetch-doc-covers.mjs",
+    "prebuild": "npm run covers"
   },
   "dependencies": {
     "@fontsource/press-start-2p": "^5.2.7",

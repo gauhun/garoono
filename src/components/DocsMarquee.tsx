@@ -30,7 +30,7 @@ export default function DocsMarquee() {
                 onClick={() => recordView(d.slug)}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={thumbUrl(d, 64)} alt="" width={20} height={20} className="doc-chip-thumb" loading="lazy" />
+                <img src={thumbUrl(d, "sm")} alt="" width={20} height={20} className="doc-chip-thumb" loading="lazy" />
                 <span>{d.title}</span>
                 {now !== null && isNew(d, now) && <span className="doc-chip-new" aria-label="New" />}
               </a>
