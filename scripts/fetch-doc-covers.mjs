@@ -4,7 +4,10 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const source = readFileSync(new URL("../src/data/docs.ts", import.meta.url), "utf8");
-const entries = [...source.matchAll(/slug:\s*"([^"]+)"[\s\S]*?driveId:\s*"([^"]+)"/g)];
+// Paid docs have no driveId; their covers come from `npm run add-doc`
+const entries = [...source.matchAll(/\{[^{}]*?slug:\s*"([^"]+)"[^{}]*?\}/g)]
+  .map(([block, slug]) => [block, slug, block.match(/driveId:\s*"([^"]+)"/)?.[1]])
+  .filter(([, , driveId]) => driveId);
 const outDir = new URL("../public/doc-covers/", import.meta.url);
 mkdirSync(outDir, { recursive: true });
 

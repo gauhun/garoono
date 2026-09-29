@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { SharedDoc } from "../data/docs";
+import type { FreeDoc, SharedDoc } from "../data/docs";
 import { rankDocs, type DocStats } from "./rankDocs";
 
-const make = (slug: string, addedOn: string): SharedDoc => ({ slug, title: slug, blurb: "", driveId: slug, addedOn });
+const make = (slug: string, addedOn: string): FreeDoc => ({ slug, title: slug, blurb: "", free: true, driveId: slug, addedOn });
 const stat = (s: Partial<DocStats>): DocStats => ({ views: 0, downloads: 0, likes: 0, ...s });
 
 const now = Date.parse("2026-09-29T00:00:00Z");
