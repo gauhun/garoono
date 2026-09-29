@@ -35,3 +35,13 @@ export function rankDocs(
 export function freeFirst(list: SharedDoc[]) {
   return [...list.filter((d) => d.free), ...list.filter((d) => !d.free)];
 }
+
+// Every word in the query must appear in the title or blurb
+export function searchDocs(list: SharedDoc[], query: string) {
+  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return list;
+  return list.filter((d) => {
+    const text = `${d.title} ${d.blurb}`.toLowerCase();
+    return words.every((w) => text.includes(w));
+  });
+}

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { docs } from "../data/docs";
 import { fetchAllStats } from "../lib/docStats";
-import { EMPTY_STATS, freeFirst, rankDocs, type DocStats, type SortKey } from "../lib/rankDocs";
+import { EMPTY_STATS, freeFirst, rankDocs, searchDocs, type DocStats, type SortKey } from "../lib/rankDocs";
 import { checkoutUrl } from "../lib/checkout";
 import { useAccess } from "../lib/useAccess";
 import { AuthChip, UnlockBanner } from "./AccessPanel";
@@ -22,6 +22,7 @@ type StatsMap = Record<string, DocStats>;
 
 export default function DocsLibrary() {
   const [sort, setSort] = useState<SortKey>("top");
+  const [query, setQuery] = useState("");
   // `ranking` is the snapshot we sort by; `live` also reflects this visitor's
   // clicks, so a card doesn't jump away from under the cursor when liked.
   const [ranking, setRanking] = useState<StatsMap | null>(null);
@@ -47,7 +48,7 @@ export default function DocsLibrary() {
 
   const access = useAccess();
   // Without Pro, the free docs lead the list
-  const shown = access.lifetime ? ranked : freeFirst(ranked);
+  const shown = searchDocs(access.lifetime ? ranked : freeFirst(ranked), query);
   const { summary: pro } = useProWall(access.lifetime);
   const members = pro?.members ?? [];
   const buy = () => {
@@ -72,6 +73,7 @@ export default function DocsLibrary() {
           <p className="docs-subtitle">Playbooks &amp; checklists I share on Instagram</p>
         </div>
         <div className="docs-header-actions">
+          {access.lifetime && <span className="pro-badge">★ You&apos;re Pro</span>}
           <ProCountPill summary={pro} />
           <AuthChip access={access} />
         </div>
@@ -79,6 +81,7 @@ export default function DocsLibrary() {
 
       <UnlockBanner access={access} onBuy={buy} />
 
+      <div className="docs-toolbar">
       <div className="docs-tabs" role="tablist" aria-label="Sort docs">
         {SORTS.map((s) => (
           <button
@@ -93,6 +96,17 @@ export default function DocsLibrary() {
           </button>
         ))}
       </div>
+        <input
+          type="search"
+          className="docs-search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search docs…"
+          aria-label="Search docs"
+        />
+      </div>
+
+      {shown.length === 0 && <p className="docs-empty">No docs match &quot;{query}&quot;. Try another word.</p>}
 
       <div className="docs-grid">
         {shown.map((d, i) => (

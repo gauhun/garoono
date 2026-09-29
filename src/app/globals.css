@@ -451,11 +451,54 @@ a { color: inherit; text-decoration: none; }
   margin-top: 4px;
 }
 
+.docs-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0 20px;
+}
+
 .docs-tabs {
   display: flex;
   gap: 6px;
-  margin: 24px 0 20px;
   overflow-x: auto;
+  max-width: 100%;
+}
+
+.docs-search {
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+  margin-left: auto;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--bg-card);
+  font: inherit;
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.docs-search:focus { border-color: var(--accent); }
+
+.docs-empty { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+
+.pro-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-btn);
+  background: var(--text-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .docs-search { max-width: none; margin-left: 0; }
 }
 
 .docs-tab {

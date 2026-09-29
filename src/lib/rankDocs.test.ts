@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { FreeDoc, SharedDoc } from "../data/docs";
-import { freeFirst, rankDocs, type DocStats } from "./rankDocs";
+import { freeFirst, rankDocs, searchDocs, type DocStats } from "./rankDocs";
 
 const make = (slug: string, addedOn: string): FreeDoc => ({ slug, title: slug, blurb: "", free: true, driveId: slug, addedOn });
 const stat = (s: Partial<DocStats>): DocStats => ({ views: 0, downloads: 0, likes: 0, ...s });
@@ -56,5 +56,21 @@ describe("freeFirst", () => {
     const paid = (slug: string): SharedDoc => ({ slug, title: slug, blurb: "", free: false, addedOn: "2026-09-01" });
     const order = [paid("p1"), make("f1", "2026-09-01"), paid("p2"), make("f2", "2026-09-01")];
     expect(slugs(freeFirst(order))).toEqual(["f1", "f2", "p1", "p2"]);
+  });
+});
+
+describe("searchDocs", () => {
+  const docsList: SharedDoc[] = [
+    { slug: "app-seo", title: "App SEO Playbook", blurb: "Get downloads from Google", free: false, addedOn: "2026-09-01" },
+    { slug: "legal", title: "Legal Checklist", blurb: "Privacy policy and terms before you submit", free: true, driveId: "x", addedOn: "2026-09-02" },
+  ];
+  it("returns everything for an empty query", () => expect(searchDocs(docsList, "  ")).toHaveLength(2));
+  it("matches title or blurb, case-insensitive", () => {
+    expect(slugs(searchDocs(docsList, "seo"))).toEqual(["app-seo"]);
+    expect(slugs(searchDocs(docsList, "PRIVACY"))).toEqual(["legal"]);
+  });
+  it("needs every word to match", () => {
+    expect(slugs(searchDocs(docsList, "google downloads"))).toEqual(["app-seo"]);
+    expect(searchDocs(docsList, "google privacy")).toHaveLength(0);
   });
 });
