@@ -14,6 +14,9 @@ export default function DocsMarquee() {
 
   return (
     <div className="docs-marquee">
+      <Link href="/blog/" className="doc-chip doc-chip-blog">
+        📝 Blog
+      </Link>
       <div className="docs-marquee-viewport">
         {/* Two copies of the chips so the -50% loop is seamless */}
         <div className="docs-marquee-track">

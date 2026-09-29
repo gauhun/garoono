@@ -12,8 +12,9 @@
     "deploy": "gh-pages -d out -t true --dotfiles",
     "test": "vitest run",
     "covers": "node scripts/fetch-doc-covers.mjs",
-    "prebuild": "npm run covers",
-    "add-doc": "node scripts/add-doc.mjs"
+    "prebuild": "npm run covers && npm run blog:lint",
+    "add-doc": "node scripts/add-doc.mjs",
+    "blog:lint": "node scripts/blog-lint.mjs"
   },
   "dependencies": {
     "@fontsource/press-start-2p": "^5.2.7",
