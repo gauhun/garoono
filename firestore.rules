@@ -38,5 +38,13 @@ service cloud.firestore {
       allow create: if slug.matches('^[a-z0-9-]{3,60}$') && onlyCounters() && oneStep();
       allow update: if onlyCounters() && oneStep();
     }
+
+    // Paywall records: written only by Cloud Functions (Admin SDK); no client access
+    match /purchases/{paymentId} {
+      allow read, write: if false;
+    }
+    match /entitlements/{uid} {
+      allow read, write: if false;
+    }
   }
 }
