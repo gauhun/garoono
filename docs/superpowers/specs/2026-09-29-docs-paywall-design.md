@@ -20,18 +20,19 @@ Three docs stay free; every other doc (current and future) unlocks with a one-ti
 
 ## Security model
 
-- **Source of truth is Dodo's API, not the webhook body.** The webhook is only a signed trigger; the function re-fetches `GET /payments/{payment_id}` with the secret API key and checks `status == "succeeded"`, `product_cart` contains the lifetime product id, `currency == "INR"`, `total_amount >= 9900`.
+- **Source of truth is Dodo's API, not the webhook body.** The webhook is only a signed trigger; the function re-fetches `GET /payments/{payment_id}` with the secret API key and checks `status == "succeeded"` and that `product_cart` contains the lifetime product id. (No amount/currency check: Dodo may localise the price for overseas buyers; the product id is what was bought.)
 - **Webhook verification (Standard Webhooks):** headers `webhook-id`, `webhook-timestamp`, `webhook-signature`; HMAC-SHA256 over `${id}.${timestamp}.${rawBody}` with the base64-decoded secret (after `whsec_`); constant-time compare against each `v1,<sig>` entry; reject timestamps more than 5 minutes from now.
 - **Secrets** `DODO_API_KEY`, `DODO_WEBHOOK_SECRET` in Secret Manager via `firebase functions:secrets:set` — never in git, client code, or chat. Non-secret params (`DODO_PRODUCT_ID`, `DODO_API_BASE`) via `defineString`.
-- **Paid PDFs** in Storage at `paid-docs/{slug}.pdf`. Storage rules deny all client reads/writes. Access only via `getDocLink`, which returns a V4 signed URL valid for 10 minutes.
+- **Paid PDFs** in a dedicated Cloud Storage bucket `gs://baseproject-25dbe-paid-docs/{slug}.pdf` (asia-south1, uniform bucket-level access, public access prevention enforced). It is not linked to Firebase Storage, so no client SDK or Storage rules can reach it and the project's existing Storage rules are untouched. Access only via `getDocLink`, which returns a V4 signed URL valid for 10 minutes. The functions' service account gets `roles/iam.serviceAccountTokenCreator` on itself to sign URLs.
 - **Firestore** (Admin SDK in functions bypasses rules):
   - `purchases/{paymentId}` — `{ email, amount, currency, status: "paid" | "revoked", claimedBy: uid | null, createdAt, updatedAt }`. Clients: no access.
-  - `entitlements/{uid}` — `{ lifetime: true, paymentId, email, grantedAt }`. Client may read only its own; no client writes.
+  - `entitlements/{uid}` — `{ lifetime: true, paymentId, email, grantedAt }`. No client access; the site learns access state from `claimAccess`.
   - Existing `docStats` and `users` rules unchanged.
 - **Callable functions** require `request.auth` with `email_verified == true`.
 - **Email matching** normalises: trim + lowercase. (No Gmail dot-stripping — exact mailbox after lowercasing; mismatches use payment-ID recovery.)
 - **One claim per payment:** `claimedBy` set in a transaction; a payment claimed by another uid is refused.
-- **Revocation:** `refund.succeeded`, `dispute.opened`, `dispute.lost` → `purchases/{payment_id}.status = "revoked"` and delete `entitlements/{claimedBy}` (if its `paymentId` matches).
+- **Revocation:** `refund.succeeded`, `dispute.opened`, `dispute.lost` → `purchases/{payment_id}.status = "revoked"` and delete `entitlements/{claimedBy}` (if its `paymentId` matches). `dispute.won` restores.
+- **Isolation:** functions deploy as codebase `garoono`, so deploys from other repos using this project never delete them.
 - **Cost guard:** ₹100 monthly budget alert on the billing account.
 
 ## Architecture
@@ -47,7 +48,7 @@ Pure logic in `functions/src/lib/` (unit-tested, no Firebase imports):
 Handlers in `functions/src/index.ts`:
 - **`dodoWebhook`** (HTTPS `onRequest`, POST only): verify signature → on `payment.succeeded` fetch payment from Dodo → if qualifying, upsert `purchases/{id}` (idempotent) → if `metadata.uid` present or a Firebase user exists for the email, grant `entitlements/{uid}` and set `claimedBy`. On revoking events, revoke. Always 2xx after a valid signature (so Dodo stops retrying); 401 on bad signature.
 - **`claimAccess`** (callable, `{ paymentId?: string }`): if `paymentId` given → load purchase (fetch from Dodo and upsert if missing — handles webhook lag) → claim for caller if unclaimed or already theirs. Else → query `purchases` where `email == normalized(caller email)` and `status == "paid"` → claim the first unclaimed/own. Returns `{ lifetime: boolean }`.
-- **`getDocLink`** (callable, `{ slug: string, download?: boolean }`): slug must match `^[a-z0-9-]{3,60}$` and be in the paid-doc list shipped with functions; caller must have `entitlements/{uid}`; returns `{ url }` signed for 10 min (`responseDisposition` attachment when `download`).
+- **`getDocLink`** (callable, `{ slug: string, download?: boolean }`): slug must match `^[a-z0-9-]{3,60}$` and exist in the paid-docs bucket; caller must have `entitlements/{uid}`; returns `{ url }` signed for 10 min (`responseDisposition` attachment when `download`).
 
 ### Site
 
@@ -60,7 +61,7 @@ Handlers in `functions/src/index.ts`:
 
 ### Adding a paid doc
 
-`npm run add-doc -- <pdf> <slug> "<title>" "<blurb>"` (local, macOS): renders cover via `sips`, uploads PDF to `gs://<bucket>/paid-docs/<slug>.pdf` with `gcloud storage cp` (account `garoonotech@gmail.com`), prints the `docs.ts` entry and the paid-slug list update for `functions/src/paidDocs.ts`.
+`npm run add-doc -- <pdf> <slug>` (local, macOS): renders covers via `sips`, uploads the PDF to `gs://baseproject-25dbe-paid-docs/<slug>.pdf` with `gcloud storage cp` (account `garoonotech@gmail.com`), and prints the `docs.ts` entry to paste.
 
 ## Setup owned by Gautam
 
@@ -73,7 +74,7 @@ Handlers in `functions/src/index.ts`:
 ## Verification
 
 - Vitest unit tests for the pure function logic (signature, qualification, normalisation, revocation) and site helpers.
-- Live rules probes (REST, public key): `purchases` unreadable/unwritable; `entitlements` unwritable and only self-readable; Storage unreadable; `getDocLink` refuses signed-out / unpaid / bad slug.
+- Live probes (REST, public key): `purchases` and `entitlements` unreadable/unwritable; paid-docs bucket objects return 403 anonymously; `getDocLink` refuses signed-out / unpaid / bad slug.
 - Dodo test-mode end-to-end: guest pay → return banner → Google sign-in → unlocked → paid doc opens → signed URL expires; pay as A, sign in as B, recover via payment ID; refund → access revoked.
 - Go-live: switch to live product/secrets, one real ₹99 purchase + refund, confirm old Drive links for #2–#5 are denied.
 
