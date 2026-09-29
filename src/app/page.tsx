@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import DocsMarquee from "../components/DocsMarquee";
+import { countVisit } from "../lib/siteStats";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -189,6 +190,15 @@ function LocationIcon() {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
       <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+function EyeIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
     </svg>
   );
 }
@@ -431,6 +441,11 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [subscribing, setSubscribing] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
+  const [visitors, setVisitors] = useState<number | null>(null);
+
+  useEffect(() => {
+    countVisit().then(setVisitors);
+  }, []);
 
   const handleSubscribe = async () => {
     if (!email) return;
@@ -508,6 +523,12 @@ export default function Home() {
                 <UsersIcon />
                 <span className="font-mono" style={{ fontWeight: 600 }}>100,000+</span> total users
               </span>
+              {visitors !== null && visitors > 0 && (
+                <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: "var(--text-secondary)" }}>
+                  <EyeIcon />
+                  <span className="font-mono" style={{ fontWeight: 600 }}>{visitors.toLocaleString("en-US")}</span> site {visitors === 1 ? "visitor" : "visitors"}
+                </span>
+              )}
             </div>
           </div>
         </div>

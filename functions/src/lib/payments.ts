@@ -32,3 +32,8 @@ export function canClaim(purchase: { status?: string; claimedBy?: string | null 
   if (!purchase || purchase.status !== "paid") return false;
   return !purchase.claimedBy || purchase.claimedBy === uid;
 }
+
+// Only the first name goes on the public wall
+export function firstName(fullName: string) {
+  return fullName.trim().split(/\s+/)[0]?.slice(0, 24) || "Pro member";
+}

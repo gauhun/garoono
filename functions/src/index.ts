@@ -6,7 +6,7 @@ import { logger } from "firebase-functions";
 import { defineSecret, defineString } from "firebase-functions/params";
 import { setGlobalOptions } from "firebase-functions/v2";
 import { HttpsError, onCall, onRequest, type CallableRequest } from "firebase-functions/v2/https";
-import { canClaim, isQualifyingPayment, normalizeEmail, PAYMENT_ID_RE, revocationFor, SLUG_RE, type DodoPayment } from "./lib/payments.js";
+import { canClaim, firstName, isQualifyingPayment, normalizeEmail, PAYMENT_ID_RE, revocationFor, SLUG_RE, type DodoPayment } from "./lib/payments.js";
 import { verifyWebhook } from "./lib/webhook.js";
 
 initializeApp();
@@ -26,6 +26,9 @@ const PAID_DOCS_BUCKET = defineString("PAID_DOCS_BUCKET");
 const db = getFirestore();
 const purchases = db.collection("purchases");
 const entitlements = db.collection("entitlements");
+const proWall = db.collection("proWall");
+// Public counter shown on /docs; only functions write it
+const proCount = db.collection("publicStats").doc("pro");
 
 // ─── Dodo ────────────────────────────────────────────────────────────────────
 
@@ -64,9 +67,12 @@ async function claim(paymentId: string, uid: string, email: string) {
   const ref = purchases.doc(paymentId);
   return db.runTransaction(async (tx) => {
     const snap = await tx.get(ref);
+    const entRef = entitlements.doc(uid);
+    const alreadyPro = (await tx.get(entRef)).exists;
     if (!canClaim(snap.data(), uid)) return false;
     tx.update(ref, { claimedBy: uid, updatedAt: FieldValue.serverTimestamp() });
-    tx.set(entitlements.doc(uid), { lifetime: true, paymentId, email, grantedAt: FieldValue.serverTimestamp() });
+    tx.set(entRef, { lifetime: true, paymentId, email, grantedAt: FieldValue.serverTimestamp() });
+    if (!alreadyPro) tx.set(proCount, { count: FieldValue.increment(1) }, { merge: true });
     return true;
   });
 }
@@ -82,9 +88,16 @@ async function setRevoked(paymentId: string, revoked: boolean) {
     const ent = entRef ? await tx.get(entRef) : null;
 
     tx.update(ref, { status: revoked ? "revoked" : "paid", updatedAt: FieldValue.serverTimestamp() });
-    if (!entRef) return;
-    if (revoked && ent?.data()?.paymentId === paymentId) tx.delete(entRef);
-    if (!revoked) tx.set(entRef, { lifetime: true, paymentId, email: data.email, grantedAt: FieldValue.serverTimestamp() });
+    if (!entRef || !owner) return;
+    if (revoked && ent?.data()?.paymentId === paymentId) {
+      tx.delete(entRef);
+      tx.delete(proWall.doc(owner));
+      tx.set(proCount, { count: FieldValue.increment(-1) }, { merge: true });
+    }
+    if (!revoked && !ent?.exists) {
+      tx.set(entRef, { lifetime: true, paymentId, email: data.email, grantedAt: FieldValue.serverTimestamp() });
+      tx.set(proCount, { count: FieldValue.increment(1) }, { merge: true });
+    }
   });
 }
 
@@ -193,4 +206,27 @@ export const getDocLink = onCall(async (req) => {
     responseDisposition: download === true ? `attachment; filename="${slug}.pdf"` : "inline",
   });
   return { url };
+});
+
+// Opt-in: a Pro member chooses to show their first name and photo on the public wall
+export const setProWall = onCall(async (req) => {
+  const { uid } = requireVerifiedUser(req);
+  const show = (req.data as { show?: unknown } | undefined)?.show === true;
+
+  if (!(await entitlements.doc(uid).get()).exists) {
+    throw new HttpsError("permission-denied", "Lifetime access required.");
+  }
+
+  if (!show) {
+    await proWall.doc(uid).delete();
+    return { onWall: false };
+  }
+
+  const token = req.auth!.token;
+  await proWall.doc(uid).set({
+    name: firstName(typeof token.name === "string" ? token.name : ""),
+    photoURL: typeof token.picture === "string" ? token.picture : null,
+    joinedAt: FieldValue.serverTimestamp(),
+  });
+  return { onWall: true };
 });

@@ -1,4 +1,5 @@
 import type { FirebaseApp } from "firebase/app";
+import type { Firestore } from "firebase/firestore/lite";
 
 // Public web config for the "garoono.in site" app on baseproject-25dbe.
 // Web API keys are not secrets — access is governed by firestore.rules.
@@ -17,4 +18,13 @@ let appPromise: Promise<FirebaseApp> | null = null;
 export function getFirebaseApp() {
   appPromise ??= import("firebase/app").then(({ getApps, initializeApp }) => getApps()[0] ?? initializeApp(firebaseConfig));
   return appPromise;
+}
+
+let dbPromise: Promise<Firestore> | null = null;
+
+export function getLiteDb() {
+  dbPromise ??= Promise.all([getFirebaseApp(), import("firebase/firestore/lite")]).then(([app, { getFirestore }]) =>
+    getFirestore(app),
+  );
+  return dbPromise;
 }

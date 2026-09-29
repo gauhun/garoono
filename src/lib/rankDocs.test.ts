@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { FreeDoc, SharedDoc } from "../data/docs";
-import { rankDocs, type DocStats } from "./rankDocs";
+import { freeFirst, rankDocs, type DocStats } from "./rankDocs";
 
 const make = (slug: string, addedOn: string): FreeDoc => ({ slug, title: slug, blurb: "", free: true, driveId: slug, addedOn });
 const stat = (s: Partial<DocStats>): DocStats => ({ views: 0, downloads: 0, likes: 0, ...s });
@@ -48,5 +48,13 @@ describe("rankDocs", () => {
   it("does not mutate the input", () => {
     rankDocs(list, {}, "latest", now);
     expect(slugs(list)).toEqual(["old-doc", "new-doc", "mid-doc"]);
+  });
+});
+
+describe("freeFirst", () => {
+  it("moves free docs to the front and keeps relative order", () => {
+    const paid = (slug: string): SharedDoc => ({ slug, title: slug, blurb: "", free: false, addedOn: "2026-09-01" });
+    const order = [paid("p1"), make("f1", "2026-09-01"), paid("p2"), make("f2", "2026-09-01")];
+    expect(slugs(freeFirst(order))).toEqual(["f1", "f2", "p1", "p2"]);
   });
 });

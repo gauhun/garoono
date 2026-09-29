@@ -1,5 +1,4 @@
-import type { Firestore } from "firebase/firestore/lite";
-import { getFirebaseApp } from "./firebase";
+import { getLiteDb as getDb } from "./firebase";
 import { EMPTY_STATS, type DocStats } from "./rankDocs";
 
 // The only module that talks to Firestore. The SDK is imported on first use so
@@ -8,15 +7,6 @@ import { EMPTY_STATS, type DocStats } from "./rankDocs";
 type Counter = keyof DocStats;
 
 const COLLECTION = "docStats";
-
-let dbPromise: Promise<Firestore> | null = null;
-
-function getDb() {
-  dbPromise ??= Promise.all([getFirebaseApp(), import("firebase/firestore/lite")]).then(([app, { getFirestore }]) =>
-    getFirestore(app),
-  );
-  return dbPromise;
-}
 
 // Per-browser memory of what this visitor already counted (slug lists in localStorage)
 function readSet(counter: Counter): Set<string> {

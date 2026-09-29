@@ -4,11 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { docs } from "../data/docs";
 import { fetchAllStats } from "../lib/docStats";
-import { EMPTY_STATS, rankDocs, type DocStats, type SortKey } from "../lib/rankDocs";
+import { EMPTY_STATS, freeFirst, rankDocs, type DocStats, type SortKey } from "../lib/rankDocs";
 import { checkoutUrl } from "../lib/checkout";
 import { useAccess } from "../lib/useAccess";
 import { AuthChip, UnlockBanner } from "./AccessPanel";
 import DocCard from "./DocCard";
+import ProWall from "./ProWall";
 
 const SORTS: { key: SortKey; label: string }[] = [
   { key: "top", label: "Top" },
@@ -45,6 +46,8 @@ export default function DocsLibrary() {
     });
 
   const access = useAccess();
+  // Without Pro, the free docs lead the list
+  const shown = access.lifetime ? ranked : freeFirst(ranked);
   const buy = () => {
     window.location.href = checkoutUrl({
       returnUrl: `${window.location.origin}/docs/`,
@@ -68,6 +71,7 @@ export default function DocsLibrary() {
       </header>
 
       <UnlockBanner access={access} onBuy={buy} />
+      <ProWall access={access} />
 
       <div className="docs-tabs" role="tablist" aria-label="Sort docs">
         {SORTS.map((s) => (
@@ -85,7 +89,7 @@ export default function DocsLibrary() {
       </div>
 
       <div className="docs-grid">
-        {ranked.map((d, i) => (
+        {shown.map((d, i) => (
           <DocCard
             key={d.slug}
             doc={d}

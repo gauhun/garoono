@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy" updated="29 Sept 2026">
+    <LegalPage title="Privacy Policy" updated="30 Sept 2026">
       <p>
         garoono.in is run by Gautam Singh Rathor (&quot;Garoono&quot;, &quot;I&quot;). This page explains what the site
         collects when you read, download or buy docs, and what I do with it. I keep it to the minimum the site needs to work.
@@ -19,7 +19,13 @@ export default function PrivacyPage() {
       <ul>
         <li>
           <strong>Google sign-in.</strong> If you sign in, Google shares your name, email address and profile photo with the
-          site. I use your email to match you to your purchase. Your name and photo are only shown back to you on the page.
+          site. I use your email to match you to your purchase. Your name and photo are only shown back to you on the page,
+          unless you choose to join the Pro wall.
+        </li>
+        <li>
+          <strong>Pro wall (optional).</strong> If you tap &quot;Show my photo and first name on the Pro wall&quot;, your
+          first name and Google profile photo are shown publicly on the docs page. You can remove yourself at any time with
+          one tap, and refunds remove you automatically.
         </li>
         <li>
           <strong>Purchases.</strong> Payments are handled by Dodo Payments, the merchant of record. I receive your email, the
@@ -32,6 +38,10 @@ export default function PrivacyPage() {
         <li>
           <strong>Doc counters.</strong> Views, downloads and likes are counted anonymously. Your browser remembers which docs
           you already counted or liked (local storage), so you are not counted twice. This is not linked to your identity.
+        </li>
+        <li>
+          <strong>Visitor count.</strong> The home page shows how many browsers have visited. Each browser is counted once,
+          anonymously, using a flag in local storage. No IP address or identity is stored.
         </li>
         <li>
           <strong>Ads and analytics.</strong> The home page uses Google AdSense, which may set cookies to show and measure ads.

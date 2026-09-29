@@ -30,3 +30,8 @@ export function rankDocs(
 
   return [...list].sort((a, b) => metric(b) - metric(a) || byDate(a, b));
 }
+
+// Visitors without Pro see the free docs first; order within each group is kept
+export function freeFirst(list: SharedDoc[]) {
+  return [...list.filter((d) => d.free), ...list.filter((d) => !d.free)];
+}

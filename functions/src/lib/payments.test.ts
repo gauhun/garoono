@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canClaim, isQualifyingPayment, normalizeEmail, revocationFor, type DodoPayment } from "./payments";
+import { canClaim, firstName, isQualifyingPayment, normalizeEmail, revocationFor, type DodoPayment } from "./payments";
 
 const paid = (over: Partial<DodoPayment> = {}): DodoPayment => ({
   payment_id: "pay_1",
@@ -42,4 +42,10 @@ describe("canClaim", () => {
     expect(canClaim({ status: "revoked", claimedBy: null }, "u1")).toBe(false);
     expect(canClaim(undefined, "u1")).toBe(false);
   });
+});
+
+describe("firstName", () => {
+  it("keeps only the first name", () => expect(firstName("Gautam Singh Rathor")).toBe("Gautam"));
+  it("trims and caps length", () => expect(firstName("  Abcdefghijklmnopqrstuvwxyzabc ")).toBe("Abcdefghijklmnopqrstuvwx"));
+  it("falls back when empty", () => expect(firstName("   ")).toBe("Pro member"));
 });

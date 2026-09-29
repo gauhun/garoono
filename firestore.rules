@@ -46,5 +46,22 @@ service cloud.firestore {
     match /entitlements/{uid} {
       allow read, write: if false;
     }
+
+    // Opt-in Pro wall (first name + photo); written only by the setProWall function
+    match /proWall/{uid} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Public counters. "pro" is written only by functions; "visitors" may only go up by one
+    match /publicStats/{id} {
+      allow read: if true;
+      allow create: if id == 'visitors'
+        && request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count == 1;
+      allow update: if id == 'visitors'
+        && request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count == resource.data.count + 1;
+    }
   }
 }
