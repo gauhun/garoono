@@ -1,9 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { setProWall } from "../lib/access";
 import { fetchProSummary, timeAgo, type ProMember, type ProSummary } from "../lib/proWall";
-import type { Access } from "../lib/useAccess";
 
 // Right rail fills first; later members continue on the left, like TrustMRR's side columns
 export const RAIL_SIZE = 8;
@@ -45,47 +43,23 @@ export function ProRail({ members, offset }: { members: ProMember[]; offset: num
   );
 }
 
-function headline(count: number) {
-  return `${count.toLocaleString("en-US")} ${count === 1 ? "person" : "people"} went Pro`;
-}
-
-// Count line, compact avatar strip for narrow screens, and the owner's hide/show toggle
-export function ProSummaryBar({ access, summary, reload }: { access: Access; summary: ProSummary | null; reload: () => Promise<void> }) {
-  const [busy, setBusy] = useState(false);
-  if (!summary || (summary.count === 0 && !access.lifetime)) return null;
-
-  const uid = access.user?.uid;
-  const onWall = !!uid && summary.members.some((m) => m.uid === uid);
-
-  const toggle = async () => {
-    setBusy(true);
-    try {
-      await setProWall(!onWall);
-      await reload();
-    } catch {
-      alert("Couldn't update the Pro wall. Please try again.");
-    } finally {
-      setBusy(false);
-    }
-  };
-
+// Pro count pill beside the sign-in button, with the newest members' faces
+export function ProCountPill({ summary }: { summary: ProSummary | null }) {
+  if (!summary || summary.count === 0) return null;
   return (
-    <div className="pro-wall">
+    <div className="pro-pill" title="Pro members">
       {summary.members.length > 0 && (
-        <div className="pro-avatars">
-          {summary.members.slice(0, 12).map((m) => (
-            <span key={m.uid} title={m.name}>
-              <Avatar member={m} size={28} />
+        <span className="pro-avatars">
+          {summary.members.slice(0, 3).map((m) => (
+            <span key={m.uid}>
+              <Avatar member={m} size={22} />
             </span>
           ))}
-        </div>
+        </span>
       )}
-      <span className="pro-count">{headline(summary.count)}</span>
-      {access.lifetime && (
-        <button type="button" className="unlock-link" onClick={toggle} disabled={busy}>
-          {busy ? "…" : onWall ? "Hide me from the Pro wall" : "Show me on the Pro wall"}
-        </button>
-      )}
+      <span>
+        <strong>{summary.count.toLocaleString("en-US")}</strong> went Pro
+      </span>
     </div>
   );
 }

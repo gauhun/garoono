@@ -744,15 +744,6 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 .legal-body a { color: var(--accent); text-decoration: underline; }
 
 /* ─── Pro Wall ───────────────────────────────────────────────────── */
-.pro-wall {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  margin-top: 12px;
-  font-size: 13px;
-  color: var(--text-secondary);
-}
 
 .pro-avatars { display: flex; }
 .pro-avatars > * { margin-left: -8px; border: 2px solid var(--bg-page); border-radius: 50%; }
@@ -770,7 +761,6 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   font-weight: 700;
 }
 
-.pro-count { font-weight: 600; color: var(--text-primary); }
 
 /* ─── Pro Rails (TrustMRR-style side columns) ────────────────────── */
 .unlock-note { margin-top: 4px; font-size: 11px; color: var(--text-tertiary); }
@@ -800,7 +790,6 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   .docs-shell.has-right { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; max-width: 1400px; margin: 0 auto; padding: 0 16px; }
   .docs-shell.has-right .pro-rail:last-child { display: flex; }
   .docs-shell.has-right .docs-page { width: 100%; }
-  .docs-shell.has-right .pro-wall .pro-avatars { display: none; }
 }
 
 /* Both rails when the wall outgrows the right column */
@@ -817,3 +806,20 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   align-self: start;
   padding-top: 40px;
 }
+
+.docs-header-actions { display: flex; align-items: center; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+.docs-header-actions .auth-chip, .docs-header-actions .auth-hint { margin-top: 0; }
+
+.pro-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--bg-card);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.pro-pill strong { color: var(--text-primary); font-family: 'JetBrains Mono', monospace; }

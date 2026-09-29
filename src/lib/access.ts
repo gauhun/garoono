@@ -10,8 +10,6 @@ async function call<T>(name: string, data: unknown): Promise<T> {
 export const claimAccess = (paymentId?: string) =>
   call<{ lifetime: boolean }>("claimAccess", paymentId ? { paymentId } : {});
 
-export const setProWall = (show: boolean) => call<{ onWall: boolean }>("setProWall", { show });
-
 // Opens the tab synchronously so popup blockers allow it, then points it at the signed URL
 export async function openPaidDoc(slug: string, download: boolean) {
   const tab = window.open("about:blank", "_blank");

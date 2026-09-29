@@ -23,8 +23,9 @@ export default function PrivacyPage() {
         </li>
         <li>
           <strong>Pro wall.</strong> When you buy lifetime access, your first name and Google profile photo are shown on the
-          public Pro wall on the docs page. This is stated before you buy. You can hide yourself at any time with one tap
-          (&quot;Hide me from the Pro wall&quot;), and refunds remove you automatically.
+          public Pro wall on the docs page. This is stated before you buy. Email{" "}
+          <a href="mailto:garoonotech@gmail.com">garoonotech@gmail.com</a> and I will remove you within 7 days. Refunds remove
+          you automatically.
         </li>
         <li>
           <strong>Purchases.</strong> Payments are handled by Dodo Payments, the merchant of record. I receive your email, the

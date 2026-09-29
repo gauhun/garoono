@@ -9,7 +9,7 @@ import { checkoutUrl } from "../lib/checkout";
 import { useAccess } from "../lib/useAccess";
 import { AuthChip, UnlockBanner } from "./AccessPanel";
 import DocCard from "./DocCard";
-import { ProRail, ProSummaryBar, RAIL_SIZE, useProWall } from "./ProWall";
+import { ProCountPill, ProRail, RAIL_SIZE, useProWall } from "./ProWall";
 
 const SORTS: { key: SortKey; label: string }[] = [
   { key: "top", label: "Top" },
@@ -48,7 +48,7 @@ export default function DocsLibrary() {
   const access = useAccess();
   // Without Pro, the free docs lead the list
   const shown = access.lifetime ? ranked : freeFirst(ranked);
-  const { summary: pro, reload: reloadPro } = useProWall(access.lifetime);
+  const { summary: pro } = useProWall(access.lifetime);
   const members = pro?.members ?? [];
   const buy = () => {
     window.location.href = checkoutUrl({
@@ -71,11 +71,13 @@ export default function DocsLibrary() {
           <h1 className="font-serif docs-title">Docs</h1>
           <p className="docs-subtitle">Playbooks &amp; checklists I share on Instagram</p>
         </div>
-        <AuthChip access={access} />
+        <div className="docs-header-actions">
+          <ProCountPill summary={pro} />
+          <AuthChip access={access} />
+        </div>
       </header>
 
       <UnlockBanner access={access} onBuy={buy} />
-      <ProSummaryBar access={access} summary={pro} reload={reloadPro} />
 
       <div className="docs-tabs" role="tablist" aria-label="Sort docs">
         {SORTS.map((s) => (
