@@ -81,6 +81,7 @@ export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => v
       <div className="unlock-copy">
         <strong>Unlock all docs · {LIFETIME_PRICE_LABEL} lifetime</strong>
         <span>One payment. Every doc I publish, forever.</span>
+        <span className="unlock-note">Pro members appear on the Pro wall with their first name and photo. You can hide yourself anytime.</span>
       </div>
       <button type="button" className="doc-btn doc-btn-primary" onClick={onBuy}>
         Get lifetime access

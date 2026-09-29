@@ -77,6 +77,18 @@ async function claim(paymentId: string, uid: string, email: string) {
   });
 }
 
+// Every Pro member appears on the public wall unless they chose to hide
+async function syncWall(uid: string) {
+  const [ent, existing] = await Promise.all([entitlements.doc(uid).get(), proWall.doc(uid).get()]);
+  if (!ent.exists || ent.data()?.hideFromWall === true || existing.exists) return;
+  const user = await getAuth().getUser(uid).catch(() => null);
+  await proWall.doc(uid).set({
+    name: firstName(user?.displayName ?? ""),
+    photoURL: user?.photoURL ?? null,
+    joinedAt: ent.data()?.grantedAt ?? FieldValue.serverTimestamp(),
+  });
+}
+
 async function setRevoked(paymentId: string, revoked: boolean) {
   const ref = purchases.doc(paymentId);
   await db.runTransaction(async (tx) => {
@@ -141,7 +153,9 @@ export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECR
     if (event.type === "payment.succeeded" && paymentId) {
       const payment = await recordVerifiedPayment(paymentId);
       const owner = payment && (await findOwner(payment));
-      if (payment && owner) await claim(payment.payment_id, owner, normalizeEmail(payment.customer?.email ?? ""));
+      if (payment && owner && (await claim(payment.payment_id, owner, normalizeEmail(payment.customer?.email ?? "")))) {
+        await syncWall(owner);
+      }
     } else if (paymentId) {
       const revoke = revocationFor(event.type);
       if (revoke !== null) await setRevoked(paymentId, revoke);
@@ -173,14 +187,23 @@ export const claimAccess = onCall({ secrets: [DODO_API_KEY] }, async (req) => {
     if (!PAYMENT_ID_RE.test(paymentId)) throw new HttpsError("invalid-argument", "That doesn't look like a payment ID.");
     // Covers the gap between the buyer landing back and the webhook arriving
     if (!(await purchases.doc(paymentId).get()).exists) await recordVerifiedPayment(paymentId);
-    if (await claim(paymentId, uid, email)) return { lifetime: true };
+    if (await claim(paymentId, uid, email)) {
+      await syncWall(uid);
+      return { lifetime: true };
+    }
   }
 
-  if ((await entitlements.doc(uid).get()).exists) return { lifetime: true };
+  if ((await entitlements.doc(uid).get()).exists) {
+    await syncWall(uid);
+    return { lifetime: true };
+  }
 
   const matches = await purchases.where("email", "==", email).where("status", "==", "paid").limit(10).get();
   for (const doc of matches.docs) {
-    if (await claim(doc.id, uid, email)) return { lifetime: true };
+    if (await claim(doc.id, uid, email)) {
+      await syncWall(uid);
+      return { lifetime: true };
+    }
   }
   return { lifetime: false };
 });
@@ -208,25 +231,18 @@ export const getDocLink = onCall(async (req) => {
   return { url };
 });
 
-// Opt-in: a Pro member chooses to show their first name and photo on the public wall
+// Pro members are on the wall by default; this lets them hide or come back
 export const setProWall = onCall(async (req) => {
   const { uid } = requireVerifiedUser(req);
   const show = (req.data as { show?: unknown } | undefined)?.show === true;
 
-  if (!(await entitlements.doc(uid).get()).exists) {
+  const entRef = entitlements.doc(uid);
+  if (!(await entRef.get()).exists) {
     throw new HttpsError("permission-denied", "Lifetime access required.");
   }
 
-  if (!show) {
-    await proWall.doc(uid).delete();
-    return { onWall: false };
-  }
-
-  const token = req.auth!.token;
-  await proWall.doc(uid).set({
-    name: firstName(typeof token.name === "string" ? token.name : ""),
-    photoURL: typeof token.picture === "string" ? token.picture : null,
-    joinedAt: FieldValue.serverTimestamp(),
-  });
-  return { onWall: true };
+  await entRef.update({ hideFromWall: !show });
+  if (show) await syncWall(uid);
+  else await proWall.doc(uid).delete();
+  return { onWall: show };
 });

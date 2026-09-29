@@ -9,7 +9,7 @@ import { checkoutUrl } from "../lib/checkout";
 import { useAccess } from "../lib/useAccess";
 import { AuthChip, UnlockBanner } from "./AccessPanel";
 import DocCard from "./DocCard";
-import ProWall from "./ProWall";
+import { ProRail, ProSummaryBar, RAIL_SIZE, useProWall } from "./ProWall";
 
 const SORTS: { key: SortKey; label: string }[] = [
   { key: "top", label: "Top" },
@@ -48,6 +48,8 @@ export default function DocsLibrary() {
   const access = useAccess();
   // Without Pro, the free docs lead the list
   const shown = access.lifetime ? ranked : freeFirst(ranked);
+  const { summary: pro, reload: reloadPro } = useProWall(access.lifetime);
+  const members = pro?.members ?? [];
   const buy = () => {
     window.location.href = checkoutUrl({
       returnUrl: `${window.location.origin}/docs/`,
@@ -57,6 +59,8 @@ export default function DocsLibrary() {
   };
 
   return (
+    <div className={`docs-shell ${members.length > RAIL_SIZE ? "has-left" : ""} ${members.length > 0 ? "has-right" : ""}`}>
+      <ProRail members={members.slice(RAIL_SIZE, RAIL_SIZE * 2)} offset={RAIL_SIZE} />
     <div className="docs-page">
       <Link href="/" className="docs-back">
         ← Gautam
@@ -71,7 +75,7 @@ export default function DocsLibrary() {
       </header>
 
       <UnlockBanner access={access} onBuy={buy} />
-      <ProWall access={access} />
+      <ProSummaryBar access={access} summary={pro} reload={reloadPro} />
 
       <div className="docs-tabs" role="tablist" aria-label="Sort docs">
         {SORTS.map((s) => (
@@ -101,6 +105,8 @@ export default function DocsLibrary() {
           />
         ))}
       </div>
+    </div>
+      <ProRail members={members.slice(0, RAIL_SIZE)} offset={0} />
     </div>
   );
 }

@@ -19,13 +19,12 @@ export default function PrivacyPage() {
       <ul>
         <li>
           <strong>Google sign-in.</strong> If you sign in, Google shares your name, email address and profile photo with the
-          site. I use your email to match you to your purchase. Your name and photo are only shown back to you on the page,
-          unless you choose to join the Pro wall.
+          site. I use your email to match you to your purchase. Your email is never shown publicly.
         </li>
         <li>
-          <strong>Pro wall (optional).</strong> If you tap &quot;Show my photo and first name on the Pro wall&quot;, your
-          first name and Google profile photo are shown publicly on the docs page. You can remove yourself at any time with
-          one tap, and refunds remove you automatically.
+          <strong>Pro wall.</strong> When you buy lifetime access, your first name and Google profile photo are shown on the
+          public Pro wall on the docs page. This is stated before you buy. You can hide yourself at any time with one tap
+          (&quot;Hide me from the Pro wall&quot;), and refunds remove you automatically.
         </li>
         <li>
           <strong>Purchases.</strong> Payments are handled by Dodo Payments, the merchant of record. I receive your email, the

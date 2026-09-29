@@ -771,3 +771,49 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 }
 
 .pro-count { font-weight: 600; color: var(--text-primary); }
+
+/* ─── Pro Rails (TrustMRR-style side columns) ────────────────────── */
+.unlock-note { margin-top: 4px; font-size: 11px; color: var(--text-tertiary); }
+
+.pro-avatars > span { display: inline-flex; margin-left: -8px; border: 2px solid var(--bg-page); border-radius: 50%; }
+.pro-avatars > span:first-child { margin-left: 0; }
+.pro-avatar { border-radius: 50%; object-fit: cover; }
+
+.pro-rail { display: none; }
+
+.pro-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  text-align: center;
+}
+
+.pro-card strong { font-size: 14px; color: var(--text-primary); }
+.pro-card span.font-mono { font-size: 11px; color: var(--text-secondary); }
+
+/* Right rail once there is room beside the 1100px content */
+@media (min-width: 1380px) {
+  .docs-shell.has-right { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; max-width: 1400px; margin: 0 auto; padding: 0 16px; }
+  .docs-shell.has-right .pro-rail:last-child { display: flex; }
+  .docs-shell.has-right .docs-page { width: 100%; }
+  .docs-shell.has-right .pro-wall .pro-avatars { display: none; }
+}
+
+/* Both rails when the wall outgrows the right column */
+@media (min-width: 1640px) {
+  .docs-shell.has-left.has-right { grid-template-columns: 220px minmax(0, 1fr) 220px; max-width: 1660px; }
+  .docs-shell.has-left .pro-rail:first-child { display: flex; }
+}
+
+.docs-shell .pro-rail {
+  flex-direction: column;
+  gap: 14px;
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  padding-top: 40px;
+}
