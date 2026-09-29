@@ -726,3 +726,19 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 .doc-actions button.doc-btn:disabled { opacity: 0.6; cursor: progress; }
 .doc-card { scroll-margin-top: 24px; }
 .doc-chip-lock { font-size: 11px; }
+
+/* ─── Legal Pages ────────────────────────────────────────────────── */
+.legal-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+}
+
+.legal-updated { font-size: 12px; color: var(--text-tertiary); margin-top: 6px; }
+.legal-body { margin-top: 24px; font-size: 15px; color: var(--text-secondary); }
+.legal-body h2 { font-size: 17px; font-weight: 700; color: var(--text-primary); margin: 28px 0 8px; }
+.legal-body p { margin-bottom: 10px; }
+.legal-body ul { padding-left: 20px; margin-bottom: 10px; }
+.legal-body li { margin-bottom: 6px; }
+.legal-body strong { color: var(--text-primary); }
+.legal-body a { color: var(--accent); text-decoration: underline; }

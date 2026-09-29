@@ -419,7 +419,9 @@ function ExperienceAndFooter() {
       {/* Footer */}
       <div className="divider" />
       <p style={{ fontSize: 11, color: "var(--text-tertiary)" }}>
-        Built with ☕ and Flutter — © 2026 Garoono
+        Built with ☕ and Flutter — © 2026 Garoono ·{" "}
+        <a href="/privacy/" style={{ textDecoration: "underline" }}>Privacy</a> ·{" "}
+        <a href="/terms/" style={{ textDecoration: "underline" }}>Terms</a>
       </p>
     </>
   );
