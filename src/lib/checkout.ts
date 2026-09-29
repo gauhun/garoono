@@ -2,7 +2,7 @@
 export const DODO_MODE: "test" | "live" = "test";
 
 const PRODUCT_IDS = {
-  test: "<test product id from Dodo, pdt_…>",
+  test: "pdt_0NofSlOUqHpX7aEbitwyI",
   live: "",
 };
 
