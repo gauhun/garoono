@@ -21,17 +21,22 @@ export default function DocsMarquee() {
             items.map((d) => (
               <a
                 key={`${copy}-${d.slug}`}
-                href={viewUrl(d)}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={d.free ? viewUrl(d) : `/docs/#${d.slug}`}
+                target={d.free ? "_blank" : undefined}
+                rel={d.free ? "noopener noreferrer" : undefined}
                 className="doc-chip"
                 aria-hidden={copy === 1 || undefined}
                 tabIndex={copy === 1 ? -1 : undefined}
-                onClick={() => recordView(d.slug)}
+                onClick={d.free ? () => recordView(d.slug) : undefined}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={thumbUrl(d, "sm")} alt="" width={20} height={20} className="doc-chip-thumb" loading="lazy" />
                 <span>{d.title}</span>
+                {!d.free && (
+                  <span className="doc-chip-lock" aria-label="Lifetime access">
+                    🔒
+                  </span>
+                )}
                 {now !== null && isNew(d, now) && <span className="doc-chip-new" aria-label="New" />}
               </a>
             )),

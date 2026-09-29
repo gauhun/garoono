@@ -5,6 +5,9 @@ import Link from "next/link";
 import { docs } from "../data/docs";
 import { fetchAllStats } from "../lib/docStats";
 import { EMPTY_STATS, rankDocs, type DocStats, type SortKey } from "../lib/rankDocs";
+import { checkoutUrl } from "../lib/checkout";
+import { useAccess } from "../lib/useAccess";
+import { AuthChip, UnlockBanner } from "./AccessPanel";
 import DocCard from "./DocCard";
 
 const SORTS: { key: SortKey; label: string }[] = [
@@ -41,16 +44,30 @@ export default function DocsLibrary() {
       return { ...prev, [slug]: { ...cur, [counter]: Math.max(0, cur[counter] + by) } };
     });
 
+  const access = useAccess();
+  const buy = () => {
+    window.location.href = checkoutUrl({
+      returnUrl: `${window.location.origin}/docs/`,
+      email: access.user?.email,
+      uid: access.user?.uid,
+    });
+  };
+
   return (
     <div className="docs-page">
       <Link href="/" className="docs-back">
         ← Gautam
       </Link>
 
-      <header>
-        <h1 className="font-serif docs-title">Docs</h1>
-        <p className="docs-subtitle">Playbooks &amp; checklists I share on Instagram</p>
+      <header className="docs-header">
+        <div>
+          <h1 className="font-serif docs-title">Docs</h1>
+          <p className="docs-subtitle">Playbooks &amp; checklists I share on Instagram</p>
+        </div>
+        <AuthChip access={access} />
       </header>
+
+      <UnlockBanner access={access} onBuy={buy} />
 
       <div className="docs-tabs" role="tablist" aria-label="Sort docs">
         {SORTS.map((s) => (
@@ -69,7 +86,15 @@ export default function DocsLibrary() {
 
       <div className="docs-grid">
         {ranked.map((d, i) => (
-          <DocCard key={d.slug} doc={d} index={i} stats={live ? (live[d.slug] ?? EMPTY_STATS) : null} onCount={onCount} />
+          <DocCard
+            key={d.slug}
+            doc={d}
+            index={i}
+            stats={live ? (live[d.slug] ?? EMPTY_STATS) : null}
+            onCount={onCount}
+            locked={!d.free && !access.lifetime}
+            onBuy={buy}
+          />
         ))}
       </div>
     </div>
