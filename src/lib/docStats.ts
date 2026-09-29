@@ -1,5 +1,5 @@
 import type { Firestore } from "firebase/firestore/lite";
-import { firebaseConfig } from "./firebase";
+import { getFirebaseApp } from "./firebase";
 import { EMPTY_STATS, type DocStats } from "./rankDocs";
 
 // The only module that talks to Firestore. The SDK is imported on first use so
@@ -12,13 +12,9 @@ const COLLECTION = "docStats";
 let dbPromise: Promise<Firestore> | null = null;
 
 function getDb() {
-  dbPromise ??= (async () => {
-    const [{ getApps, initializeApp }, { getFirestore }] = await Promise.all([
-      import("firebase/app"),
-      import("firebase/firestore/lite"),
-    ]);
-    return getFirestore(getApps()[0] ?? initializeApp(firebaseConfig));
-  })();
+  dbPromise ??= Promise.all([getFirebaseApp(), import("firebase/firestore/lite")]).then(([app, { getFirestore }]) =>
+    getFirestore(app),
+  );
   return dbPromise;
 }
 
