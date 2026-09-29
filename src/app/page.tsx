@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useId, useRef, useState } from "react";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -203,16 +203,45 @@ function UsersIcon() {
   );
 }
 
-// ─── Decorative Wave SVG (mimicking chart area) ──────────────────────────────
+// ─── Growth Chart ────────────────────────────────────────────────────────────
 
-function WaveSVG({ stat }: { stat: string }) {
-  const numericValue = stat.includes("Viral") ? 50000 : parseInt(stat.replace(/,/g, "").match(/\d+/)?.[0] || "10", 10);
-  const maxVal = 25000;
-  const intensity = Math.min(numericValue / maxVal, 1.0);
-  const amp = 10 + intensity * 35;
+function statValue(stat: string) {
+  return parseInt(stat.replace(/,/g, "").match(/\d+/)?.[0] || "0", 10);
+}
 
-  const yBase = 70;
-  const pathData = `M0,${yBase} C40,${yBase - amp * 0.3} 60,${yBase - amp} 100,${yBase - amp * 0.6} C140,${yBase - amp * 0.2} 160,${yBase - amp} 200,${yBase - amp * 0.7} C240,${yBase - amp * 0.4} 260,${yBase - amp} 300,${yBase - amp * 0.8} C340,${yBase - amp * 0.5} 370,${yBase - amp} 400,${yBase - amp * 0.7}`;
+const maxStat = Math.max(...products.map((p) => statValue(p.stat)));
+
+// Rises from 0 on the left to the app's user count on the right. Height is
+// sqrt-scaled against the biggest app so small apps still show a visible climb.
+function growthPath(value: number, seed: number) {
+  const yBase = 74;
+  const rise = 10 + Math.sqrt(value / maxStat) * 58;
+  const pts = Array.from({ length: 9 }, (_, i) => {
+    const t = i / 8;
+    const wobble = i > 0 && i < 8 ? Math.sin(i * 2.3 + seed) * 0.05 : 0;
+    return [t * 400, yBase - rise * Math.min(1, Math.max(0, Math.pow(t, 1.6) + wobble))];
+  });
+  const pt = (p: number[]) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`;
+  // Catmull-Rom → cubic Bézier for a smooth line through every point
+  let d = `M${pt(pts[0])}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] ?? pts[i];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2] ?? p2;
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${pt(c1)} ${pt(c2)} ${pt(p2)}`;
+  }
+  return d;
+}
+
+function GrowthChart({ value, seed, play, delay }: { value: number; seed: number; play: boolean; delay: number }) {
+  const id = useId().replace(/:/g, "");
+  const reduceMotion = useReducedMotion();
+  const pathData = growthPath(value, seed);
+  const shown = play || !!reduceMotion;
+  const transition = { duration: reduceMotion ? 0 : 1.4, ease: "easeOut", delay: reduceMotion ? 0 : delay };
 
   // Use the amber golden color for all graphs
   const unifiedColor = "#F5A548";
@@ -222,13 +251,17 @@ function WaveSVG({ stat }: { stat: string }) {
       fill="none"
       className="card-wave"
       preserveAspectRatio="none"
-      style={{ width: "100%", height: 32, marginTop: "auto" }}
+      style={{ width: "100%", height: 40, marginTop: "auto" }}
     >
       <defs>
-        <linearGradient id="grad-amber" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={unifiedColor} stopOpacity="0.3" />
           <stop offset="100%" stopColor={unifiedColor} stopOpacity="0.01" />
         </linearGradient>
+        {/* Reveals the area left → right in step with the line */}
+        <clipPath id={`${id}-clip`}>
+          <motion.rect x="0" y="0" height="80" initial={{ width: 0 }} animate={{ width: shown ? 400 : 0 }} transition={transition} />
+        </clipPath>
       </defs>
 
       {/* Subtle dashed grid mimicking chart axes */}
@@ -240,18 +273,34 @@ function WaveSVG({ stat }: { stat: string }) {
         <line x1="350" y1="10" x2="350" y2="80" />
       </g>
 
-      <path
-        d={`${pathData} L400,80 L0,80 Z`}
-        fill="url(#grad-amber)"
-      />
-      <path
+      <path d={`${pathData} L400,80 L0,80 Z`} fill={`url(#${id}-fill)`} clipPath={`url(#${id}-clip)`} />
+      <motion.path
         d={pathData}
         stroke={unifiedColor}
         strokeWidth="2"
+        strokeLinecap="round"
         fill="none"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: shown ? 1 : 0 }}
+        transition={transition}
       />
     </svg>
   );
+}
+
+// Counts the badge up from 0 alongside the chart
+function CountUp({ to, play, delay }: { to: number; play: boolean; delay: number }) {
+  const [n, setN] = useState(0);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (reduceMotion) return setN(to);
+    if (!play) return;
+    const controls = animate(0, to, { duration: 1.4, ease: "easeOut", delay, onUpdate: (v) => setN(Math.round(v)) });
+    return () => controls.stop();
+  }, [play, to, delay, reduceMotion]);
+
+  return <>{n.toLocaleString("en-US")}+</>;
 }
 
 // ─── Framer Motion Variants ──────────────────────────────────────────────────
@@ -268,8 +317,14 @@ const fadeUp = {
 // ─── Product Card ────────────────────────────────────────────────────────────
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const value = statValue(product.stat);
+  const growDelay = 0.2 + index * 0.05; // start once the card has faded in
+
   return (
     <motion.a
+      ref={ref}
       custom={index}
       initial="hidden"
       whileInView="visible"
@@ -314,7 +369,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
               {product.name}
             </span>
             <span className={`stat-badge ${product.stat.includes("Viral") ? "stat-badge-accent" : ""}`}>
-              {product.stat.includes("Viral") ? "🌍" : "👥"} {product.stat.replace(" users", "")}
+              {product.stat.includes("Viral") ? "🌍" : "👥"} <CountUp to={value} play={inView} delay={growDelay} />
             </span>
           </div>
         </div>
@@ -325,8 +380,8 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         {product.description}
       </p>
 
-      {/* Decorative Wave (like Marc Lou's chart) */}
-      <WaveSVG stat={product.stat} />
+      {/* Growth chart: draws from 0 up to the app's user count */}
+      <GrowthChart value={value} seed={product.id} play={inView} delay={growDelay} />
     </motion.a>
   );
 }
