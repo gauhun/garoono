@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// Deployed to baseproject-25dbe, which is shared with other apps.
+// Keep every existing block when editing — `firebase deploy --only firestore:rules`
+// replaces the whole ruleset.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // garoono.in docs counters: { views, downloads, likes }, one document per doc slug.
+    // Public, no login — every write may move exactly one counter by one step.
+    match /docStats/{slug} {
+      function onlyCounters() {
+        return request.resource.data.keys().hasOnly(['views', 'downloads', 'likes']);
+      }
+
+      function stepped(k) {
+        let before = resource == null ? 0 : resource.data.get(k, 0);
+        let after = request.resource.data.get(k, 0);
+        return after is int
+          && (after == before + 1 || (k == 'likes' && after == before - 1 && after >= 0));
+      }
+
+      function changedOnly(k) {
+        return request.resource.data.diff(resource == null ? {} : resource.data)
+          .affectedKeys().hasOnly([k]);
+      }
+
+      function oneStep() {
+        return (changedOnly('views') && stepped('views'))
+          || (changedOnly('downloads') && stepped('downloads'))
+          || (changedOnly('likes') && stepped('likes'));
+      }
+
+      allow read: if true;
+      allow create: if slug.matches('^[a-z0-9-]{3,60}$') && onlyCounters() && oneStep();
+      allow update: if onlyCounters() && oneStep();
+    }
+  }
+}
