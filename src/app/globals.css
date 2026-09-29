@@ -331,3 +331,94 @@ a { color: inherit; text-decoration: none; }
     text-align: left !important;
   }
 }
+
+/* ─── Docs Marquee ───────────────────────────────────────────────── */
+.docs-marquee {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.docs-marquee-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+}
+
+.docs-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: docs-marquee 40s linear infinite;
+}
+
+.docs-marquee-viewport:hover .docs-marquee-track,
+.docs-marquee-viewport:active .docs-marquee-track,
+.docs-marquee-viewport:focus-within .docs-marquee-track {
+  animation-play-state: paused;
+}
+
+/* margin (not gap) keeps both copies the same width, so -50% lands exactly */
+.docs-marquee-track > .doc-chip { margin-right: 8px; }
+
+@keyframes docs-marquee {
+  to { transform: translateX(-50%); }
+}
+
+.doc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 5px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--bg-card);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.doc-chip:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.doc-chip-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--border);
+  background: var(--accent-light);
+}
+
+.doc-chip-new {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.doc-chip-all {
+  flex-shrink: 0;
+  padding: 5px 14px;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.doc-chip-all:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-marquee-track { animation: none; }
+  .docs-marquee-viewport { overflow-x: auto; }
+  .docs-marquee-track > [aria-hidden="true"] { display: none; }
+}

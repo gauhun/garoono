@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import DocsMarquee from "../components/DocsMarquee";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -584,6 +585,7 @@ export default function Home() {
 
       {/* ── Right Content: Product Cards ───────────────────────────────────── */}
       <main className="content">
+        <DocsMarquee />
         <div className="product-grid">
           {products.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
