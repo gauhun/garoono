@@ -13,6 +13,7 @@ interface Product {
   stat: string;
   icon: string;
   link: string;
+  iosLink?: string; // App Store link, used instead of `link` on Apple devices
   color: string; // wave accent color
 }
 
@@ -23,7 +24,7 @@ const products: Product[] = [
     id: 13,
     name: "PushPass",
     description: "App blocker — do pushups to unlock distracting apps.",
-    stat: "500+",
+    stat: "4,000+",
     icon: "/logos/pushpass.png",
     link: "https://pushpass.in",
     color: "#F97316",
@@ -32,7 +33,7 @@ const products: Product[] = [
     id: 2,
     name: "XLSheet AI",
     description: "AI spreadsheet assistant — formulas, SQL, regex & templates",
-    stat: "11,000+ users",
+    stat: "21,000+ users",
     icon: "/logos/app_logo_compressed.png",
     link: "https://xlsheetai.com",
     color: "#FF6B35",
@@ -41,7 +42,7 @@ const products: Product[] = [
     id: 14,
     name: "JapMala",
     description: "Digital 108-bead jaap mala — count mantras & track daily practice.",
-    stat: "50+",
+    stat: "2,000+",
     icon: "/logos/japmala.png",
     link: "https://japmala.pro",
     color: "#14B8A6",
@@ -50,16 +51,25 @@ const products: Product[] = [
     id: 12,
     name: "Dress Mirror",
     description: "Virtual trial room to try outfits instantly.",
-    stat: "500+",
+    stat: "4,000+",
     icon: "/logos/dressmirror.png",
     link: "https://linktr.ee/dressmirror",
     color: "#D946EF",
   },
   {
+    id: 15,
+    name: "SparkMate",
+    description: "AI companion chat — talk, vent & have fun anytime.",
+    stat: "500+",
+    icon: "/logos/sparkmate.png",
+    link: "https://play.google.com/store/apps/details?id=in.garoono.sparkmate",
+    color: "#EC4899",
+  },
+  {
     id: 3,
     name: "Habitide",
     description: "Build habits with friends. Track, prove, grow.",
-    stat: "6,300+ users",
+    stat: "7,000+ users",
     icon: "/logos/habitide_logo.png",
     link: "https://habitide.in",
     color: "#3B82F6",
@@ -68,7 +78,7 @@ const products: Product[] = [
     id: 11,
     name: "SnapPDF Pro",
     description: "SnapPDF is the PDF scanner, editor, and converter.",
-    stat: "10000+",
+    stat: "13,000+",
     icon: "/logos/snappdf_play.png",
     link: "https://linktr.ee/snappdfpro",
     color: "#EAB308",
@@ -77,7 +87,7 @@ const products: Product[] = [
     id: 1,
     name: "Apna RSS",
     description: "Content & organisation app for volunteers",
-    stat: "21,000+ users",
+    stat: "25,000+ users",
     icon: "/logos/rss_transparent.png",
     link: "https://play.google.com/store/apps/details?id=com.garoono.apnarss",
     color: "#F59E0B",
@@ -86,25 +96,16 @@ const products: Product[] = [
     id: 6,
     name: "FocusOn",
     description: "Minimalist flip clock focus timer for deep work",
-    stat: "1,960+ users",
+    stat: "5,000+ users",
     icon: "/logos/focuson_icon.png",
     link: "https://linktr.ee/focusontimer",
     color: "#8B5CF6",
   },
   {
-    id: 5,
-    name: "BhaktiDhun",
-    description: "Devotional music — bhajans, aartis, mantras",
-    stat: "2,800+ users",
-    icon: "/logos/bhakti_dhun_logo.png",
-    link: "https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan",
-    color: "#EF4444",
-  },
-  {
     id: 4,
     name: "Shots",
     description: "Beautiful mockups & screenshot beautifier — turn raw captures into professional visuals.",
-    stat: "700+",
+    stat: "2,000+",
     icon: "/logos/shots.png",
     link: "https://linktr.ee/shots_screenshot_beautifier",
     color: "#6366F1",
@@ -113,7 +114,7 @@ const products: Product[] = [
     id: 8,
     name: "XML Viewer",
     description: "XML editor, tree viewer, and converter",
-    stat: "4000+",
+    stat: "7,000+",
     icon: "/logos/xml_viewer.png",
     link: "https://play.google.com/store/apps/details?id=in.garoono.xmlviewer",
     color: "#06B6D4",
@@ -122,10 +123,29 @@ const products: Product[] = [
     id: 7,
     name: "JSON View : Editor",
     description: "Lightweight, privacy-first offline JSON editor and formatter",
-    stat: "3500+",
+    stat: "5,000+",
     icon: "/logos/json_viewer.png",
     link: "https://play.google.com/store/apps/details?id=in.garoono.jsonviewer",
     color: "#10B981",
+  },
+  {
+    id: 16,
+    name: "NailMirror",
+    description: "AI nail try-on — preview nail art & colors on your own hands.",
+    stat: "4,000+",
+    icon: "/logos/nailmirror.png",
+    link: "https://play.google.com/store/apps/details?id=in.garoono.nailmirror",
+    iosLink: "https://apps.apple.com/in/app/nailmirror-ai-nail-try-on-art/id6788501057",
+    color: "#BE185D",
+  },
+  {
+    id: 5,
+    name: "BhaktiDhun",
+    description: "Devotional music — bhajans, aartis, mantras",
+    stat: "3,500+ users",
+    icon: "/logos/bhakti_dhun_logo.png",
+    link: "https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan",
+    color: "#EF4444",
   },
 ];
 
@@ -256,6 +276,12 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       viewport={{ once: true, amount: 0.15 }}
       variants={fadeUp}
       href={product.link}
+      onClick={(e) => {
+        if (product.iosLink && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)) {
+          e.preventDefault();
+          window.open(product.iosLink, "_blank", "noopener,noreferrer");
+        }
+      }}
       target="_blank"
       rel="noopener noreferrer"
       className="product-card"
@@ -422,7 +448,7 @@ export default function Home() {
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: "var(--text-secondary)" }}>
                 <UsersIcon />
-                <span className="font-mono" style={{ fontWeight: 600 }}>64,000+</span> total users
+                <span className="font-mono" style={{ fontWeight: 600 }}>100,000+</span> total users
               </span>
             </div>
           </div>
@@ -527,7 +553,7 @@ export default function Home() {
         >
           {[
             { value: "14+", label: "Apps Shipped" },
-            { value: "64K+", label: "Total Users" },
+            { value: "100K+", label: "Total Users" },
             { value: "6+", label: "Years Building" },
             { value: "5", label: "Revenue Apps" },
           ].map((stat) => (
