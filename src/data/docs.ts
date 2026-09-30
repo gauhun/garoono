@@ -15,6 +15,14 @@ export type SharedDoc = FreeDoc | PaidDoc;
 
 export const docs: SharedDoc[] = [
   {
+    slug: "vibe-coded-app-cloud-bill-traps",
+    title: "5 Ways Your Vibe-Coded App Can Bankrupt You Tonight",
+    blurb: "Find the cloud billing traps in your app before the invoice finds you.",
+    free: true,
+    driveId: "13inMvIXf65SMUqojxBhSUJ1n1t--GaWA",
+    addedOn: "2026-10-01",
+  },
+  {
     slug: "free-stack-to-launch-an-app",
     title: "The Free Stack to Launch an App",
     blurb: "The tools that cost nothing until you have real users, for a Flutter app and a web app.",
