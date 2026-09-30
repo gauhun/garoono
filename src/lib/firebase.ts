@@ -2,9 +2,11 @@ import type { FirebaseApp } from "firebase/app";
 import type { Firestore } from "firebase/firestore/lite";
 
 // Public web config for the "garoono.in site" app on baseproject-25dbe.
-// Web API keys are not secrets — access is governed by firestore.rules.
+// Web API keys are not secrets — access is governed by firestore.rules. This key is dedicated
+// to garoono.in: it only works from garoono.in, localhost and the Firebase auth handler, and only
+// for Identity Toolkit, Secure Token and Firestore (Google Cloud → Credentials → "garoono.in site (restricted)").
 export const firebaseConfig = {
-  apiKey: "AIzaSyDKwzNIAk2QqbdqDbsshseKbO_smhDjodI",
+  apiKey: "AIzaSyDEE0HydXnkeUAIm2rSZO5edlFr9JcUoVA",
   authDomain: "baseproject-25dbe.firebaseapp.com",
   projectId: "baseproject-25dbe",
   storageBucket: "baseproject-25dbe.firebasestorage.app",
