@@ -87,7 +87,7 @@ export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => v
             ? `Launch price. Goes up to ${offer.regularPrice} on 10 Oct. One payment, every doc I publish, forever.`
             : "One payment. Every doc I publish, forever."}
         </span>
-        <span className="unlock-note">Pro members appear on the Pro wall with their first name and photo. Email garoonotech@gmail.com to be removed.</span>
+        <span className="unlock-note">Pro members appear on the Pro wall with their first name and photo.</span>
       </div>
       <LaunchCountdown />
       <button type="button" className="doc-btn doc-btn-primary" onClick={onBuy}>
