@@ -23,7 +23,6 @@ describe("docs list", () => {
       "failed-payments-win-back",
       "legal-checklist-before-you-submit",
       "steal-competitor-keywords",
-      "vibe-coded-app-cloud-bill-traps",
       "will-your-app-get-rejected-audit",
       "zero-budget-ways-to-get-users",
     ]);
