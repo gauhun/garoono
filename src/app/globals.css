@@ -1074,3 +1074,8 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   .app-rail-track, .app-bar-track { animation: none; }
   .app-bar { overflow-x: auto; }
 }
+
+/* Docs: app chip bars top and bottom at every width, Pro columns stay vertical below the top bar */
+.app-rails.bars-only .app-bar { display: block !important; }
+.docs-shell.with-app-bars { padding-top: 52px; padding-bottom: 60px; }
+.docs-shell.with-app-bars .pro-rail { top: 76px; }

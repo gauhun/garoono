@@ -68,12 +68,13 @@ function Bar({ apps, reverse, position }: { apps: Product[]; reverse?: boolean; 
   );
 }
 
-// `wide` pages (the blog list) need more room before the side columns fit
-export default function AppRails({ wide = false }: { wide?: boolean }) {
+// `wide` pages (the blog list) need more room before the side columns fit.
+// `barsOnly` keeps the top and bottom chip bars at every width, for pages whose sides are taken (docs)
+export default function AppRails({ wide = false, barsOnly = false }: { wide?: boolean; barsOnly?: boolean }) {
   return (
-    <div className={`app-rails ${wide ? "is-wide" : ""}`}>
-      <Column apps={leftApps} side="left" />
-      <Column apps={rightApps} side="right" reverse />
+    <div className={`app-rails ${wide ? "is-wide" : ""} ${barsOnly ? "bars-only" : ""}`}>
+      {!barsOnly && <Column apps={leftApps} side="left" />}
+      {!barsOnly && <Column apps={rightApps} side="right" reverse />}
       <Bar apps={leftApps} position="top" />
       <Bar apps={rightApps} position="bottom" reverse />
     </div>

@@ -8,6 +8,7 @@ import { EMPTY_STATS, freeFirst, rankDocs, searchDocs, type DocStats, type SortK
 import { checkoutUrl } from "../lib/checkout";
 import { useAccess } from "../lib/useAccess";
 import { AuthChip, UnlockBanner } from "./AccessPanel";
+import AppRails from "./AppRails";
 import DocCard from "./DocCard";
 import { ProCountPill, ProRail, RAIL_SIZE, useProWall } from "./ProWall";
 
@@ -60,7 +61,9 @@ export default function DocsLibrary() {
   };
 
   return (
-    <div className={`docs-shell ${members.length > RAIL_SIZE ? "has-left" : ""} ${members.length > 0 ? "has-right" : ""}`}>
+    <>
+      <AppRails barsOnly />
+    <div className={`docs-shell with-app-bars ${members.length > RAIL_SIZE ? "has-left" : ""} ${members.length > 0 ? "has-right" : ""}`}>
       <ProRail members={members.slice(RAIL_SIZE, RAIL_SIZE * 2)} offset={RAIL_SIZE} />
     <div className="docs-page">
       <Link href="/" className="docs-back">
@@ -124,5 +127,6 @@ export default function DocsLibrary() {
     </div>
       <ProRail members={members.slice(0, RAIL_SIZE)} offset={0} />
     </div>
+    </>
   );
 }
