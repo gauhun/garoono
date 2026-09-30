@@ -1399,7 +1399,7 @@ First deploy prompts for the two secrets — Gautam enters them (or pre-sets wit
 - [ ] **Step 5: Security probes** (public key, no auth)
 
 ```bash
-K=AIzaSyDKwzNIAk2QqbdqDbsshseKbO_smhDjodI; B="https://firestore.googleapis.com/v1/projects/baseproject-25dbe/databases/(default)/documents"
+K=<FIREBASE_WEB_API_KEY>; B="https://firestore.googleapis.com/v1/projects/baseproject-25dbe/databases/(default)/documents"
 curl -s -o /dev/null -w "purchases read %{http_code}\n" "${B}/purchases?key=${K}"        # 403
 curl -s -o /dev/null -w "entitlements read %{http_code}\n" "${B}/entitlements?key=${K}"  # 403
 curl -s -o /dev/null -w "webhook unsigned %{http_code}\n" -X POST -H 'content-type: application/json' -d '{"type":"payment.succeeded","data":{"payment_id":"pay_x"}}' https://asia-south1-baseproject-25dbe.cloudfunctions.net/dodoWebhook   # 401

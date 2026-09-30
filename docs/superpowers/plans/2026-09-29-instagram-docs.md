@@ -343,7 +343,7 @@ git commit -m "feat: rank docs by recency and engagement"
 // Public web config for the "garoono.in site" app on baseproject-25dbe.
 // Web API keys are not secrets — access is governed by firestore.rules.
 export const firebaseConfig = {
-  apiKey: "AIzaSyDKwzNIAk2QqbdqDbsshseKbO_smhDjodI",
+  apiKey: "<FIREBASE_WEB_API_KEY>",
   authDomain: "baseproject-25dbe.firebaseapp.com",
   projectId: "baseproject-25dbe",
   storageBucket: "baseproject-25dbe.firebasestorage.app",
