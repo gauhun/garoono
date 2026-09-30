@@ -90,12 +90,14 @@ export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => v
         <span className="unlock-note">Pro members appear on the Pro wall with their first name and photo.</span>
       </div>
       <LaunchCountdown />
-      <button type="button" className="doc-btn doc-btn-primary" onClick={onBuy}>
-        Get lifetime access
-      </button>
-      <button type="button" className="unlock-link" onClick={() => setShowRecover((v) => !v)}>
-        Already bought?
-      </button>
+      <div className="unlock-actions">
+        <button type="button" className="doc-btn doc-btn-primary" onClick={onBuy}>
+          Get lifetime access
+        </button>
+        <button type="button" className="unlock-link" onClick={() => setShowRecover((v) => !v)}>
+          Already bought?
+        </button>
+      </div>
 
       {showRecover && (
         <div className="recover-box">
