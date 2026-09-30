@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AppRails from "../../../components/AppRails";
 import BlogCover from "../../../components/BlogCover";
 import { docs } from "../../../data/docs";
 import { getAllPosts, getPost } from "../../../lib/blog";
@@ -56,6 +57,8 @@ export default async function BlogPost({ params }: Params) {
   };
 
   return (
+    <div className="blog-with-rails">
+      <AppRails />
     <main className="blog-page blog-post">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Link href="/blog/" className="docs-back">
@@ -100,5 +103,6 @@ export default async function BlogPost({ params }: Params) {
         </p>
       </footer>
     </main>
+    </div>
   );
 }
