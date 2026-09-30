@@ -25,6 +25,7 @@ describe("lintPost", () => {
   it("flags sentences that end with a period", () => {
     expect(rules(lintPost(meta, body("This line ends with a period.")))).toContain("no-period");
     expect(rules(lintPost(meta, body("Two sentences. On one line")))).toContain("no-period");
+    expect(rules(lintPost({ ...meta, description: `${meta.description}. And more words here` }, body("ok")))).toContain("no-period");
   });
 
   it("allows periods inside decimals, domains and links", () => {

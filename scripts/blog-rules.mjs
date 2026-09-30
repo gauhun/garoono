@@ -89,6 +89,7 @@ export function lintPost(meta, markdown) {
 
   for (const [field, value] of [["title", title], ["description", description]]) {
     if (DASH.test(value)) add("no-dash", `No em or en dashes in the ${field}`);
+    if (/\.\s*$/.test(value) || /\.\s+\S/.test(value)) add("no-period", `No full stops in the ${field}`);
     for (const phrase of bannedIn(value)) add("banned-phrase", `"${phrase}" in the ${field}`);
   }
 

@@ -13,7 +13,15 @@ const files = process.argv.slice(2).length
 
 let failed = 0;
 for (const file of files) {
-  const { data, content } = matter(readFileSync(file, "utf8"));
+  let parsed;
+  try {
+    parsed = matter(readFileSync(file, "utf8"));
+  } catch (e) {
+    failed++;
+    console.error(`\n✗ ${file}\n  [frontmatter] ${e.reason ?? e.message}. Quote values that contain a colon`);
+    continue;
+  }
+  const { data, content } = parsed;
   const issues = lintPost(data, content);
   if (issues.length === 0) continue;
   failed++;

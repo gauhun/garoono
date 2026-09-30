@@ -6,10 +6,14 @@ Keywords are long tail, high intent searches from indie developers. Add new rows
 | Status | Keyword | Angle | Related doc |
 |---|---|---|---|
 | done: how-to-get-your-first-100-app-users | first 100 app users | zero budget channels ranked | zero-budget-ways-to-get-users |
+| done: supabase-rls-checklist-for-vibe-coded-apps | supabase rls checklist for vibe coded apps | UpGuard 16,326 leaks study and the Oct 30, 2026 grants change | 20-security-checks-before-launch |
+| done: android-developer-verification-for-indie-developers | android developer verification for indie developers | Sept 30, 2026 start, 2027 global rollout, India documents | app-store-launch-guide |
+| todo | google play billdesk kyc verification | RBI rule, 15 March 2027 deadline for existing merchants, international sales pause | legal-checklist-before-you-submit |
+| todo | app store third party ai consent screen | guideline 5.1.2(i) change of Nov 2025 and a consent screen that passes review | legal-checklist-before-you-submit |
+| todo | google play 12 testers 14 days requirement | how solo devs pass closed testing | app-store-launch-guide |
 | todo | app store keyword research for indie developers | free method from 1 and 2 star reviews | app-seo-playbook |
 | todo | app rejected guideline 4.2 minimum functionality | what triggers it and how to fix before submitting | app-store-launch-guide |
 | todo | privacy policy for app store submission | what Apple and Google actually check | legal-checklist-before-you-submit |
-| todo | google play 12 testers 14 days requirement | how solo devs pass closed testing | app-store-launch-guide |
 | todo | firebase security rules checklist before launch | the rules that leak data most often | 20-security-checks-before-launch |
 | todo | how to build an app with ai without coding | the six documents to write first | six-documents-before-you-prompt |
 | todo | build a paid app on free ai models | wrap an open model in a simple paid app | build-paid-apps-on-free-ai-models |
@@ -33,5 +37,4 @@ Keywords are long tail, high intent searches from indie developers. Add new rows
 | todo | in app purchase vs subscription for indie apps | pricing models that fit small apps | build-paid-apps-on-free-ai-models |
 | todo | how to price an app in india | rupee pricing, UPI and purchasing power | build-paid-apps-on-free-ai-models |
 | todo | api key security for mobile apps | keeping keys out of your app bundle | 20-security-checks-before-launch |
-| todo | ai disclosure requirement app store | consent before sending data to an AI provider | legal-checklist-before-you-submit |
 | todo | how to launch an app on product hunt solo | a realistic plan without an audience | zero-budget-ways-to-get-users |
