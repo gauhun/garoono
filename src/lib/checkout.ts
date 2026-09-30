@@ -1,9 +1,9 @@
-// Flip DODO_MODE to "live" and fill PRODUCT_IDS.live at go-live.
-export const DODO_MODE: "test" | "live" = "test";
+// Set DODO_MODE to "test" (and functions/.env + secrets to the test pair) to test end to end.
+export const DODO_MODE: "test" | "live" = "live";
 
 const PRODUCT_IDS = {
   test: "pdt_0NofSlOUqHpX7aEbitwyI",
-  live: "",
+  live: "pdt_0NohRpLiJr5vBcyeC78UG",
 };
 
 export const LIFETIME_PRICE_LABEL = "₹99";

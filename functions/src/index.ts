@@ -17,8 +17,9 @@ setGlobalOptions({
   serviceAccount: "garoono-functions@baseproject-25dbe.iam.gserviceaccount.com",
 });
 
-const DODO_API_KEY = defineSecret("DODO_API_KEY");
-const DODO_WEBHOOK_SECRET = defineSecret("DODO_WEBHOOK_SECRET");
+// Live keys. The test-mode pair (DODO_API_KEY / DODO_WEBHOOK_SECRET) stays in Secret Manager for testing
+const DODO_API_KEY = defineSecret("DODO_API_KEY_LIVE");
+const DODO_WEBHOOK_SECRET = defineSecret("DODO_WEBHOOK_SECRET_LIVE");
 const DODO_API_BASE = defineString("DODO_API_BASE");
 const DODO_PRODUCT_ID = defineString("DODO_PRODUCT_ID");
 const PAID_DOCS_BUCKET = defineString("PAID_DOCS_BUCKET");
