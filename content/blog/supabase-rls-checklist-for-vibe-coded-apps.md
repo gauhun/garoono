@@ -4,7 +4,7 @@ description: Researchers found 16,326 Supabase databases with readable tables, h
 date: 2026-09-30
 keyword: supabase rls checklist for vibe coded apps
 tags: [supabase, app security, vibe coding]
-relatedDoc: 20-security-checks-before-launch
+relatedDoc: secure-your-vibe-coded-app
 ---
 
 Your AI agent built the app in a weekend
@@ -160,4 +160,4 @@ So the Firebase version of this checklist is: no test mode rules in production, 
 Run steps 1 and 6 tonight, they take ten minutes and catch most leaks
 Then work through the rest before your next release
 
-I keep a longer launch checklist with 20 security checks, including the Firebase side, in the docs
+I put the 8 holes AI most often leaves in Flutter and Firebase apps into one doc, with the fix for each

@@ -10,7 +10,7 @@ Keywords are long tail, high intent searches from indie developers. Add new rows
 | done: android-developer-verification-for-indie-developers | android developer verification for indie developers | Sept 30, 2026 start, 2027 global rollout, India documents | app-store-launch-guide |
 | todo | google play billdesk kyc verification | RBI rule, 15 March 2027 deadline for existing merchants, international sales pause | legal-checklist-before-you-submit |
 | todo | app store third party ai consent screen | guideline 5.1.2(i) change of Nov 2025 and a consent screen that passes review | legal-checklist-before-you-submit |
-| todo | google play 12 testers 14 days requirement | how solo devs pass closed testing | app-store-launch-guide |
+| todo | google play 12 testers 14 days requirement | how solo devs pass closed testing | stuck-at-12-testers |
 | todo | app store keyword research for indie developers | free method from 1 and 2 star reviews | app-seo-playbook |
 | todo | app rejected guideline 4.2 minimum functionality | what triggers it and how to fix before submitting | app-store-launch-guide |
 | todo | privacy policy for app store submission | what Apple and Google actually check | legal-checklist-before-you-submit |
