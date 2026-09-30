@@ -17,10 +17,13 @@ describe("docs list", () => {
     for (const slug of slugs) expect(slug).toMatch(/^[a-z0-9-]{3,60}$/);
   });
 
-  it("keeps exactly the three chosen docs free", () => {
+  it("keeps exactly the chosen docs free", () => {
     expect(docs.filter((d) => d.free).map((d) => d.slug).sort()).toEqual([
       "app-store-launch-guide",
+      "failed-payments-win-back",
       "legal-checklist-before-you-submit",
+      "steal-competitor-keywords",
+      "will-your-app-get-rejected-audit",
       "zero-budget-ways-to-get-users",
     ]);
   });
