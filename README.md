@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## How to upload new document 
+Where docs live, if you want to add one yourself (all in the repo):
+
+The list: src/data/docs.ts. Add an entry at the top with slug, title, blurb and addedOn, plus:
+Free doc: free: true and driveId (the ID from the Drive link). The cover is fetched automatically when the site builds.
+Pro doc: free: false and no Drive ID.
+For a Pro doc, also upload the PDF: npm run add-doc -- path/to/file.pdf the-slug. That makes the covers and puts the PDF in the private bucket.
+Push to main, and it's live in about a minute.
+
+
 ## Getting Started
 
 First, run the development server:
