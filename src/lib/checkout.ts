@@ -6,7 +6,25 @@ const PRODUCT_IDS = {
   live: "pdt_0NohRpLiJr5vBcyeC78UG",
 };
 
-export const LIFETIME_PRICE_LABEL = "₹99";
+// Launch pricing is a real deadline, the same for every visitor (no resetting timers).
+// When it passes, raise the Dodo product price to match REGULAR_PRICE_LABEL.
+export const LAUNCH_PRICE_LABEL = "₹99";
+export const REGULAR_PRICE_LABEL = "₹199";
+export const LAUNCH_ENDS_AT = Date.parse("2026-10-10T23:59:59+05:30");
+
+export function launchOffer(now: number, endsAt = LAUNCH_ENDS_AT) {
+  const left = Math.max(0, Math.floor((endsAt - now) / 1000));
+  const active = left > 0;
+  return {
+    active,
+    price: active ? LAUNCH_PRICE_LABEL : REGULAR_PRICE_LABEL,
+    regularPrice: REGULAR_PRICE_LABEL,
+    days: Math.floor(left / 86400),
+    hours: Math.floor((left % 86400) / 3600),
+    minutes: Math.floor((left % 3600) / 60),
+    seconds: left % 60,
+  };
+}
 
 export function checkoutUrl(
   opts: { returnUrl: string; email?: string | null; uid?: string | null },

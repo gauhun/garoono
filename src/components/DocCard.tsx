@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { downloadUrl, thumbUrl, viewUrl, type SharedDoc } from "../data/docs";
 import { openPaidDoc } from "../lib/access";
-import { LIFETIME_PRICE_LABEL } from "../lib/checkout";
+import { LaunchPrice } from "./LaunchOffer";
 import { isLiked, recordDownload, recordView, toggleLike } from "../lib/docStats";
 import type { DocStats } from "../lib/rankDocs";
 
@@ -186,7 +186,7 @@ export default function DocCard({ doc, index, stats, onCount, locked, onBuy }: P
 
         {locked ? (
           <button type="button" className="doc-btn doc-btn-primary doc-unlock" onClick={onBuy}>
-            <LockIcon /> Unlock with lifetime · {LIFETIME_PRICE_LABEL}
+            <LockIcon /> Unlock with lifetime · <LaunchPrice />
           </button>
         ) : doc.free ? (
           <div className="doc-actions">

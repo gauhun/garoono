@@ -5,7 +5,7 @@ import AppRails from "../../../components/AppRails";
 import BlogCover from "../../../components/BlogCover";
 import { docs } from "../../../data/docs";
 import { getAllPosts, getPost } from "../../../lib/blog";
-import { LIFETIME_PRICE_LABEL } from "../../../lib/checkout";
+import { LaunchPrice } from "../../../components/LaunchOffer";
 
 export const dynamicParams = false;
 
@@ -89,7 +89,9 @@ export default async function BlogPost({ params }: Params) {
 
       <aside className="post-cta">
         <div>
-          <strong>Get every playbook · {LIFETIME_PRICE_LABEL} lifetime</strong>
+          <strong>
+            Get every playbook · <LaunchPrice /> lifetime
+          </strong>
           <span>Launch guides, app store SEO, security and legal checklists. Every future doc included</span>
         </div>
         <Link href="/docs/" className="doc-btn doc-btn-primary">

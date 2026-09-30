@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { isInAppBrowser } from "../lib/auth";
-import { LIFETIME_PRICE_LABEL } from "../lib/checkout";
+import { LaunchCountdown, LaunchPrice, useLaunchOffer } from "./LaunchOffer";
 import type { Access } from "../lib/useAccess";
 
 function useInAppBrowser() {
@@ -40,6 +40,7 @@ export function AuthChip({ access }: { access: Access }) {
 
 export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => void }) {
   const inApp = useInAppBrowser();
+  const offer = useLaunchOffer();
   const [showRecover, setShowRecover] = useState(false);
   const [paymentId, setPaymentId] = useState("");
   const [recoverFailed, setRecoverFailed] = useState(false);
@@ -78,10 +79,17 @@ export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => v
   return (
     <div className="unlock-banner">
       <div className="unlock-copy">
-        <strong>Unlock all docs · {LIFETIME_PRICE_LABEL} lifetime</strong>
-        <span>One payment. Every doc I publish, forever.</span>
+        <strong>
+          Unlock all docs · <LaunchPrice /> lifetime
+        </strong>
+        <span>
+          {offer.active
+            ? `Launch price. Goes up to ${offer.regularPrice} on 10 Oct. One payment, every doc I publish, forever.`
+            : "One payment. Every doc I publish, forever."}
+        </span>
         <span className="unlock-note">Pro members appear on the Pro wall with their first name and photo. Email garoonotech@gmail.com to be removed.</span>
       </div>
+      <LaunchCountdown />
       <button type="button" className="doc-btn doc-btn-primary" onClick={onBuy}>
         Get lifetime access
       </button>
