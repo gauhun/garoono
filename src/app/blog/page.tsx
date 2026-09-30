@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AppRails from "../../components/AppRails";
 import BlogCover from "../../components/BlogCover";
 import { getAllPosts } from "../../lib/blog";
 
@@ -17,6 +18,8 @@ export default function BlogIndex() {
   const posts = getAllPosts();
 
   return (
+    <div className="blog-with-rails is-wide">
+      <AppRails wide />
     <main className="blog-page">
       <Link href="/" className="docs-back">
         ← Gautam
@@ -45,5 +48,6 @@ export default function BlogIndex() {
         </div>
       )}
     </main>
+    </div>
   );
 }

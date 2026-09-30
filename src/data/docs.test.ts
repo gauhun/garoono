@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { docs, downloadUrl, isNew, latestDocs, thumbUrl, viewUrl, type SharedDoc } from "./docs";
+import { docs, downloadUrl, isNew, latestDocs, thumbUrl, viewUrl, type FreeDoc } from "./docs";
 
-const make = (slug: string, addedOn: string): SharedDoc => ({
+const make = (slug: string, addedOn: string): FreeDoc => ({
   slug,
   title: slug,
   blurb: "",
+  free: true,
   driveId: `id-${slug}`,
   addedOn,
 });
@@ -14,6 +15,14 @@ describe("docs list", () => {
     const slugs = docs.map((d) => d.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
     for (const slug of slugs) expect(slug).toMatch(/^[a-z0-9-]{3,60}$/);
+  });
+
+  it("keeps exactly the three chosen docs free", () => {
+    expect(docs.filter((d) => d.free).map((d) => d.slug).sort()).toEqual([
+      "app-store-launch-guide",
+      "legal-checklist-before-you-submit",
+      "zero-budget-ways-to-get-users",
+    ]);
   });
 
   it("has parseable dates", () => {

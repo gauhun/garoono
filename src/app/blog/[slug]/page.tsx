@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AppRails from "../../../components/AppRails";
 import BlogCover from "../../../components/BlogCover";
 import { docs } from "../../../data/docs";
 import { getAllPosts, getPost } from "../../../lib/blog";
+import { LIFETIME_PRICE_LABEL } from "../../../lib/checkout";
 
 export const dynamicParams = false;
 
@@ -55,6 +57,8 @@ export default async function BlogPost({ params }: Params) {
   };
 
   return (
+    <div className="blog-with-rails">
+      <AppRails />
     <main className="blog-page blog-post">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Link href="/blog/" className="docs-back">
@@ -77,7 +81,7 @@ export default async function BlogPost({ params }: Params) {
 
       {related && (
         <Link href={`/docs/#${related.slug}`} className="post-related">
-          <span className="post-related-label">Related doc</span>
+          <span className="post-related-label">Related doc {related.free ? "· free" : "· 🔒 Pro"}</span>
           <strong>{related.title}</strong>
           <span>{related.blurb}</span>
         </Link>
@@ -85,8 +89,8 @@ export default async function BlogPost({ params }: Params) {
 
       <aside className="post-cta">
         <div>
-          <strong>Grab the playbooks I share on Instagram</strong>
-          <span>Launch guides, app store SEO, security and legal checklists for solo builders</span>
+          <strong>Get every playbook · {LIFETIME_PRICE_LABEL} lifetime</strong>
+          <span>Launch guides, app store SEO, security and legal checklists. Every future doc included</span>
         </div>
         <Link href="/docs/" className="doc-btn doc-btn-primary">
           See the docs
@@ -99,5 +103,6 @@ export default async function BlogPost({ params }: Params) {
         </p>
       </footer>
     </main>
+    </div>
   );
 }

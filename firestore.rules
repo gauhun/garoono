@@ -38,5 +38,30 @@ service cloud.firestore {
       allow create: if slug.matches('^[a-z0-9-]{3,60}$') && onlyCounters() && oneStep();
       allow update: if onlyCounters() && oneStep();
     }
+
+    // Paywall records: written only by Cloud Functions (Admin SDK); no client access
+    match /purchases/{paymentId} {
+      allow read, write: if false;
+    }
+    match /entitlements/{uid} {
+      allow read, write: if false;
+    }
+
+    // Opt-in Pro wall (first name + photo); written only by the setProWall function
+    match /proWall/{uid} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Public counters. "pro" is written only by functions; "visitors" may only go up by one
+    match /publicStats/{id} {
+      allow read: if true;
+      allow create: if id == 'visitors'
+        && request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count == 1;
+      allow update: if id == 'visitors'
+        && request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count == resource.data.count + 1;
+    }
   }
 }

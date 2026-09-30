@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { downloadUrl, thumbUrl, viewUrl, type SharedDoc } from "../data/docs";
+import { openPaidDoc } from "../lib/access";
+import { LIFETIME_PRICE_LABEL } from "../lib/checkout";
 import { isLiked, recordDownload, recordView, toggleLike } from "../lib/docStats";
 import type { DocStats } from "../lib/rankDocs";
 
@@ -11,7 +13,18 @@ type Props = {
   index: number;
   stats: DocStats | null; // null while loading or if Firestore is unreachable
   onCount: (slug: string, counter: keyof DocStats, by: number) => void;
+  locked: boolean; // paid doc and the visitor has no lifetime access
+  onBuy: () => void;
 };
+
+function LockIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+}
 
 function EyeIcon() {
   return (
@@ -54,10 +67,11 @@ function DocIcon() {
 const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00`).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 
-export default function DocCard({ doc, index, stats, onCount }: Props) {
+export default function DocCard({ doc, index, stats, onCount, locked, onBuy }: Props) {
   const [liked, setLiked] = useState(false);
   const [pending, setPending] = useState(false);
   const [thumbFailed, setThumbFailed] = useState(false);
+  const [opening, setOpening] = useState(false);
   const thumbRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => setLiked(isLiked(doc.slug)), [doc.slug]);
@@ -72,6 +86,20 @@ export default function DocCard({ doc, index, stats, onCount }: Props) {
 
   const onView = () => {
     if (recordView(doc.slug)) onCount(doc.slug, "views", 1);
+  };
+
+  // Paid docs fetch a 10-minute signed link; free docs open Drive directly
+  const openPaid = async (download: boolean) => {
+    if (opening) return;
+    setOpening(true);
+    try {
+      await openPaidDoc(doc.slug, download);
+      if (download ? recordDownload(doc.slug) : recordView(doc.slug)) onCount(doc.slug, download ? "downloads" : "views", 1);
+    } catch {
+      alert("Couldn't open this doc. Please try again.");
+    } finally {
+      setOpening(false);
+    }
   };
 
   const onDownload = () => {
@@ -94,24 +122,43 @@ export default function DocCard({ doc, index, stats, onCount }: Props) {
     }
   };
 
+  const cover = thumbFailed ? (
+    <div className="doc-cover-fallback">
+      <DocIcon />
+    </div>
+  ) : (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img ref={thumbRef} src={thumbUrl(doc)} alt="" loading="lazy" onError={() => setThumbFailed(true)} />
+  );
+
   return (
     <motion.article
+      id={doc.slug}
       layout
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.05, layout: { duration: 0.35, ease: "easeOut" } }}
       className="doc-card"
     >
-      <a href={viewUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onView} className="doc-cover" aria-label={`Open ${doc.title}`}>
-        {thumbFailed ? (
-          <div className="doc-cover-fallback">
-            <DocIcon />
-          </div>
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img ref={thumbRef} src={thumbUrl(doc)} alt="" loading="lazy" onError={() => setThumbFailed(true)} />
-        )}
-      </a>
+      {doc.free ? (
+        <a href={viewUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onView} className="doc-cover" aria-label={`Open ${doc.title}`}>
+          {cover}
+        </a>
+      ) : (
+        <button
+          type="button"
+          className="doc-cover"
+          onClick={() => (locked ? onBuy() : openPaid(false))}
+          aria-label={locked ? `Unlock ${doc.title}` : `Open ${doc.title}`}
+        >
+          {cover}
+          {locked && (
+            <span className="doc-lock">
+              <LockIcon /> Lifetime
+            </span>
+          )}
+        </button>
+      )}
 
       <div className="doc-body">
         <h2 className="doc-title">{doc.title}</h2>
@@ -137,14 +184,29 @@ export default function DocCard({ doc, index, stats, onCount }: Props) {
           </button>
         </div>
 
-        <div className="doc-actions">
-          <a href={viewUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onView} className="doc-btn">
-            View
-          </a>
-          <a href={downloadUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onDownload} className="doc-btn doc-btn-primary">
-            Download
-          </a>
-        </div>
+        {locked ? (
+          <button type="button" className="doc-btn doc-btn-primary doc-unlock" onClick={onBuy}>
+            <LockIcon /> Unlock with lifetime · {LIFETIME_PRICE_LABEL}
+          </button>
+        ) : doc.free ? (
+          <div className="doc-actions">
+            <a href={viewUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onView} className="doc-btn">
+              View
+            </a>
+            <a href={downloadUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onDownload} className="doc-btn doc-btn-primary">
+              Download
+            </a>
+          </div>
+        ) : (
+          <div className="doc-actions">
+            <button type="button" className="doc-btn" onClick={() => openPaid(false)} disabled={opening}>
+              View
+            </button>
+            <button type="button" className="doc-btn doc-btn-primary" onClick={() => openPaid(true)} disabled={opening}>
+              Download
+            </button>
+          </div>
+        )}
       </div>
     </motion.article>
   );
