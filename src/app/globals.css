@@ -1110,7 +1110,7 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 }
 
 /* ─── App landing pages ──────────────────────────────────────────── */
-.app-page { --app-accent: #FF6B35; max-width: 1100px; margin: 0 auto; padding: 40px 24px 72px; overflow-x: clip; }
+.app-page { --app-accent: #FF6B35; --app-ink: #C2410C; max-width: 1100px; margin: 0 auto; padding: 40px 24px 72px; overflow-x: clip; }
 
 .app-hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center; margin-top: 24px; }
 .app-hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
@@ -1158,12 +1158,12 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 .app-ba-card.is-after { border-color: var(--app-accent); background: color-mix(in srgb, var(--app-accent) 8%, white); }
 .app-ba-card.is-after li::before { content: "✓"; position: absolute; left: 0; color: #15803D; font-weight: 700; }
 .app-ba-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); }
-.app-ba-card.is-after .app-ba-label { color: var(--app-accent); }
-.app-ba-arrow { font-size: 28px; color: var(--app-accent); font-weight: 700; }
+.app-ba-card.is-after .app-ba-label { color: var(--app-ink); }
+.app-ba-arrow { font-size: 28px; color: var(--app-ink); font-weight: 700; }
 
 .app-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .app-step { display: flex; flex-direction: column; gap: 6px; padding: 22px; border-radius: var(--radius-card); background: var(--bg-card); border: 1px solid var(--border); }
-.app-step-num { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--app-accent); color: #fff; font-weight: 700; margin-bottom: 6px; }
+.app-step-num { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--app-ink); color: #fff; font-weight: 700; margin-bottom: 6px; }
 .app-step strong { font-size: 17px; }
 .app-step span:last-child { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
 
@@ -1203,7 +1203,8 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   .app-hero { grid-template-columns: 1fr; gap: 24px; }
   .app-name { font-size: 44px; }
   .app-ba { grid-template-columns: 1fr; }
-  .app-ba-arrow { justify-self: center; transform: rotate(90deg); }
+  .app-ba-arrow { justify-self: center; }
+  .app-ba-arrow span { display: inline-block; transform: rotate(90deg); }
   .app-steps, .app-benefits { grid-template-columns: 1fr; }
   .app-cta { flex-direction: column; align-items: flex-start; }
   .app-qr { display: none; }
@@ -1213,4 +1214,25 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   .app-strip-track { animation: none; }
   .app-strip { overflow-x: auto; }
 }
-.app-site-link { font-size: 14px; font-weight: 600; color: var(--app-accent); text-decoration: underline; text-underline-offset: 3px; }
+.app-site-link { font-size: 14px; font-weight: 600; color: var(--app-ink); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Compact hero so "The problem it solves" shows at least halfway in the first screen */
+.app-page { padding-top: 28px; }
+.app-hero { margin-top: 0; gap: 28px; }
+.app-hero-copy { gap: 10px; }
+.app-icon img { width: 72px; height: 72px; border-radius: 18px; }
+.app-name { font-size: 48px; }
+.app-tagline { font-size: 20px; }
+.app-hero-visual { padding: 8px 0; }
+.phone { width: 200px; padding: 8px; border-radius: 32px; }
+.phone-screen { border-radius: 25px; }
+.app-blob-1 { width: 270px; height: 270px; }
+.app-blob-2 { width: 160px; height: 160px; }
+.app-hero + .app-section { margin-top: 28px; }
+
+/* Phones: skip the hero phone so the problem section follows the store buttons; the strip still shows every screen */
+@media (max-width: 860px) {
+  .app-hero-visual { display: none; }
+  .app-name { font-size: 40px; }
+  .app-hero + .app-section { margin-top: 36px; }
+}

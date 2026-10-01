@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import type { AppPage } from "../../data/appPages";
+import appColors from "../../data/appColors.json";
 import type { Product } from "../../data/products";
 import StoreButtons from "./StoreButtons";
 
@@ -56,12 +57,15 @@ export default function AppLanding({
   others: Product[];
   qrSvg: string;
 }) {
-  const accent = product.color;
+  // Logo colour for shapes and tints, plus a darker shade that stays readable as text
+  const logo = (appColors as Record<string, { accent: string; ink: string }>)[product.id];
+  const accent = logo?.accent ?? product.color;
+  const ink = logo?.ink ?? product.color;
   const users = product.stat.replace(/\s*users/i, "");
 
   return (
     <MotionConfig reducedMotion="user">
-      <main className="app-page" style={{ "--app-accent": accent } as React.CSSProperties}>
+      <main className="app-page" style={{ "--app-accent": accent, "--app-ink": ink } as React.CSSProperties}>
         <Link href="/" className="docs-back">
           ← Gautam
         </Link>
@@ -128,7 +132,7 @@ export default function AppLanding({
               </ul>
             </motion.div>
             <motion.div className="app-ba-arrow" initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
-              →
+              <span>→</span>
             </motion.div>
             <motion.div className="app-ba-card is-after" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5, delay: 0.15 }}>
               <span className="app-ba-label">With {product.name}</span>
@@ -192,6 +196,11 @@ export default function AppLanding({
             <h2 className="font-serif">Get {product.name}</h2>
             <p>{page.tagline}</p>
             <StoreButtons playUrl={page.playUrl} appStoreUrl={page.appStoreUrl} />
+            {page.websiteUrl && (
+              <a href={page.websiteUrl} target="_blank" rel="noopener noreferrer" className="app-site-link">
+                Visit {page.websiteUrl.replace(/^https?:\/\//, "")} →
+              </a>
+            )}
           </div>
           <div className="app-qr">
             <div className="app-qr-code" dangerouslySetInnerHTML={{ __html: qrSvg }} />
