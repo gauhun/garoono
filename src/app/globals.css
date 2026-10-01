@@ -1213,3 +1213,4 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   .app-strip-track { animation: none; }
   .app-strip { overflow-x: auto; }
 }
+.app-site-link { font-size: 14px; font-weight: 600; color: var(--app-accent); text-decoration: underline; text-underline-offset: 3px; }

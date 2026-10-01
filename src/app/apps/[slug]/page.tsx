@@ -46,13 +46,13 @@ export default async function AppPageRoute({ params }: Params) {
     "@type": "SoftwareApplication",
     name: product.name,
     description: page.seoDescription,
-    operatingSystem: "Android, iOS",
+    operatingSystem: page.appStoreUrl ? "Android, iOS" : "Android",
     applicationCategory: page.category,
     url: `https://garoono.in/apps/${page.slug}/`,
     image: `https://garoono.in${product.icon}`,
     screenshot: page.screenshots.map((s) => `https://garoono.in${s}`),
     author: { "@type": "Person", name: "Gautam Singh Rathor", url: "https://garoono.in" },
-    sameAs: [page.playUrl, page.appStoreUrl],
+    sameAs: [page.playUrl, page.appStoreUrl, page.websiteUrl].filter(Boolean),
   };
 
   return (

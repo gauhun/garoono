@@ -24,12 +24,12 @@ function PlayLogo() {
 type Store = "play" | "apple";
 
 // Puts the visitor's own store first: iPhone and iPad see the App Store button first
-export default function StoreButtons({ playUrl, appStoreUrl }: { playUrl: string; appStoreUrl: string }) {
+export default function StoreButtons({ playUrl, appStoreUrl }: { playUrl: string; appStoreUrl?: string }) {
   const [first, setFirst] = useState<Store>("play");
 
   useEffect(() => {
-    if (/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)) setFirst("apple");
-  }, []);
+    if (appStoreUrl && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)) setFirst("apple");
+  }, [appStoreUrl]);
 
   const buttons: Record<Store, React.ReactNode> = {
     play: (
@@ -41,7 +41,7 @@ export default function StoreButtons({ playUrl, appStoreUrl }: { playUrl: string
         </span>
       </a>
     ),
-    apple: (
+    apple: appStoreUrl && (
       <a key="apple" href={appStoreUrl} target="_blank" rel="noopener noreferrer" className="store-btn">
         <AppleLogo />
         <span>

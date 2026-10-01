@@ -91,6 +91,11 @@ export default function AppLanding({
             <motion.div variants={rise} custom={4}>
               <StoreButtons playUrl={page.playUrl} appStoreUrl={page.appStoreUrl} />
             </motion.div>
+            {page.websiteUrl && (
+              <motion.a variants={rise} custom={5} href={page.websiteUrl} target="_blank" rel="noopener noreferrer" className="app-site-link">
+                Visit {page.websiteUrl.replace(/^https?:\/\//, "")} →
+              </motion.a>
+            )}
           </motion.div>
 
           <div className="app-hero-visual">

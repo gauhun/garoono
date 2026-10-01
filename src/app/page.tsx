@@ -199,12 +199,6 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       viewport={{ once: true, amount: 0.15 }}
       variants={fadeUp}
       href={product.link}
-      onClick={(e) => {
-        if (product.iosLink && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)) {
-          e.preventDefault();
-          window.open(product.iosLink, "_blank", "noopener,noreferrer");
-        }
-      }}
       target={product.link.startsWith("/") ? undefined : "_blank"}
       rel={product.link.startsWith("/") ? undefined : "noopener noreferrer"}
       className="product-card"

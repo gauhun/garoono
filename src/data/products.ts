@@ -7,7 +7,6 @@ export interface Product {
   stat: string;
   icon: string;
   link: string;
-  iosLink?: string; // App Store link, used instead of `link` on Apple devices
   color: string; // wave accent color
 }
 
@@ -18,7 +17,7 @@ export const products: Product[] = [
     description: "App blocker — do pushups to unlock distracting apps.",
     stat: "4,000+",
     icon: "/logos/pushpass.png",
-    link: "https://pushpass.in",
+    link: "/apps/pushpass/",
     color: "#F97316",
   },
   {
@@ -27,7 +26,7 @@ export const products: Product[] = [
     description: "AI spreadsheet assistant — formulas, SQL, regex & templates",
     stat: "21,000+ users",
     icon: "/logos/app_logo_compressed.png",
-    link: "https://xlsheetai.com",
+    link: "/apps/xlsheet-ai/",
     color: "#FF6B35",
   },
   {
@@ -36,7 +35,7 @@ export const products: Product[] = [
     description: "Digital 108-bead jaap mala — count mantras & track daily practice.",
     stat: "2,000+",
     icon: "/logos/japmala.png",
-    link: "https://japmala.pro",
+    link: "/apps/japmala/",
     color: "#14B8A6",
   },
   {
@@ -54,7 +53,7 @@ export const products: Product[] = [
     description: "AI companion chat — talk, vent & have fun anytime.",
     stat: "500+",
     icon: "/logos/sparkmate.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.sparkmate",
+    link: "/apps/sparkmate/",
     color: "#EC4899",
   },
   {
@@ -63,7 +62,7 @@ export const products: Product[] = [
     description: "Build habits with friends. Track, prove, grow.",
     stat: "7,000+ users",
     icon: "/logos/habitide_logo.png",
-    link: "https://habitide.in",
+    link: "/apps/habitide/",
     color: "#3B82F6",
   },
   {
@@ -72,7 +71,7 @@ export const products: Product[] = [
     description: "SnapPDF is the PDF scanner, editor, and converter.",
     stat: "13,000+",
     icon: "/logos/snappdf_play.png",
-    link: "https://linktr.ee/snappdfpro",
+    link: "/apps/snappdf-pro/",
     color: "#EAB308",
   },
   {
@@ -81,7 +80,7 @@ export const products: Product[] = [
     description: "Content & organisation app for volunteers",
     stat: "25,000+ users",
     icon: "/logos/rss_transparent.png",
-    link: "https://play.google.com/store/apps/details?id=com.garoono.apnarss",
+    link: "/apps/apna-rss/",
     color: "#F59E0B",
   },
   {
@@ -90,7 +89,7 @@ export const products: Product[] = [
     description: "Minimalist flip clock focus timer for deep work",
     stat: "5,000+ users",
     icon: "/logos/focuson_icon.png",
-    link: "https://linktr.ee/focusontimer",
+    link: "/apps/focuson/",
     color: "#8B5CF6",
   },
   {
@@ -99,7 +98,7 @@ export const products: Product[] = [
     description: "Beautiful mockups & screenshot beautifier — turn raw captures into professional visuals.",
     stat: "2,000+",
     icon: "/logos/shots.png",
-    link: "https://linktr.ee/shots_screenshot_beautifier",
+    link: "/apps/shots/",
     color: "#6366F1",
   },
   {
@@ -108,7 +107,7 @@ export const products: Product[] = [
     description: "XML editor, tree viewer, and converter",
     stat: "7,000+",
     icon: "/logos/xml_viewer.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.xmlviewer",
+    link: "/apps/xml-viewer/",
     color: "#06B6D4",
   },
   {
@@ -117,7 +116,7 @@ export const products: Product[] = [
     description: "Lightweight, privacy-first offline JSON editor and formatter",
     stat: "5,000+",
     icon: "/logos/json_viewer.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.jsonviewer",
+    link: "/apps/json-view/",
     color: "#10B981",
   },
   {
@@ -126,8 +125,7 @@ export const products: Product[] = [
     description: "AI nail try-on — preview nail art & colors on your own hands.",
     stat: "4,000+",
     icon: "/logos/nailmirror.png",
-    link: "https://play.google.com/store/apps/details?id=in.garoono.nailmirror",
-    iosLink: "https://apps.apple.com/in/app/nailmirror-ai-nail-try-on-art/id6788501057",
+    link: "/apps/nailmirror/",
     color: "#BE185D",
   },
   {
@@ -136,7 +134,7 @@ export const products: Product[] = [
     description: "Devotional music — bhajans, aartis, mantras",
     stat: "3,500+ users",
     icon: "/logos/bhakti_dhun_logo.png",
-    link: "https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan",
+    link: "/apps/bhaktidhun/",
     color: "#EF4444",
   },
 ];

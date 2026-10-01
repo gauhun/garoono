@@ -25,11 +25,16 @@ describe("app pages", () => {
     }
   });
 
-  it("link to both stores", () => {
+  it("link to Google Play, and to the App Store and website when they exist", () => {
     for (const page of appPages) {
       expect(page.playUrl).toMatch(/^https:\/\/play\.google\.com\/store\/apps\/details\?id=/);
-      expect(page.appStoreUrl).toMatch(/^https:\/\/apps\.apple\.com\//);
+      if (page.appStoreUrl) expect(page.appStoreUrl).toMatch(/^https:\/\/apps\.apple\.com\/[a-z]{2}\/app\/[a-z0-9-]+\/id\d+$/);
+      if (page.websiteUrl) expect(page.websiteUrl).toMatch(/^https:\/\//);
     }
+  });
+
+  it("cover every app on the home page", () => {
+    expect(appPages.map((p) => p.productId).sort((a, b) => a - b)).toEqual(products.map((p) => p.id).sort((a, b) => a - b));
   });
 
   it("ship their screenshots", () => {
