@@ -205,8 +205,8 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           window.open(product.iosLink, "_blank", "noopener,noreferrer");
         }
       }}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={product.link.startsWith("/") ? undefined : "_blank"}
+      rel={product.link.startsWith("/") ? undefined : "noopener noreferrer"}
       className="product-card"
       aria-label={`Visit ${product.name}`}
       id={`product-${product.id}`}

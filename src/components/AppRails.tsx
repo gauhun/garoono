@@ -14,8 +14,8 @@ function AppCard({ app, hidden }: { app: Product; hidden?: boolean }) {
   return (
     <a
       href={app.link}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={app.link.startsWith("/") ? undefined : "_blank"}
+      rel={app.link.startsWith("/") ? undefined : "noopener noreferrer"}
       className="app-rail-card"
       style={{ background: tint(app.color) }}
       aria-hidden={hidden || undefined}
@@ -33,8 +33,8 @@ function AppChip({ app, hidden }: { app: Product; hidden?: boolean }) {
   return (
     <a
       href={app.link}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={app.link.startsWith("/") ? undefined : "_blank"}
+      rel={app.link.startsWith("/") ? undefined : "noopener noreferrer"}
       className="app-bar-chip"
       style={{ background: tint(app.color) }}
       aria-hidden={hidden || undefined}

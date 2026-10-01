@@ -45,7 +45,7 @@ export const products: Product[] = [
     description: "Virtual trial room to try outfits instantly.",
     stat: "4,000+",
     icon: "/logos/dressmirror.png",
-    link: "https://linktr.ee/dressmirror",
+    link: "/apps/dress-mirror/",
     color: "#D946EF",
   },
   {
