@@ -14,7 +14,7 @@ export const products: Product[] = [
   {
     id: 13,
     name: "PushPass",
-    description: "App blocker — do pushups to unlock distracting apps.",
+    description: "App blocker — do pushups, squats, planks or jumping jacks to unlock distracting apps.",
     stat: "4,000+",
     icon: "/logos/pushpass.png",
     link: "/apps/pushpass/",

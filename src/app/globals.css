@@ -1236,3 +1236,16 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   .app-name { font-size: 40px; }
   .app-hero + .app-section { margin-top: 36px; }
 }
+
+/* Compact problem section, more room for the phone */
+.phone { width: 236px; padding: 9px; border-radius: 36px; }
+.phone-screen { border-radius: 28px; }
+.app-blob-1 { width: 310px; height: 310px; }
+.app-hero + .app-section { margin-top: 16px; }
+.app-hero + .app-section .app-h2 { font-size: 21px; margin-bottom: 10px; }
+.app-ba { gap: 12px; }
+.app-ba-card { padding: 12px 16px; border-radius: 14px; }
+.app-ba-card ul { gap: 4px; margin-top: 6px; }
+.app-ba-card li { font-size: 13.5px; line-height: 1.4; padding-left: 22px; }
+.app-ba-label { font-size: 11px; }
+.app-ba-arrow { font-size: 22px; }
