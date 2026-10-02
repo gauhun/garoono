@@ -15,6 +15,20 @@ export type SharedDoc = FreeDoc | PaidDoc;
 
 export const docs: SharedDoc[] = [
   {
+    slug: "flutter-starter-kit-blueprint",
+    title: "Stop Building the Same App Twice",
+    blurb: "The Flutter starter kit blueprint: build onboarding, paywall and reminders once, reuse them forever.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "slideshows-for-app-installs",
+    title: "3 Slideshows a Day, Zero Filming",
+    blurb: "The slideshow system that turns short-video posts into app installs, without filming.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
     slug: "vibe-coded-app-cloud-bill-traps",
     title: "5 Ways Your Vibe-Coded App Can Bankrupt You Tonight",
     blurb: "Find the cloud billing traps in your app before the invoice finds you.",
