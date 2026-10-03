@@ -1,8 +1,8 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { appPages } from "./appPages";
-import { products } from "./products";
+import { appPages, legacyAppSlugs } from "./appPages";
+import { iconUrl, products } from "./products";
 
 // Store-copy rules: no em/en dashes, no full stop at the end of a line
 const copyOf = (p: (typeof appPages)[number]) => [
@@ -23,6 +23,18 @@ describe("app pages", () => {
       expect(product, page.slug).toBeDefined();
       expect(product?.link).toBe(`/apps/${page.slug}/`);
     }
+  });
+
+  it("use the plain app name as the slug, with old hyphenated slugs redirecting", () => {
+    for (const page of appPages) expect(page.slug).toMatch(/^[a-z0-9]+$/);
+    for (const [old, slug] of Object.entries(legacyAppSlugs)) {
+      expect(appPages.some((p) => p.slug === slug), old).toBe(true);
+      expect(old.replace(/-/g, "")).toBe(slug);
+    }
+  });
+
+  it("ship a small WebP logo for every app", () => {
+    for (const p of products) expect(existsSync(path.join(process.cwd(), "public", iconUrl(p))), `${p.name}: run npm run web-images`).toBe(true);
   });
 
   it("link to Google Play, and to the App Store and website when they exist", () => {

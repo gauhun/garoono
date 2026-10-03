@@ -2,9 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { downloadUrl, thumbUrl, viewUrl, type SharedDoc } from "../data/docs";
+import { downloadUrl, previewOf, thumbUrl, viewUrl, type SharedDoc } from "../data/docs";
 import { openPaidDoc } from "../lib/access";
-import { LaunchPrice } from "./LaunchOffer";
 import { isLiked, recordDownload, recordView, toggleLike } from "../lib/docStats";
 import type { DocStats } from "../lib/rankDocs";
 
@@ -14,7 +13,8 @@ type Props = {
   stats: DocStats | null; // null while loading or if Firestore is unreachable
   onCount: (slug: string, counter: keyof DocStats, by: number) => void;
   locked: boolean; // paid doc and the visitor has no lifetime access
-  onBuy: () => void;
+  onRead: () => void; // opens the free preview of a locked doc
+  onBuy: () => void; // opens the Pro dialog
 };
 
 function LockIcon() {
@@ -35,7 +35,7 @@ function EyeIcon() {
   );
 }
 
-function DownloadIcon() {
+export function DownloadIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -67,7 +67,7 @@ function DocIcon() {
 const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00`).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 
-export default function DocCard({ doc, index, stats, onCount, locked, onBuy }: Props) {
+export default function DocCard({ doc, index, stats, onCount, locked, onRead, onBuy }: Props) {
   const [liked, setLiked] = useState(false);
   const [pending, setPending] = useState(false);
   const [thumbFailed, setThumbFailed] = useState(false);
@@ -100,6 +100,13 @@ export default function DocCard({ doc, index, stats, onCount, locked, onBuy }: P
     } finally {
       setOpening(false);
     }
+  };
+
+  // Locked docs open their free pages in the reader; a doc without a preview goes to the offer
+  const read = () => {
+    if (!previewOf(doc)) return onBuy();
+    onView();
+    onRead();
   };
 
   const onDownload = () => {
@@ -148,15 +155,10 @@ export default function DocCard({ doc, index, stats, onCount, locked, onBuy }: P
         <button
           type="button"
           className="doc-cover"
-          onClick={() => (locked ? onBuy() : openPaid(false))}
-          aria-label={locked ? `Unlock ${doc.title}` : `Open ${doc.title}`}
+          onClick={() => (locked ? read() : openPaid(false))}
+          aria-label={`Open ${doc.title}`}
         >
           {cover}
-          {locked && (
-            <span className="doc-lock">
-              <LockIcon /> Lifetime
-            </span>
-          )}
         </button>
       )}
 
@@ -185,9 +187,14 @@ export default function DocCard({ doc, index, stats, onCount, locked, onBuy }: P
         </div>
 
         {locked ? (
-          <button type="button" className="doc-btn doc-btn-primary doc-unlock" onClick={onBuy}>
-            <LockIcon /> Unlock with lifetime · <LaunchPrice />
-          </button>
+          <div className="doc-actions">
+            <button type="button" className="doc-btn" onClick={read}>
+              View
+            </button>
+            <button type="button" className="doc-btn doc-btn-primary doc-btn-icon" onClick={onBuy}>
+              <LockIcon /> Download
+            </button>
+          </div>
         ) : doc.free ? (
           <div className="doc-actions">
             <a href={viewUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onView} className="doc-btn">

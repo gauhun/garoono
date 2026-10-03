@@ -5,7 +5,7 @@ import { isInAppBrowser } from "../lib/auth";
 import { LaunchCountdown, LaunchPrice, useLaunchOffer } from "./LaunchOffer";
 import type { Access } from "../lib/useAccess";
 
-function useInAppBrowser() {
+export function useInAppBrowser() {
   const [inApp, setInApp] = useState(false);
   useEffect(() => setInApp(isInAppBrowser()), []);
   return inApp;
@@ -38,6 +38,39 @@ export function AuthChip({ access }: { access: Access }) {
   );
 }
 
+// Shown at the top right after checkout, while the purchase is being unlocked
+export function PaymentBanner({ access }: { access: Access }) {
+  const inApp = useInAppBrowser();
+  if (access.lifetime || !access.justPaid) return null;
+
+  return (
+    <div className="unlock-banner is-paid">
+      <div className="unlock-copy">
+        <strong>Payment received 🎉</strong>
+        {access.user ? (
+          <span>{access.checking ? "Unlocking your docs…" : "Still confirming your payment. This can take a minute."}</span>
+        ) : inApp ? (
+          <span>Tap ⋯ then Open in browser, and sign in with Google there to unlock.</span>
+        ) : (
+          <span>Sign in with Google to unlock your docs.</span>
+        )}
+      </div>
+      {!access.user && !inApp && (
+        <button type="button" className="doc-btn doc-btn-primary" onClick={access.signIn}>
+          Sign in with Google
+        </button>
+      )}
+      {access.user && !access.checking && (
+        <button type="button" className="doc-btn" onClick={access.recheck}>
+          Check again
+        </button>
+      )}
+      {access.error && <p className="unlock-error">{access.error}</p>}
+    </div>
+  );
+}
+
+// The lifetime offer, at the bottom of the docs list
 export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => void }) {
   const inApp = useInAppBrowser();
   const offer = useLaunchOffer();
@@ -46,35 +79,7 @@ export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => v
   const [recoverFailed, setRecoverFailed] = useState(false);
 
   // Owners already see "You're Pro" in the header
-  if (access.lifetime) return null;
-
-  if (access.justPaid) {
-    return (
-      <div className="unlock-banner is-paid">
-        <div className="unlock-copy">
-          <strong>Payment received 🎉</strong>
-          {access.user ? (
-            <span>{access.checking ? "Unlocking your docs…" : "Still confirming your payment. This can take a minute."}</span>
-          ) : inApp ? (
-            <span>Tap ⋯ then Open in browser, and sign in with Google there to unlock.</span>
-          ) : (
-            <span>Sign in with Google to unlock your docs.</span>
-          )}
-        </div>
-        {!access.user && !inApp && (
-          <button type="button" className="doc-btn doc-btn-primary" onClick={access.signIn}>
-            Sign in with Google
-          </button>
-        )}
-        {access.user && !access.checking && (
-          <button type="button" className="doc-btn" onClick={access.recheck}>
-            Check again
-          </button>
-        )}
-        {access.error && <p className="unlock-error">{access.error}</p>}
-      </div>
-    );
-  }
+  if (access.lifetime || access.justPaid) return null;
 
   return (
     <div className="unlock-banner">

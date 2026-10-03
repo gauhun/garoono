@@ -26,7 +26,7 @@ export const products: Product[] = [
     description: "AI spreadsheet assistant — formulas, SQL, regex & templates",
     stat: "21,000+ users",
     icon: "/logos/app_logo_compressed.png",
-    link: "/apps/xlsheet-ai/",
+    link: "/apps/xlsheetai/",
     color: "#FF6B35",
   },
   {
@@ -44,7 +44,7 @@ export const products: Product[] = [
     description: "Virtual trial room to try outfits instantly.",
     stat: "4,000+",
     icon: "/logos/dressmirror.png",
-    link: "/apps/dress-mirror/",
+    link: "/apps/dressmirror/",
     color: "#D946EF",
   },
   {
@@ -71,7 +71,7 @@ export const products: Product[] = [
     description: "SnapPDF is the PDF scanner, editor, and converter.",
     stat: "13,000+",
     icon: "/logos/snappdf_play.png",
-    link: "/apps/snappdf-pro/",
+    link: "/apps/snappdfpro/",
     color: "#EAB308",
   },
   {
@@ -80,7 +80,7 @@ export const products: Product[] = [
     description: "Content & organisation app for volunteers",
     stat: "25,000+ users",
     icon: "/logos/rss_transparent.png",
-    link: "/apps/apna-rss/",
+    link: "/apps/apnarss/",
     color: "#F59E0B",
   },
   {
@@ -107,7 +107,7 @@ export const products: Product[] = [
     description: "XML editor, tree viewer, and converter",
     stat: "7,000+",
     icon: "/logos/xml_viewer.png",
-    link: "/apps/xml-viewer/",
+    link: "/apps/xmlviewer/",
     color: "#06B6D4",
   },
   {
@@ -116,7 +116,7 @@ export const products: Product[] = [
     description: "Lightweight, privacy-first offline JSON editor and formatter",
     stat: "5,000+",
     icon: "/logos/json_viewer.png",
-    link: "/apps/json-view/",
+    link: "/apps/jsonview/",
     color: "#10B981",
   },
   {
@@ -138,3 +138,5 @@ export const products: Product[] = [
     color: "#EF4444",
   },
 ];
+
+export { iconUrl } from "./iconUrl";

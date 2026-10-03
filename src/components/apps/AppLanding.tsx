@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import type { AppPage } from "../../data/appPages";
 import appColors from "../../data/appColors.json";
+import { iconUrl } from "../../data/iconUrl";
 import type { Product } from "../../data/products";
 import StoreButtons from "./StoreButtons";
 
@@ -81,7 +82,7 @@ export default function AppLanding({
               transition={{ y: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={product.icon} alt={`${product.name} icon`} width={88} height={88} />
+              <img src={iconUrl(product)} alt={`${product.name} icon`} width={88} height={88} />
             </motion.div>
             <motion.h1 className="font-serif app-name" variants={rise} custom={1}>
               {product.name}
@@ -222,7 +223,7 @@ export default function AppLanding({
                 style={{ background: `${p.color}1F` }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.icon} alt="" width={22} height={22} loading="lazy" />
+                <img src={iconUrl(p)} alt="" width={22} height={22} loading="lazy" />
                 {p.name}
               </a>
             ))}

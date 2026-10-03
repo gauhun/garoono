@@ -1,3 +1,5 @@
+import previews from "./docPreviews.json";
+
 // Docs shared on Instagram. Newest entries go first; `slug` keys the Firestore
 // counters and the cover filename, so never change it once a doc is live.
 
@@ -164,9 +166,18 @@ export const docs: SharedDoc[] = [
 
 export const viewUrl = (d: FreeDoc) => `https://drive.google.com/file/d/${d.driveId}/view`;
 export const downloadUrl = (d: FreeDoc) => `https://drive.google.com/uc?export=download&id=${d.driveId}`;
-// Covers are copied from Drive into public/doc-covers/ by `npm run covers` (runs before every build)
+// Covers are copied from Drive into public/doc-covers/ by `npm run covers` and turned into
+// WebP by `npm run web-images` (both run before every build)
 export const thumbUrl = (d: SharedDoc, size: "lg" | "sm" = "lg") =>
-  `/doc-covers/${d.slug}${size === "sm" ? "-sm" : ""}.jpg`;
+  `/doc-covers/${d.slug}${size === "sm" ? "-sm" : ""}.webp`;
+
+// Paid docs show their first 30% of pages for free, rendered by `npm run previews`
+export type DocPreview = { pages: number; shown: number };
+export const previewOf = (d: SharedDoc): DocPreview | null =>
+  d.free ? null : ((previews as Record<string, DocPreview>)[d.slug] ?? null);
+export const previewPageUrl = (d: SharedDoc, page: number) => `/doc-previews/${d.slug}/${page}.webp`;
+// A 48px render of the first locked page, blurred behind the unlock card
+export const previewTeaserUrl = (d: SharedDoc) => `/doc-previews/${d.slug}/next.webp`;
 
 export function latestDocs(list: SharedDoc[], limit = list.length) {
   return [...list].sort((a, b) => b.addedOn.localeCompare(a.addedOn)).slice(0, limit);

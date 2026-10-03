@@ -2,14 +2,15 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { docs } from "../data/docs";
+import { docs, type SharedDoc } from "../data/docs";
 import { fetchAllStats } from "../lib/docStats";
 import { EMPTY_STATS, freeFirst, rankDocs, searchDocs, type DocStats, type SortKey } from "../lib/rankDocs";
 import { checkoutUrl } from "../lib/checkout";
 import { useAccess } from "../lib/useAccess";
-import { AuthChip, UnlockBanner } from "./AccessPanel";
-import AppRails from "./AppRails";
+import { AuthChip, PaymentBanner, UnlockBanner, useInAppBrowser } from "./AccessPanel";
 import DocCard from "./DocCard";
+import DocReader from "./DocReader";
+import { ProDialog } from "./ProOffer";
 import { ProCountPill, ProRail, RAIL_SIZE, useProWall } from "./ProWall";
 
 const SORTS: { key: SortKey; label: string }[] = [
@@ -60,10 +61,23 @@ export default function DocsLibrary() {
     });
   };
 
+  // Locked docs open in the reader; Download anywhere opens the Pro dialog
+  const [reading, setReading] = useState<SharedDoc | null>(null);
+  const [offerOpen, setOfferOpen] = useState(false);
+  const inApp = useInAppBrowser();
+  const signIn = access.ready && !access.user && !inApp ? access.signIn : undefined;
+
+  // Buying or signing in unlocks everything, so the preview is no longer needed
+  useEffect(() => {
+    if (access.lifetime) {
+      setReading(null);
+      setOfferOpen(false);
+    }
+  }, [access.lifetime]);
+
   return (
     <>
-      <AppRails barsOnly />
-    <div className={`docs-shell with-app-bars ${members.length > RAIL_SIZE ? "has-left" : ""} ${members.length > 0 ? "has-right" : ""}`}>
+    <div className={`docs-shell ${members.length > RAIL_SIZE ? "has-left" : ""} has-right`}>
       <ProRail members={members.slice(RAIL_SIZE, RAIL_SIZE * 2)} offset={RAIL_SIZE} />
     <div className="docs-page">
       <Link href="/" className="docs-back">
@@ -82,7 +96,7 @@ export default function DocsLibrary() {
         </div>
       </header>
 
-      <UnlockBanner access={access} onBuy={buy} />
+      <PaymentBanner access={access} />
 
       <div className="docs-toolbar">
       <div className="docs-tabs" role="tablist" aria-label="Sort docs">
@@ -120,13 +134,28 @@ export default function DocsLibrary() {
             stats={live ? (live[d.slug] ?? EMPTY_STATS) : null}
             onCount={onCount}
             locked={!d.free && !access.lifetime}
-            onBuy={buy}
+            onRead={() => setReading(d)}
+            onBuy={() => setOfferOpen(true)}
           />
         ))}
       </div>
+
+      <UnlockBanner access={access} onBuy={buy} />
     </div>
       <ProRail members={members.slice(0, RAIL_SIZE)} offset={0} />
     </div>
+
+      {reading && (
+        <DocReader
+          doc={reading}
+          onClose={() => setReading(null)}
+          onDownload={() => setOfferOpen(true)}
+          onBuy={buy}
+          onSignIn={signIn}
+          covered={offerOpen}
+        />
+      )}
+      {offerOpen && <ProDialog title="Download every doc" onClose={() => setOfferOpen(false)} onBuy={buy} onSignIn={signIn} />}
     </>
   );
 }

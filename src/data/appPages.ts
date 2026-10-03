@@ -23,7 +23,7 @@ const shots = (slug: string, count: number) => Array.from({ length: count }, (_,
 
 export const appPages: AppPage[] = [
   {
-    slug: "dress-mirror",
+    slug: "dressmirror",
     productId: 12,
     tagline: "See any outfit on you before you buy it",
     problem: [
@@ -51,7 +51,7 @@ export const appPages: AppPage[] = [
     ],
     playUrl: "https://play.google.com/store/apps/details?id=in.garoono.dressmirror",
     appStoreUrl: "https://apps.apple.com/us/app/dressmirror-ai-shoot-try-on/id6781407057",
-    screenshots: shots("dress-mirror", 6),
+    screenshots: shots("dressmirror", 6),
     category: "LifestyleApplication",
     seoTitle: "Dress Mirror: AI Virtual Try On for Sarees, Lehengas and More",
     seoDescription:
@@ -93,7 +93,7 @@ export const appPages: AppPage[] = [
     seoDescription: "Block distracting apps and unlock them with pushups, squats, planks or jumping jacks your camera counts",
   },
   {
-    slug: "xlsheet-ai",
+    slug: "xlsheetai",
     productId: 2,
     tagline: "Spreadsheet formulas, SQL and macros from plain words",
     problem: [
@@ -122,7 +122,7 @@ export const appPages: AppPage[] = [
     playUrl: "https://play.google.com/store/apps/details?id=in.garoono.xlsheetai",
     appStoreUrl: "https://apps.apple.com/in/app/xlsheetai-excel-formula-sql/id6755627033",
     websiteUrl: "https://xlsheetai.com",
-    screenshots: shots("xlsheet-ai", 6),
+    screenshots: shots("xlsheetai", 6),
     category: "BusinessApplication",
     seoTitle: "XLSheet AI: AI Formula Generator, SQL and Spreadsheet Editor",
     seoDescription: "Turn plain words into spreadsheet formulas, macros, SQL and regex, and photos of tables into XLSX files",
@@ -197,7 +197,7 @@ export const appPages: AppPage[] = [
     seoDescription: "Track habits with photo proof, streaks with friends and a growth radar that shows how you are changing",
   },
   {
-    slug: "snappdf-pro",
+    slug: "snappdfpro",
     productId: 11,
     tagline: "Scan, edit and sign PDFs, all on your phone",
     problem: [
@@ -225,7 +225,7 @@ export const appPages: AppPage[] = [
     ],
     playUrl: "https://play.google.com/store/apps/details?id=in.garoono.snappdf",
     appStoreUrl: "https://apps.apple.com/in/app/pdf-scanner-editor-snappdf/id6772768385",
-    screenshots: shots("snappdf-pro", 6),
+    screenshots: shots("snappdfpro", 6),
     category: "BusinessApplication",
     seoTitle: "SnapPDF: PDF Scanner, Editor, Compressor and Signer",
     seoDescription: "Scan documents, convert photos to PDF, merge, split, compress, sign and lock PDFs offline on Android and iPhone",
@@ -328,7 +328,7 @@ export const appPages: AppPage[] = [
     seoDescription: "Chat, call and video call with an AI companion who has her own personality and remembers you",
   },
   {
-    slug: "apna-rss",
+    slug: "apnarss",
     productId: 1,
     tagline: "Know the Sangh, its history, songs and service work",
     problem: [
@@ -353,13 +353,13 @@ export const appPages: AppPage[] = [
       { icon: "🇮🇳", title: "In Hindi", text: "Written simply so everyone can read it" },
     ],
     playUrl: "https://play.google.com/store/apps/details?id=com.garoono.apnarss",
-    screenshots: shots("apna-rss", 6),
+    screenshots: shots("apnarss", 6),
     category: "ReferenceApplication",
     seoTitle: "Apna RSS: Learn About the Rashtriya Swayamsevak Sangh",
     seoDescription: "History, ideas, geet and service work of the Rashtriya Swayamsevak Sangh, explained simply in Hindi",
   },
   {
-    slug: "xml-viewer",
+    slug: "xmlviewer",
     productId: 8,
     tagline: "Open, edit and convert XML files on your phone",
     problem: [
@@ -385,13 +385,13 @@ export const appPages: AppPage[] = [
       { icon: "📦", title: "Handles big files", text: "Smooth scrolling through large documents" },
     ],
     playUrl: "https://play.google.com/store/apps/details?id=in.garoono.xmlviewer",
-    screenshots: shots("xml-viewer", 5),
+    screenshots: shots("xmlviewer", 5),
     category: "DeveloperApplication",
     seoTitle: "XML Viewer: Open, Edit, Validate and Convert XML on Android",
     seoDescription: "View XML with a tree view and syntax highlighting, fix errors with the validator and convert to PDF or JSON",
   },
   {
-    slug: "json-view",
+    slug: "jsonview",
     productId: 7,
     tagline: "Read, edit and format JSON in seconds",
     problem: [
@@ -418,7 +418,7 @@ export const appPages: AppPage[] = [
     ],
     playUrl: "https://play.google.com/store/apps/details?id=in.garoono.jsonviewer",
     appStoreUrl: "https://apps.apple.com/in/app/json-view-editor-formatter/id6762811010",
-    screenshots: shots("json-view", 5),
+    screenshots: shots("jsonview", 5),
     category: "DeveloperApplication",
     seoTitle: "JSON View: JSON Viewer, Editor and Formatter",
     seoDescription: "Open JSON files in a tree view, edit with syntax highlighting, format and validate, offline with no ads",
@@ -491,3 +491,13 @@ export const appPages: AppPage[] = [
 
 export const appPageBySlug = (slug: string) => appPages.find((p) => p.slug === slug);
 export const appPageByProduct = (productId: number) => appPages.find((p) => p.productId === productId);
+
+// Old hyphenated URLs (already shared in bios and listings) redirect to the current slug
+export const legacyAppSlugs: Record<string, string> = {
+  "dress-mirror": "dressmirror",
+  "xlsheet-ai": "xlsheetai",
+  "snappdf-pro": "snappdfpro",
+  "apna-rss": "apnarss",
+  "xml-viewer": "xmlviewer",
+  "json-view": "jsonview",
+};

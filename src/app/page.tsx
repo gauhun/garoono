@@ -5,7 +5,7 @@ import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import DocsMarquee from "../components/DocsMarquee";
 import { countVisit } from "../lib/siteStats";
-import { products, type Product } from "../data/products";
+import { iconUrl, products, type Product } from "../data/products";
 
 
 // ─── SVG Icons ───────────────────────────────────────────────────────────────
@@ -218,7 +218,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           }}
         >
           <Image
-            src={product.icon}
+            src={iconUrl(product)}
             alt={product.name}
             width={36}
             height={36}

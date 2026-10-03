@@ -1,4 +1,4 @@
-import { products, type Product } from "../data/products";
+import { iconUrl, products, type Product } from "../data/products";
 
 // TrustMRR-style promo for my apps around blog pages:
 // vertical scrolling card columns on wide screens, horizontal chip bars top and bottom on small ones
@@ -22,7 +22,7 @@ function AppCard({ app, hidden }: { app: Product; hidden?: boolean }) {
       tabIndex={hidden ? -1 : undefined}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={app.icon} alt="" width={40} height={40} loading="lazy" />
+      <img src={iconUrl(app)} alt="" width={40} height={40} loading="lazy" />
       <strong>{app.name}</strong>
       <span>{app.description.replace(/\s*[\u2013\u2014]\s*/g, ", ").replace(/\.$/, "")}</span>
     </a>
@@ -41,7 +41,7 @@ function AppChip({ app, hidden }: { app: Product; hidden?: boolean }) {
       tabIndex={hidden ? -1 : undefined}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={app.icon} alt="" width={22} height={22} loading="lazy" />
+      <img src={iconUrl(app)} alt="" width={22} height={22} loading="lazy" />
       {app.name}
     </a>
   );
