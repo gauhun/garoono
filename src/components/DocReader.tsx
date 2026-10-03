@@ -1,21 +1,26 @@
 "use client";
 
-import { previewOf, previewPageUrl, previewTeaserUrl, type SharedDoc } from "../data/docs";
+import { docs, freePdfUrl, previewOf, previewPageUrl, previewTeaserUrl, type SharedDoc } from "../data/docs";
 import { useModal } from "../lib/useModal";
 import { DownloadIcon } from "./DocCard";
 import { ProOffer } from "./ProOffer";
 
 type Props = {
   doc: SharedDoc;
+  lifetime: boolean;
   onClose: () => void;
-  onDownload: () => void; // opens the Pro dialog
+  onDownload: () => void; // locked doc: opens the Pro dialog
+  onFreeDownload: () => void; // free doc: counts the download
   onBuy: () => void;
   onSignIn?: () => void;
   covered: boolean; // the Pro dialog is open on top
 };
 
-// Full-screen reader for a locked doc: the free pages, then the rest blurred behind the offer
-export default function DocReader({ doc, onClose, onDownload, onBuy, onSignIn, covered }: Props) {
+const paidCount = docs.filter((d) => !d.free).length;
+
+// Full-screen reader. A free doc shows every page and ends with the offer; a locked doc
+// shows its free pages, then the rest blurred behind the offer.
+export default function DocReader({ doc, lifetime, onClose, onDownload, onFreeDownload, onBuy, onSignIn, covered }: Props) {
   useModal(onClose, !covered);
   const preview = previewOf(doc);
   if (!preview) return null;
@@ -30,9 +35,15 @@ export default function DocReader({ doc, onClose, onDownload, onBuy, onSignIn, c
           ×
         </button>
         <strong className="reader-title">{doc.title}</strong>
-        <button type="button" className="doc-btn doc-btn-primary reader-download" onClick={onDownload}>
-          <DownloadIcon /> Download
-        </button>
+        {doc.free ? (
+          <a className="doc-btn doc-btn-primary reader-download" href={freePdfUrl(doc)} download onClick={onFreeDownload}>
+            <DownloadIcon /> Download
+          </a>
+        ) : (
+          <button type="button" className="doc-btn doc-btn-primary reader-download" onClick={onDownload}>
+            <DownloadIcon /> Download
+          </button>
+        )}
       </div>
 
       <div className="reader-scroll">
@@ -42,15 +53,23 @@ export default function DocReader({ doc, onClose, onDownload, onBuy, onSignIn, c
             <img key={n} src={previewPageUrl(doc, n)} alt={`${doc.title}, page ${n}`} className="reader-page" loading={n > 1 ? "lazy" : undefined} />
           ))}
 
-          <div className="reader-gate">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={previewTeaserUrl(doc)} alt="" aria-hidden className="reader-gate-blur" />
-            <ProOffer
-              title={locked === 1 ? "Read the last page" : `Read the other ${locked} pages`}
-              onBuy={onBuy}
-              onSignIn={onSignIn}
-            />
-          </div>
+          {!doc.free && (
+            <div className="reader-gate">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={previewTeaserUrl(doc)} alt="" aria-hidden className="reader-gate-blur" />
+              <ProOffer
+                title={locked === 1 ? "Read the last page" : `Read the other ${locked} pages`}
+                onBuy={onBuy}
+                onSignIn={onSignIn}
+              />
+            </div>
+          )}
+
+          {doc.free && !lifetime && (
+            <div className="reader-end">
+              <ProOffer title={`${paidCount} more docs like this`} onBuy={onBuy} onSignIn={onSignIn} />
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { docs, type SharedDoc } from "../data/docs";
-import { fetchAllStats } from "../lib/docStats";
+import { docs, previewOf, type SharedDoc } from "../data/docs";
+import { fetchAllStats, recordDownload, recordView } from "../lib/docStats";
 import { EMPTY_STATS, freeFirst, rankDocs, searchDocs, type DocStats, type SortKey } from "../lib/rankDocs";
 import { checkoutUrl } from "../lib/checkout";
 import { useAccess } from "../lib/useAccess";
@@ -61,16 +61,40 @@ export default function DocsLibrary() {
     });
   };
 
-  // Locked docs open in the reader; Download anywhere opens the Pro dialog
+  // Free and locked docs open in the reader; Download on a locked doc opens the Pro dialog.
+  // The open doc's slug sits in the URL hash, so /docs/#<slug> links straight to it.
   const [reading, setReading] = useState<SharedDoc | null>(null);
   const [offerOpen, setOfferOpen] = useState(false);
   const inApp = useInAppBrowser();
   const signIn = access.ready && !access.user && !inApp ? access.signIn : undefined;
 
-  // Buying or signing in unlocks everything, so the preview is no longer needed
+  const openReader = (d: SharedDoc) => {
+    setReading(d);
+    window.history.replaceState(null, "", `#${d.slug}`);
+  };
+  const closeReader = () => {
+    setReading(null);
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  };
+
+  // On load, and when the hash changes on this page (our own replaceState calls don't fire hashchange)
+  useEffect(() => {
+    const openFromHash = () => {
+      const doc = docs.find((d) => d.slug === decodeURIComponent(window.location.hash.slice(1)));
+      if (!doc || !previewOf(doc)) return;
+      if (recordView(doc.slug)) onCount(doc.slug, "views", 1);
+      setReading(doc);
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Buying unlocks every paid doc as a full PDF, so its preview is no longer needed
   useEffect(() => {
     if (access.lifetime) {
-      setReading(null);
+      setReading((d) => (d && !d.free ? null : d));
       setOfferOpen(false);
     }
   }, [access.lifetime]);
@@ -134,7 +158,7 @@ export default function DocsLibrary() {
             stats={live ? (live[d.slug] ?? EMPTY_STATS) : null}
             onCount={onCount}
             locked={!d.free && !access.lifetime}
-            onRead={() => setReading(d)}
+            onRead={() => openReader(d)}
             onBuy={() => setOfferOpen(true)}
           />
         ))}
@@ -148,8 +172,12 @@ export default function DocsLibrary() {
       {reading && (
         <DocReader
           doc={reading}
-          onClose={() => setReading(null)}
+          lifetime={access.lifetime}
+          onClose={closeReader}
           onDownload={() => setOfferOpen(true)}
+          onFreeDownload={() => {
+            if (recordDownload(reading.slug)) onCount(reading.slug, "downloads", 1);
+          }}
           onBuy={buy}
           onSignIn={signIn}
           covered={offerOpen}

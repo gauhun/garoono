@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://garoono.in"),
   openGraph: {
     title: "Gautam — Indie App Maker",
-    description: "Shipped 30+ apps. 4 make money. Building in public.",
+    description: "14+ apps shipped, we build apps for you, building in public",
     url: "https://garoono.in",
     siteName: "Garoono",
     type: "website",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@xgaroono",
     title: "Gautam — Indie App Maker",
-    description: "Shipped 30+ apps. 4 make money. Building in public.",
+    description: "14+ apps shipped, we build apps for you, building in public",
     images: ["/logos/garoono-latest-logo.jpg"],
   },
   icons: {

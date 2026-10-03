@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { docs, isNew, latestDocs, thumbUrl, viewUrl } from "../data/docs";
-import { recordView } from "../lib/docStats";
+import { docs, isNew, latestDocs, thumbUrl } from "../data/docs";
 
 const items = latestDocs(docs, 10);
 
@@ -24,13 +23,10 @@ export default function DocsMarquee() {
             items.map((d) => (
               <a
                 key={`${copy}-${d.slug}`}
-                href={d.free ? viewUrl(d) : `/docs/#${d.slug}`}
-                target={d.free ? "_blank" : undefined}
-                rel={d.free ? "noopener noreferrer" : undefined}
+                href={`/docs/#${d.slug}`}
                 className="doc-chip"
                 aria-hidden={copy === 1 || undefined}
                 tabIndex={copy === 1 ? -1 : undefined}
-                onClick={d.free ? () => recordView(d.slug) : undefined}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={thumbUrl(d, "sm")} alt="" width={20} height={20} className="doc-chip-thumb" loading="lazy" />

@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { FreeDoc, SharedDoc } from "../data/docs";
+import type { SharedDoc } from "../data/docs";
 import { freeFirst, rankDocs, searchDocs, type DocStats } from "./rankDocs";
 
-const make = (slug: string, addedOn: string): FreeDoc => ({ slug, title: slug, blurb: "", free: true, driveId: slug, addedOn });
+const make = (slug: string, addedOn: string): SharedDoc => ({ slug, title: slug, blurb: "", free: true, addedOn });
 const stat = (s: Partial<DocStats>): DocStats => ({ views: 0, downloads: 0, likes: 0, ...s });
 
 const now = Date.parse("2026-09-29T00:00:00Z");
@@ -62,7 +62,7 @@ describe("freeFirst", () => {
 describe("searchDocs", () => {
   const docsList: SharedDoc[] = [
     { slug: "app-seo", title: "App SEO Playbook", blurb: "Get downloads from Google", free: false, addedOn: "2026-09-01" },
-    { slug: "legal", title: "Legal Checklist", blurb: "Privacy policy and terms before you submit", free: true, driveId: "x", addedOn: "2026-09-02" },
+    { slug: "legal", title: "Legal Checklist", blurb: "Privacy policy and terms before you submit", free: true, addedOn: "2026-09-02" },
   ];
   it("returns everything for an empty query", () => expect(searchDocs(docsList, "  ")).toHaveLength(2));
   it("matches title or blurb, case-insensitive", () => {

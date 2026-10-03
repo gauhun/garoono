@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { downloadUrl, previewOf, thumbUrl, viewUrl, type SharedDoc } from "../data/docs";
+import { freePdfUrl, previewOf, thumbUrl, type SharedDoc } from "../data/docs";
 import { openPaidDoc } from "../lib/access";
 import { isLiked, recordDownload, recordView, toggleLike } from "../lib/docStats";
 import type { DocStats } from "../lib/rankDocs";
@@ -13,7 +13,7 @@ type Props = {
   stats: DocStats | null; // null while loading or if Firestore is unreachable
   onCount: (slug: string, counter: keyof DocStats, by: number) => void;
   locked: boolean; // paid doc and the visitor has no lifetime access
-  onRead: () => void; // opens the free preview of a locked doc
+  onRead: () => void; // opens the reader: every page of a free doc, the preview of a locked one
   onBuy: () => void; // opens the Pro dialog
 };
 
@@ -88,7 +88,7 @@ export default function DocCard({ doc, index, stats, onCount, locked, onRead, on
     if (recordView(doc.slug)) onCount(doc.slug, "views", 1);
   };
 
-  // Paid docs fetch a 10-minute signed link; free docs open Drive directly
+  // Pro members open paid docs through a 10-minute signed link
   const openPaid = async (download: boolean) => {
     if (opening) return;
     setOpening(true);
@@ -102,9 +102,9 @@ export default function DocCard({ doc, index, stats, onCount, locked, onRead, on
     }
   };
 
-  // Locked docs open their free pages in the reader; a doc without a preview goes to the offer
+  // Free docs and locked docs open in the reader; without page images, fall back to the PDF or the offer
   const read = () => {
-    if (!previewOf(doc)) return onBuy();
+    if (!previewOf(doc)) return doc.free ? window.open(freePdfUrl(doc), "_blank", "noopener") : onBuy();
     onView();
     onRead();
   };
@@ -147,20 +147,14 @@ export default function DocCard({ doc, index, stats, onCount, locked, onRead, on
       transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.05, layout: { duration: 0.35, ease: "easeOut" } }}
       className="doc-card"
     >
-      {doc.free ? (
-        <a href={viewUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onView} className="doc-cover" aria-label={`Open ${doc.title}`}>
-          {cover}
-        </a>
-      ) : (
-        <button
-          type="button"
-          className="doc-cover"
-          onClick={() => (locked ? read() : openPaid(false))}
-          aria-label={`Open ${doc.title}`}
-        >
-          {cover}
-        </button>
-      )}
+      <button
+        type="button"
+        className="doc-cover"
+        onClick={() => (doc.free || locked ? read() : openPaid(false))}
+        aria-label={`Open ${doc.title}`}
+      >
+        {cover}
+      </button>
 
       <div className="doc-body">
         <h2 className="doc-title">{doc.title}</h2>
@@ -197,10 +191,10 @@ export default function DocCard({ doc, index, stats, onCount, locked, onRead, on
           </div>
         ) : doc.free ? (
           <div className="doc-actions">
-            <a href={viewUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onView} className="doc-btn">
+            <button type="button" className="doc-btn" onClick={read}>
               View
-            </a>
-            <a href={downloadUrl(doc)} target="_blank" rel="noopener noreferrer" onClick={onDownload} className="doc-btn doc-btn-primary">
+            </button>
+            <a href={freePdfUrl(doc)} download onClick={onDownload} className="doc-btn doc-btn-primary">
               Download
             </a>
           </div>

@@ -2,20 +2,81 @@ import previews from "./docPreviews.json";
 
 // Docs shared on Instagram. Newest entries go first; `slug` keys the Firestore
 // counters and the cover filename, so never change it once a doc is live.
+// Publish or update a doc's PDF with `npm run add-doc` (cover, page images and the PDF itself).
 
-type DocBase = {
+export type SharedDoc = {
   slug: string; // ^[a-z0-9-]{3,60}$
   title: string;
   blurb: string;
+  // Free docs are served from this site; paid docs live in a private bucket and open via getDocLink
+  free: boolean;
   addedOn: string; // ISO date
 };
 
-// Free docs link straight to Drive; paid docs live in a private bucket and open via getDocLink
-export type FreeDoc = DocBase & { free: true; driveId: string };
-export type PaidDoc = DocBase & { free: false };
-export type SharedDoc = FreeDoc | PaidDoc;
-
 export const docs: SharedDoc[] = [
+  {
+    slug: "find-your-niche",
+    title: "Find Your Niche and Prove People Want It",
+    blurb: "A data-first way to pick an app idea people search for, pay for, and can't find a good version of yet.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "build-it-fast-with-ai",
+    title: "Build It Fast with AI",
+    blurb: "What to write before you prompt, the order to build in, and a paywall Apple won't reject.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "first-100-users",
+    title: "Your First 100 Users",
+    blurb: "Without an ad budget, and without waiting for the App Store to notice you.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "ship-v1-in-30-days",
+    title: "Ship v1 in 30 Days, Next to a Day Job",
+    blurb: "One core feature, a fixed weekly time budget, and a build order you don't break.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "subscriptions-with-revenuecat",
+    title: "Subscriptions with RevenueCat",
+    blurb: "Flutter, App Store and Google Play subscriptions, set up once and done right.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "track-what-matters",
+    title: "Track What Matters",
+    blurb: "Firebase, PostHog and RevenueCat joined into one funnel, so you know where people drop off.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "price-your-app",
+    title: "Price Your App",
+    blurb: "Paywall type, plan length, trials, and what to actually charge.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "keep-the-30-percent",
+    title: "Keep the 30%",
+    blurb: "Web payments for iOS apps in the US: what's allowed in 2026, and how to set it up from India.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
+  {
+    slug: "secure-your-app-prompt",
+    title: "The Prompt to Secure Your App",
+    blurb: "One copy-paste prompt that makes your AI tool audit your app like a senior security engineer.",
+    free: false,
+    addedOn: "2026-10-03",
+  },
   {
     slug: "flutter-starter-kit-blueprint",
     title: "Stop Building the Same App Twice",
@@ -63,7 +124,6 @@ export const docs: SharedDoc[] = [
     title: "Will Your App Get Rejected? The 30 Minute Audit",
     blurb: "36 checks for the App Store and Google Play, with a score that tells you when to submit.",
     free: true,
-    driveId: "1lAjF-dUW94H1WmN7aix0UL3pM-UWWF_r",
     addedOn: "2026-09-30",
   },
   {
@@ -71,7 +131,6 @@ export const docs: SharedDoc[] = [
     title: "Steal Your Competitors' Best Keywords",
     blurb: "ASO from competitor listings, 1-star reviews and real comments, researched with parallel AI chats.",
     free: true,
-    driveId: "1kwgyuerKz7LDf6PDmj-VZSCTY3PrndM7",
     addedOn: "2026-09-30",
   },
   {
@@ -79,7 +138,6 @@ export const docs: SharedDoc[] = [
     title: "They Didn't Cancel. Their Card Did.",
     blurb: "Win back the subscribers you lose to failed payments without noticing.",
     free: true,
-    driveId: "152fJiwGyumA5-vk_YObUpLsLQa3UCnjY",
     addedOn: "2026-09-30",
   },
   {
@@ -109,14 +167,6 @@ export const docs: SharedDoc[] = [
     blurb: "Find the 8 holes AI leaves in Flutter and Firebase apps, before someone else does.",
     free: false,
     addedOn: "2026-09-30",
-  },
-  {
-    slug: "zero-budget-ways-to-get-users",
-    title: "15 Zero Budget Ways to Get Users",
-    blurb: "The channels that actually work for an indie app, ranked honestly.",
-    free: true,
-    driveId: "1tEFt0mou9J2cdTuOpaE0gzswRhOD7g-R",
-    addedOn: "2026-09-29",
   },
   {
     slug: "build-paid-apps-on-free-ai-models",
@@ -150,31 +200,26 @@ export const docs: SharedDoc[] = [
     slug: "legal-checklist-before-you-submit",
     title: "Before You Submit: Legal Checklist",
     blurb: "The 7 things stores check before approving an AI-built app, with prompts for each.",
-    free: true,
-    driveId: "1yf42ZgUjGZg-P9G6Hdg0MdPoCe93XEii",
+    free: false,
     addedOn: "2026-09-24",
   },
   {
     slug: "app-store-launch-guide",
     title: "Don't Get Rejected: App Store Launch Guide",
     blurb: "The 5 reasons new apps get rejected, and the step-by-step way to ship yours.",
-    free: true,
-    driveId: "1sKFieTsoMu1QBxT1ImTUE8VRqmV8DSbj",
+    free: false,
     addedOn: "2026-09-23",
   },
 ];
 
-export const viewUrl = (d: FreeDoc) => `https://drive.google.com/file/d/${d.driveId}/view`;
-export const downloadUrl = (d: FreeDoc) => `https://drive.google.com/uc?export=download&id=${d.driveId}`;
-// Covers are copied from Drive into public/doc-covers/ by `npm run covers` and turned into
-// WebP by `npm run web-images` (both run before every build)
+// Only free docs have a PDF on the site; paid PDFs never leave the private bucket
+export const freePdfUrl = (d: SharedDoc) => `/free-docs/${d.slug}.pdf`;
 export const thumbUrl = (d: SharedDoc, size: "lg" | "sm" = "lg") =>
   `/doc-covers/${d.slug}${size === "sm" ? "-sm" : ""}.webp`;
 
-// Paid docs show their first 30% of pages for free, rendered by `npm run previews`
+// Page images the reader shows: every page of a free doc, the first 30% of a paid one
 export type DocPreview = { pages: number; shown: number };
-export const previewOf = (d: SharedDoc): DocPreview | null =>
-  d.free ? null : ((previews as Record<string, DocPreview>)[d.slug] ?? null);
+export const previewOf = (d: SharedDoc): DocPreview | null => (previews as Record<string, DocPreview>)[d.slug] ?? null;
 export const previewPageUrl = (d: SharedDoc, page: number) => `/doc-previews/${d.slug}/${page}.webp`;
 // A 48px render of the first locked page, blurred behind the unlock card
 export const previewTeaserUrl = (d: SharedDoc) => `/doc-previews/${d.slug}/next.webp`;

@@ -15,12 +15,32 @@
     "pages": 3,
     "shown": 1
   },
+  "app-store-launch-guide": {
+    "pages": 10,
+    "shown": 3
+  },
   "before-you-spend-on-ads": {
-    "pages": 5,
+    "pages": 6,
     "shown": 2
+  },
+  "build-it-fast-with-ai": {
+    "pages": 30,
+    "shown": 9
   },
   "build-paid-apps-on-free-ai-models": {
     "pages": 4,
+    "shown": 2
+  },
+  "failed-payments-win-back": {
+    "pages": 6,
+    "shown": 6
+  },
+  "find-your-niche": {
+    "pages": 38,
+    "shown": 12
+  },
+  "first-100-users": {
+    "pages": 5,
     "shown": 2
   },
   "flutter-starter-kit-blueprint": {
@@ -35,8 +55,28 @@
     "pages": 37,
     "shown": 12
   },
+  "keep-the-30-percent": {
+    "pages": 5,
+    "shown": 2
+  },
+  "legal-checklist-before-you-submit": {
+    "pages": 4,
+    "shown": 2
+  },
+  "price-your-app": {
+    "pages": 5,
+    "shown": 2
+  },
+  "secure-your-app-prompt": {
+    "pages": 3,
+    "shown": 1
+  },
   "secure-your-vibe-coded-app": {
     "pages": 6,
+    "shown": 2
+  },
+  "ship-v1-in-30-days": {
+    "pages": 4,
     "shown": 2
   },
   "six-documents-before-you-prompt": {
@@ -47,12 +87,28 @@
     "pages": 5,
     "shown": 2
   },
+  "steal-competitor-keywords": {
+    "pages": 6,
+    "shown": 6
+  },
   "stuck-at-12-testers": {
     "pages": 5,
     "shown": 2
   },
+  "subscriptions-with-revenuecat": {
+    "pages": 5,
+    "shown": 2
+  },
+  "track-what-matters": {
+    "pages": 5,
+    "shown": 2
+  },
   "vibe-coded-app-cloud-bill-traps": {
-    "pages": 9,
+    "pages": 10,
     "shown": 3
+  },
+  "will-your-app-get-rejected-audit": {
+    "pages": 5,
+    "shown": 5
   }
 }
