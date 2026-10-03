@@ -17,6 +17,7 @@
   --accent:         #FF6B35;
   --accent-light:   #FFF3ED;
   --accent-hover:   #E85D2C;
+  --accent-ink:     #D83A00; /* the accent darkened for text: 4.6:1 on white (AA), where #FF6B35 is 2.8:1 */
   --border:         #E8E5E0;
   --border-hover:   #D0CCC5;
   --success:        #22C55E;
@@ -575,6 +576,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .doc-title {
+  color: var(--accent-ink);
   font-size: 16px;
   font-weight: 800;
   line-height: 1.3;
