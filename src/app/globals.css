@@ -1163,6 +1163,10 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   .proof-stats li { padding: 4px 10px; font-size: 12px; }
 }
 
+/* Inside offer cards: one quiet line, no chips */
+.proof-stats.is-compact { justify-content: center; gap: 4px 10px; margin-top: 0; }
+.proof-stats.is-compact li { padding: 0; border: none; background: none; font-size: 12px; }
+
 .welcome-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; list-style: none; }
 .welcome-stats li { display: flex; flex-direction: column; align-items: center; padding: 12px 4px; border-radius: 12px; background: var(--accent-light); }
 .welcome-stats strong { font-size: 22px; font-weight: 800; color: var(--accent-ink); line-height: 1.1; }
@@ -1178,10 +1182,10 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
   max-width: 360px;
-  padding: 28px 24px 20px;
+  padding: 22px 20px 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   background: var(--bg-card);
@@ -1192,6 +1196,7 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 .pro-offer-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 30px; font-weight: 400; line-height: 1.1; text-wrap: balance; }
 .pro-offer-price { font-size: 22px; font-weight: 700; }
 .pro-offer-price > span { font-size: 15px; font-weight: 500; color: var(--text-secondary); }
+.pro-offer-includes { margin-top: -6px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
 .pro-offer .launch-timer { align-items: center; }
 .pro-offer-buy { width: 100%; padding: 13px 0; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; }
 .pro-offer .unlock-link { font-size: 12px; }

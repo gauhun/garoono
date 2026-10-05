@@ -1,6 +1,8 @@
 "use client";
 
 import { useModal } from "../lib/useModal";
+import { docs } from "../data/docs";
+import { ProofStats } from "./DocsWelcome";
 import { LaunchCountdown, LaunchPrice } from "./LaunchOffer";
 
 type OfferProps = {
@@ -10,14 +12,16 @@ type OfferProps = {
   autoFocus?: boolean; // only in the dialog; inside the reader it would scroll to the bottom
 };
 
-// One title, the price, the countdown and one button
+// One title, the price with what it covers, the proof, the countdown and one button
 export function ProOffer({ title, onBuy, onSignIn, autoFocus }: OfferProps) {
   return (
     <div className="pro-offer">
       <strong className="pro-offer-title">{title}</strong>
       <p className="pro-offer-price">
-        <LaunchPrice /> <span>lifetime</span>
+        <LaunchPrice /> <span>one time</span>
       </p>
+      <p className="pro-offer-includes">All {docs.length} docs + every new one, forever</p>
+      <ProofStats className="is-compact" />
       <LaunchCountdown />
       <button type="button" className="doc-btn doc-btn-primary pro-offer-buy" onClick={onBuy} autoFocus={autoFocus}>
         Get lifetime access
