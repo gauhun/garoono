@@ -10,6 +10,7 @@ import { useAccess } from "../lib/useAccess";
 import { AuthChip, PaymentBanner, UnlockBanner, useInAppBrowser } from "./AccessPanel";
 import DocCard from "./DocCard";
 import DocReader from "./DocReader";
+import DocsWelcome, { markWelcomeSeen, ProofStats, shouldShowWelcome } from "./DocsWelcome";
 import { ProDialog } from "./ProOffer";
 import { ProCountPill, ProRail, RAIL_SIZE, useProWall } from "./ProWall";
 
@@ -77,8 +78,11 @@ export default function DocsLibrary() {
     window.history.replaceState(null, "", window.location.pathname + window.location.search);
   };
 
+  const [welcomeOpen, setWelcomeOpen] = useState(false);
+
   // On load, and when the hash changes on this page (our own replaceState calls don't fire hashchange)
   useEffect(() => {
+    const cleanups: (() => void)[] = [];
     const openFromHash = () => {
       const doc = docs.find((d) => d.slug === decodeURIComponent(window.location.hash.slice(1)));
       if (!doc || !previewOf(doc)) return;
@@ -86,8 +90,19 @@ export default function DocsLibrary() {
       setReading(doc);
     };
     openFromHash();
+    // First visit this session, landing on the list rather than a shared doc: say why these docs
+    if (!window.location.hash && shouldShowWelcome()) {
+      const id = window.setTimeout(() => {
+        markWelcomeSeen();
+        setWelcomeOpen(true);
+      }, 700);
+      cleanups.push(() => window.clearTimeout(id));
+    }
     window.addEventListener("hashchange", openFromHash);
-    return () => window.removeEventListener("hashchange", openFromHash);
+    return () => {
+      window.removeEventListener("hashchange", openFromHash);
+      cleanups.forEach((c) => c());
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -111,7 +126,8 @@ export default function DocsLibrary() {
       <header className="docs-header">
         <div>
           <h1 className="font-serif docs-title">Docs</h1>
-          <p className="docs-subtitle">Playbooks &amp; checklists I share on Instagram</p>
+          <p className="docs-subtitle">The playbooks behind my own apps, so you can get the same results</p>
+          <ProofStats />
         </div>
         <div className="docs-header-actions">
           {access.lifetime && <span className="pro-badge">★ You&apos;re Pro</span>}
@@ -181,6 +197,19 @@ export default function DocsLibrary() {
           onBuy={buy}
           onSignIn={signIn}
           covered={offerOpen}
+        />
+      )}
+      {welcomeOpen && !access.lifetime && !reading && (
+        <DocsWelcome
+          onClose={() => setWelcomeOpen(false)}
+          onRead={() => {
+            setWelcomeOpen(false);
+            const free = shown.find((d) => d.free) ?? docs.find((d) => d.free);
+            if (free) {
+              if (recordView(free.slug)) onCount(free.slug, "views", 1);
+              openReader(free);
+            }
+          }}
         />
       )}
       {offerOpen && <ProDialog title="Download every doc" onClose={() => setOfferOpen(false)} onBuy={buy} onSignIn={signIn} />}
