@@ -92,7 +92,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       .ensureAlpha()
       .raw()
       .toBuffer({ resolveWithObject: true });
-    const accent = dominantColor(data) ?? fallback.toLowerCase();
+    // A logo whose only colour is its pale backdrop (GetUp) would vanish on the page, so use products.ts
+    const found = dominantColor(data);
+    const accent = found && contrast(found, "#F8F6F1") >= 1.2 ? found : fallback.toLowerCase();
     colors[id] = { accent, ink: inkFor(accent) };
     console.log(`${icon.padEnd(36)} accent ${accent}  ink ${colors[id].ink}`);
   }
