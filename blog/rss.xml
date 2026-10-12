@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Garoono Blog</title>
+    <link>https://garoono.in/blog/</link>
+    <description>Shipping apps solo, next to a day job. Real numbers, no fluff</description>
+    <item>
+      <title>Android Developer Verification for Indie Developers: 2026 Guide</title>
+      <link>https://garoono.in/blog/android-developer-verification-for-indie-developers/</link>
+      <guid>https://garoono.in/blog/android-developer-verification-for-indie-developers/</guid>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+      <description>Android now requires verified developers for installs in 4 countries and globally from 2027, here is what indie devs in India and elsewhere must do</description>
+    </item>
+    <item>
+      <title>How to Get Your First 100 App Users Without Ads</title>
+      <link>https://garoono.in/blog/how-to-get-your-first-100-app-users/</link>
+      <guid>https://garoono.in/blog/how-to-get-your-first-100-app-users/</guid>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+      <description>The zero budget playbook I use for every launch, from app store search to Reddit to 20 direct messages, written for builders with a day job</description>
+    </item>
+    <item>
+      <title>Supabase RLS Checklist for Vibe Coded Apps After 16,326 Leaks</title>
+      <link>https://garoono.in/blog/supabase-rls-checklist-for-vibe-coded-apps/</link>
+      <guid>https://garoono.in/blog/supabase-rls-checklist-for-vibe-coded-apps/</guid>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+      <description>Researchers found 16,326 Supabase databases with readable tables, here is the 9 step RLS checklist to run on your AI built app tonight</description>
+    </item>
+  </channel>
+</rss>
