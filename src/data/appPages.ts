@@ -222,6 +222,7 @@ export const appPages: AppPage[] = [
       { icon: "🔊", title: "Made for heavy sleepers", text: "Loud, full screen and rings through silent mode" },
       { icon: "🔒", title: "Private", text: "Rep counting runs on your phone, nothing is recorded" },
     ],
+    appStoreUrl: "https://apps.apple.com/in/app/getup-push-up-alarm-clock/id6789959109",
     playUrl: "https://play.google.com/store/apps/details?id=in.garoono.getup",
     screenshots: shots("getup", 6),
     category: "HealthApplication",
