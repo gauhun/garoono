@@ -15,6 +15,13 @@ export type SharedDoc = {
 
 export const docs: SharedDoc[] = [
   {
+    slug: "html-screenshots-not-figma",
+    title: "Stop Making App Store Screenshots in Figma",
+    blurb: "One HTML page per screenshot, one command for every iPhone and iPad size. Template included.",
+    free: true,
+    addedOn: "2026-10-15",
+  },
+  {
     slug: "find-your-niche",
     title: "Find Your Niche and Prove People Want It",
     blurb: "A data-first way to pick an app idea people search for, pay for, and can't find a good version of yet.",
