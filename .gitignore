@@ -36,3 +36,4 @@ next-env.d.ts
 
 # paid PDFs before upload (never commit)
 /private-docs/
+og-src/og.png

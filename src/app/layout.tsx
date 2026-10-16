@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/logos/garoono-latest-logo.jpg",
-        width: 400,
-        height: 400,
-        alt: "Garoono",
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Garoono: apps Gautam builds after his 9 to 5, 14 apps and 100,000+ users",
       },
     ],
   },
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     site: "@xgaroono",
     title: "Gautam — Indie App Maker",
     description: "14+ apps shipped, we build apps for you, building in public",
-    images: ["/logos/garoono-latest-logo.jpg"],
+    images: ["/og.jpg"],
   },
   icons: {
     icon: [
