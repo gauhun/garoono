@@ -225,6 +225,7 @@ export const appPages: AppPage[] = [
     appStoreUrl: "https://apps.apple.com/in/app/getup-push-up-alarm-clock/id6789959109",
     playUrl: "https://play.google.com/store/apps/details?id=in.garoono.getup",
     screenshots: shots("getup", 6),
+    websiteUrl: "https://usegetup.com",
     category: "HealthApplication",
     seoTitle: "GetUp: Push Up Alarm Clock with Wake Up Missions",
     seoDescription: "An alarm that won't stop until you do push ups, solve math or take a photo, with bedtime app lock and streaks",

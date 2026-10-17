@@ -2,23 +2,26 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gautam — Indie App Maker | XLSheet AI, Habitide, FocusOn",
+  title: "Garoono | Indie Apps by Gautam Singh Rathor",
   description:
-    "Indie app maker from Delhi. Building apps that people actually use. 25,000+ users across XLSheet AI, Habitide, FocusOn, and more.",
+    "Gautam builds apps after his 9 to 5. PushPass, XLSheetAI, JapMala, GetUp and DressMirror, used by 100,000+ people, plus free guides on shipping apps",
   keywords: [
-    "indie app maker",
-    "flutter developer",
-    "Gautam Singh Rathor",
     "garoono",
-    "XLSheet AI",
-    "Habitide",
-    "FocusOn",
-    "Delhi",
+    "Gautam Singh Rathor",
+    "indie app maker",
+    "flutter app developer",
+    "PushPass",
+    "XLSheetAI",
+    "JapMala",
+    "GetUp",
+    "DressMirror",
   ],
+  // Every other route sets its own canonical; this one covers the homepage (a client component, so it can't export metadata)
+  alternates: { canonical: "/" },
   authors: [{ name: "Gautam Singh Rathor", url: "https://garoono.in" }],
   metadataBase: new URL("https://garoono.in"),
   openGraph: {
-    title: "Gautam — Indie App Maker",
+    title: "Garoono | Indie Apps by Gautam Singh Rathor",
     description: "14+ apps shipped, we build apps for you, building in public",
     url: "https://garoono.in",
     siteName: "Garoono",
@@ -35,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@xgaroono",
-    title: "Gautam — Indie App Maker",
+    title: "Garoono | Indie Apps by Gautam Singh Rathor",
     description: "14+ apps shipped, we build apps for you, building in public",
     images: ["/og.jpg"],
   },
