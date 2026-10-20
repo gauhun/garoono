@@ -6,6 +6,7 @@ import { docs, previewOf, type SharedDoc } from "../data/docs";
 import { fetchAllStats, recordDownload, recordView } from "../lib/docStats";
 import { EMPTY_STATS, freeFirst, rankDocs, searchDocs, type DocStats, type SortKey } from "../lib/rankDocs";
 import { checkoutUrl } from "../lib/checkout";
+import { openPaidDoc } from "../lib/access";
 import { useAccess } from "../lib/useAccess";
 import { AuthChip, PaymentBanner, UnlockBanner, useInAppBrowser } from "./AccessPanel";
 import DocCard from "./DocCard";
@@ -50,22 +51,25 @@ export default function DocsLibrary() {
     });
 
   const access = useAccess();
-  // Without Pro, the free docs lead the list
+  // Without lifetime access, the free docs lead the list
   const shown = searchDocs(access.lifetime ? ranked : freeFirst(ranked), query);
   const { summary: pro } = useProWall(access.lifetime);
   const members = pro?.members ?? [];
-  const buy = () => {
+  const buy = (doc: SharedDoc) => {
     window.location.href = checkoutUrl({
+      doc: doc.slug,
       returnUrl: `${window.location.origin}/docs/`,
       email: access.user?.email,
       uid: access.user?.uid,
     });
   };
+  const openBought = (slug: string, download: boolean) =>
+    openPaidDoc(slug, download).catch(() => alert("Couldn't open this doc. Please try again."));
 
   // Free and locked docs open in the reader; Download on a locked doc opens the Pro dialog.
   // The open doc's slug sits in the URL hash, so /docs/#<slug> links straight to it.
   const [reading, setReading] = useState<SharedDoc | null>(null);
-  const [offerOpen, setOfferOpen] = useState(false);
+  const [offerDoc, setOfferDoc] = useState<SharedDoc | null>(null);
   const inApp = useInAppBrowser();
   const signIn = access.ready && !access.user && !inApp ? access.signIn : undefined;
 
@@ -106,13 +110,13 @@ export default function DocsLibrary() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Buying unlocks every paid doc as a full PDF, so its preview is no longer needed
+  // A bought doc opens as the full PDF, so its preview and offer are no longer needed
+  const { owns } = access;
   useEffect(() => {
-    if (access.lifetime) {
-      setReading((d) => (d && !d.free ? null : d));
-      setOfferOpen(false);
-    }
-  }, [access.lifetime]);
+    setReading((d) => (d && !d.free && owns(d.slug) ? null : d));
+    setOfferDoc((d) => (d && owns(d.slug) ? null : d));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [access.lifetime, access.docs]);
 
   return (
     <>
@@ -136,7 +140,7 @@ export default function DocsLibrary() {
         </div>
       </header>
 
-      <PaymentBanner access={access} />
+      <PaymentBanner access={access} onOpen={openBought} />
 
       <div className="docs-toolbar">
       <div className="docs-tabs" role="tablist" aria-label="Sort docs">
@@ -173,14 +177,14 @@ export default function DocsLibrary() {
             index={i}
             stats={live ? (live[d.slug] ?? EMPTY_STATS) : null}
             onCount={onCount}
-            locked={!d.free && !access.lifetime}
+            locked={!d.free && !access.owns(d.slug)}
             onRead={() => openReader(d)}
-            onBuy={() => setOfferOpen(true)}
+            onBuy={() => setOfferDoc(d)}
           />
         ))}
       </div>
 
-      <UnlockBanner access={access} onBuy={buy} />
+      <UnlockBanner access={access} />
     </div>
       <ProRail members={members.slice(0, RAIL_SIZE)} offset={0} />
     </div>
@@ -190,13 +194,13 @@ export default function DocsLibrary() {
           doc={reading}
           lifetime={access.lifetime}
           onClose={closeReader}
-          onDownload={() => setOfferOpen(true)}
+          onDownload={() => setOfferDoc(reading)}
           onFreeDownload={() => {
             if (recordDownload(reading.slug)) onCount(reading.slug, "downloads", 1);
           }}
-          onBuy={buy}
+          onBuy={() => buy(reading)}
           onSignIn={signIn}
-          covered={offerOpen}
+          covered={offerDoc !== null}
         />
       )}
       {welcomeOpen && !access.lifetime && !reading && (
@@ -212,7 +216,14 @@ export default function DocsLibrary() {
           }}
         />
       )}
-      {offerOpen && <ProDialog title="Download every doc" onClose={() => setOfferOpen(false)} onBuy={buy} onSignIn={signIn} />}
+      {offerDoc && (
+        <ProDialog
+          title={offerDoc.title}
+          onClose={() => setOfferDoc(null)}
+          onBuy={() => buy(offerDoc)}
+          onSignIn={signIn}
+        />
+      )}
     </>
   );
 }

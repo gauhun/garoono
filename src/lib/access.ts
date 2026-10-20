@@ -7,8 +7,10 @@ async function call<T>(name: string, data: unknown): Promise<T> {
   return (await fn(data)).data as T;
 }
 
-export const claimAccess = (paymentId?: string) =>
-  call<{ lifetime: boolean }>("claimAccess", paymentId ? { paymentId } : {});
+// `docs` are the slugs bought one at a time; `paid` is what the given payment unlocked ("lifetime" or a slug)
+export type AccessResult = { lifetime: boolean; docs: string[]; paid: string | null };
+
+export const claimAccess = (paymentId?: string) => call<AccessResult>("claimAccess", paymentId ? { paymentId } : {});
 
 // Opens the tab synchronously so popup blockers allow it, then points it at the signed URL
 export async function openPaidDoc(slug: string, download: boolean) {

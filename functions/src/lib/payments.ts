@@ -13,9 +13,18 @@ export const PAYMENT_ID_RE = /^[A-Za-z0-9_-]{6,80}$/;
 
 export const normalizeEmail = (email: string) => email.trim().toLowerCase();
 
-// The product is what was bought; Dodo may localise the amount/currency for overseas buyers
-export function isQualifyingPayment(p: DodoPayment, productId: string) {
-  return p.status === "succeeded" && (p.product_cart ?? []).some((item) => item.product_id === productId);
+export type PurchaseKind = { kind: "lifetime" } | { kind: "doc"; slug: string };
+
+// The product is what was bought; Dodo may localise the amount/currency for overseas buyers.
+// A doc purchase names its doc in checkout metadata; every doc costs the same, so the buyer
+// picking the slug can't buy a pricier doc for less.
+export function purchaseKind(p: DodoPayment, products: { lifetime: string; doc: string }): PurchaseKind | null {
+  if (p.status !== "succeeded") return null;
+  const bought = (p.product_cart ?? []).map((item) => item.product_id);
+  if (bought.includes(products.lifetime)) return { kind: "lifetime" };
+  const slug = p.metadata?.doc;
+  if (bought.includes(products.doc) && typeof slug === "string" && SLUG_RE.test(slug)) return { kind: "doc", slug };
+  return null;
 }
 
 const REVOKE = new Set(["refund.succeeded", "dispute.opened", "dispute.lost"]);

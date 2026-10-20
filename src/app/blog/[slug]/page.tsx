@@ -5,7 +5,7 @@ import AppRails from "../../../components/AppRails";
 import BlogCover from "../../../components/BlogCover";
 import { docs } from "../../../data/docs";
 import { getAllPosts, getPost } from "../../../lib/blog";
-import { LaunchPrice } from "../../../components/LaunchOffer";
+import { DOC_PRICE_LABEL } from "../../../lib/checkout";
 
 export const dynamicParams = false;
 
@@ -82,7 +82,7 @@ export default async function BlogPost({ params }: Params) {
 
       {related && (
         <Link href={`/docs/#${related.slug}`} className="post-related">
-          <span className="post-related-label">Related doc {related.free ? "· free" : "· 🔒 Pro"}</span>
+          <span className="post-related-label">Related doc {related.free ? "· free" : `· 🔒 ${DOC_PRICE_LABEL}`}</span>
           <strong>{related.title}</strong>
           <span>{related.blurb}</span>
         </Link>
@@ -91,9 +91,9 @@ export default async function BlogPost({ params }: Params) {
       <aside className="post-cta">
         <div>
           <strong>
-            Get every playbook · <LaunchPrice /> lifetime
+            Playbooks from my own apps · {DOC_PRICE_LABEL} each
           </strong>
-          <span>Launch guides, app store SEO, security and legal checklists. Every future doc included</span>
+          <span>Launch guides, app store SEO, security and legal checklists, plus free ones</span>
         </div>
         <Link href="/docs/" className="doc-btn doc-btn-primary">
           See the docs

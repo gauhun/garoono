@@ -15,6 +15,13 @@ export type SharedDoc = {
 
 export const docs: SharedDoc[] = [
   {
+    slug: "crack-dev-interviews",
+    title: "Crack Your Flutter, React Native and Full Stack Interview",
+    blurb: "The questions that keep coming up, short answers you can say out loud, and a 3 week plan that fits next to a job",
+    free: true,
+    addedOn: "2026-10-18",
+  },
+  {
     slug: "html-screenshots-not-figma",
     title: "Stop Making App Store Screenshots in Figma",
     blurb: "One HTML page per screenshot, one command for every iPhone and iPad size. Template included.",

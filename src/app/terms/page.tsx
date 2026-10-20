@@ -3,7 +3,7 @@ import LegalPage from "../../components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Terms of Service · Garoono",
-  description: "The terms for using garoono.in and buying lifetime access to docs.",
+  description: "The terms for using garoono.in and buying docs.",
   alternates: { canonical: "/terms/" },
 };
 
@@ -17,14 +17,14 @@ export default function TermsPage() {
 
       <h2>Docs</h2>
       <p>
-        Some docs are free. The rest need lifetime access. The docs share what I have learned building apps. They are not
+        Some docs are free. The rest are bought one at a time. The docs share what I have learned building apps. They are not
         legal, financial or security advice, and results depend on your situation.
       </p>
 
-      <h2>Lifetime access</h2>
+      <h2>Buying a doc</h2>
       <ul>
-        <li>A one-time payment unlocks every paid doc on garoono.in, including docs published later.</li>
-        <li>&quot;Lifetime&quot; means for as long as garoono.in offers docs. If the site ever shuts down, I will give at least 30 days&apos; notice so you can download what you bought.</li>
+        <li>A one-time payment unlocks that doc, to view and download for as long as garoono.in offers docs. If the site ever shuts down, I will give at least 30 days&apos; notice so you can download what you bought.</li>
+        <li>Lifetime access, sold before per-doc pricing, keeps unlocking every paid doc, including docs published later.</li>
         <li>Access is personal and tied to the Google account you sign in with.</li>
       </ul>
 

@@ -69,7 +69,9 @@ describe("docs list", () => {
 
   it("keeps exactly the chosen docs free", () => {
     expect(docs.filter((d) => d.free).map((d) => d.slug).sort()).toEqual([
+      "crack-dev-interviews",
       "failed-payments-win-back",
+      "html-screenshots-not-figma",
       "steal-competitor-keywords",
       "will-your-app-get-rejected-audit",
     ]);

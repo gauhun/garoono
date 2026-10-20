@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { isInAppBrowser } from "../lib/auth";
-import { LaunchCountdown, LaunchPrice, useLaunchOffer } from "./LaunchOffer";
+import { DOC_PRICE_LABEL } from "../lib/checkout";
+import { docs } from "../data/docs";
 import type { Access } from "../lib/useAccess";
 
 export function useInAppBrowser() {
@@ -38,10 +39,31 @@ export function AuthChip({ access }: { access: Access }) {
   );
 }
 
-// Shown at the top right after checkout, while the purchase is being unlocked
-export function PaymentBanner({ access }: { access: Access }) {
+// Shown after checkout: while the purchase is being unlocked, then with the doc it unlocked
+export function PaymentBanner({ access, onOpen }: { access: Access; onOpen: (slug: string, download: boolean) => void }) {
   const inApp = useInAppBrowser();
-  if (access.lifetime || !access.justPaid) return null;
+  const doc = docs.find((d) => d.slug === access.unlocked);
+
+  if (doc) {
+    return (
+      <div className="unlock-banner is-paid">
+        <div className="unlock-copy">
+          <strong>Unlocked 🎉</strong>
+          <span>{doc.title}</span>
+        </div>
+        <button type="button" className="doc-btn" onClick={() => onOpen(doc.slug, false)}>
+          View
+        </button>
+        <button type="button" className="doc-btn doc-btn-primary" onClick={() => onOpen(doc.slug, true)}>
+          Download
+        </button>
+        <button type="button" className="unlock-link" onClick={access.dismissUnlocked}>
+          Close
+        </button>
+      </div>
+    );
+  }
+  if (!access.justPaid) return null;
 
   return (
     <div className="unlock-banner is-paid">
@@ -70,35 +92,23 @@ export function PaymentBanner({ access }: { access: Access }) {
   );
 }
 
-// The lifetime offer, at the bottom of the docs list
-export function UnlockBanner({ access, onBuy }: { access: Access; onBuy: () => void }) {
+// The price, and a way back in for buyers on a new device, at the bottom of the docs list
+export function UnlockBanner({ access }: { access: Access }) {
   const inApp = useInAppBrowser();
-  const offer = useLaunchOffer();
   const [showRecover, setShowRecover] = useState(false);
   const [paymentId, setPaymentId] = useState("");
   const [recoverFailed, setRecoverFailed] = useState(false);
 
-  // Owners already see "You're Pro" in the header
+  // Lifetime owners already have everything
   if (access.lifetime || access.justPaid) return null;
 
   return (
     <div className="unlock-banner">
       <div className="unlock-copy">
-        <strong>
-          Unlock all docs · <LaunchPrice /> lifetime
-        </strong>
-        <span>
-          {offer.active
-            ? `Launch price. Goes up to ${offer.regularPrice} on 10 Oct. One payment, every doc I publish, forever.`
-            : "One payment. Every doc I publish, forever."}
-        </span>
-        <span className="unlock-note">Pro members appear on the Pro wall with their first name and photo.</span>
+        <strong>Every paid doc is {DOC_PRICE_LABEL}</strong>
+        <span>Pay once, view and download it anytime</span>
       </div>
-      <LaunchCountdown />
       <div className="unlock-actions">
-        <button type="button" className="doc-btn doc-btn-primary" onClick={onBuy}>
-          Get lifetime access
-        </button>
         <button type="button" className="unlock-link" onClick={() => setShowRecover((v) => !v)}>
           Already bought?
         </button>

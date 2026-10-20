@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canClaim, firstName, isQualifyingPayment, normalizeEmail, revocationFor, type DodoPayment } from "./payments";
+import { canClaim, firstName, normalizeEmail, purchaseKind, revocationFor, type DodoPayment } from "./payments";
 
 const paid = (over: Partial<DodoPayment> = {}): DodoPayment => ({
   payment_id: "pay_1",
@@ -16,12 +16,19 @@ describe("normalizeEmail", () => {
   it("trims and lowercases", () => expect(normalizeEmail("  Gautam@Gmail.COM ")).toBe("gautam@gmail.com"));
 });
 
-describe("isQualifyingPayment", () => {
-  it("accepts a succeeded payment for the lifetime product", () => expect(isQualifyingPayment(paid(), "pdt_life")).toBe(true));
-  it("accepts a localised currency", () => expect(isQualifyingPayment(paid({ currency: "USD", total_amount: 119 }), "pdt_life")).toBe(true));
-  it("rejects other statuses", () => expect(isQualifyingPayment(paid({ status: "processing" }), "pdt_life")).toBe(false));
-  it("rejects other products", () => expect(isQualifyingPayment(paid(), "pdt_other")).toBe(false));
-  it("rejects an empty cart", () => expect(isQualifyingPayment(paid({ product_cart: null }), "pdt_life")).toBe(false));
+describe("purchaseKind", () => {
+  const products = { lifetime: "pdt_life", doc: "pdt_doc" };
+  const docPaid = (doc: unknown) => paid({ product_cart: [{ product_id: "pdt_doc", quantity: 1 }], metadata: { doc } });
+
+  it("accepts a succeeded payment for the lifetime product", () => expect(purchaseKind(paid(), products)).toEqual({ kind: "lifetime" }));
+  it("accepts a localised currency", () => expect(purchaseKind(paid({ currency: "USD", total_amount: 119 }), products)).toEqual({ kind: "lifetime" }));
+  it("rejects other statuses", () => expect(purchaseKind(paid({ status: "processing" }), products)).toBeNull());
+  it("rejects other products", () => expect(purchaseKind(paid({ product_cart: [{ product_id: "pdt_other", quantity: 1 }] }), products)).toBeNull());
+  it("rejects an empty cart", () => expect(purchaseKind(paid({ product_cart: null }), products)).toBeNull());
+  it("reads the doc slug from metadata", () => expect(purchaseKind(docPaid("find-your-niche"), products)).toEqual({ kind: "doc", slug: "find-your-niche" }));
+  it("rejects a doc purchase without a valid slug", () => {
+    for (const doc of [undefined, "", "../x", "A B", 42]) expect(purchaseKind(docPaid(doc), products)).toBeNull();
+  });
 });
 
 describe("revocationFor", () => {

@@ -4,14 +4,15 @@ import { docs, freePdfUrl, previewOf, previewPageUrl, previewTeaserUrl, type Sha
 import { useModal } from "../lib/useModal";
 import { DownloadIcon } from "./DocCard";
 import { ProOffer } from "./ProOffer";
+import { DOC_PRICE_LABEL } from "../lib/checkout";
 
 type Props = {
   doc: SharedDoc;
   lifetime: boolean;
   onClose: () => void;
-  onDownload: () => void; // locked doc: opens the Pro dialog
+  onDownload: () => void; // locked doc: opens the offer for this doc
   onFreeDownload: () => void; // free doc: counts the download
-  onBuy: () => void;
+  onBuy: () => void; // checkout for this (paid) doc
   onSignIn?: () => void;
   covered: boolean; // the Pro dialog is open on top
 };
@@ -67,7 +68,15 @@ export default function DocReader({ doc, lifetime, onClose, onDownload, onFreeDo
 
           {doc.free && !lifetime && (
             <div className="reader-end">
-              <ProOffer title={`${paidCount} more docs like this`} onBuy={onBuy} onSignIn={onSignIn} />
+              <div className="pro-offer">
+                <strong className="pro-offer-title">{paidCount} more docs like this</strong>
+                <p className="pro-offer-price">
+                  {DOC_PRICE_LABEL} <span>each</span>
+                </p>
+                <button type="button" className="doc-btn doc-btn-primary pro-offer-buy" onClick={onClose}>
+                  Browse docs
+                </button>
+              </div>
             </div>
           )}
         </div>
