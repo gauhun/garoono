@@ -1,8 +1,9 @@
 "use client";
 
 import { useModal } from "../lib/useModal";
-import { DOC_PRICE_LABEL } from "../lib/checkout";
+import { docs } from "../data/docs";
 import { ProofStats } from "./DocsWelcome";
+import { LaunchCountdown, LaunchPrice } from "./LaunchOffer";
 
 type OfferProps = {
   title: string;
@@ -11,24 +12,26 @@ type OfferProps = {
   autoFocus?: boolean; // only in the dialog; inside the reader it would scroll to the bottom
 };
 
-// One title, the price, the proof and one button
+// One title, the price with what it covers, the proof, the countdown and one button
 export function ProOffer({ title, onBuy, onSignIn, autoFocus }: OfferProps) {
   return (
     <div className="pro-offer">
       <strong className="pro-offer-title">{title}</strong>
       <p className="pro-offer-price">
-        {DOC_PRICE_LABEL} <span>one time</span>
+        <LaunchPrice /> <span>one time</span>
       </p>
-      <p className="pro-offer-includes">View and download it anytime</p>
+      <p className="pro-offer-includes">All {docs.length} docs + every new one, forever</p>
       <ProofStats className="is-compact" />
+      <LaunchCountdown />
       <button type="button" className="doc-btn doc-btn-primary pro-offer-buy" onClick={onBuy} autoFocus={autoFocus}>
-        Unlock for {DOC_PRICE_LABEL}
+        Get lifetime access
       </button>
       {onSignIn && (
         <button type="button" className="unlock-link" onClick={onSignIn}>
           Already bought? Sign in
         </button>
       )}
+      <span className="pro-offer-note">Pro members show on the Pro wall</span>
     </div>
   );
 }

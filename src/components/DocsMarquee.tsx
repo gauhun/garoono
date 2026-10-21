@@ -32,7 +32,7 @@ export default function DocsMarquee() {
                 <img src={thumbUrl(d, "sm")} alt="" width={20} height={20} className="doc-chip-thumb" loading="lazy" />
                 <span>{d.title}</span>
                 {!d.free && (
-                  <span className="doc-chip-lock" aria-label="Paid doc">
+                  <span className="doc-chip-lock" aria-label="Lifetime access">
                     🔒
                   </span>
                 )}

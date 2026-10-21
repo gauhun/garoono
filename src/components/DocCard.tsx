@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { freePdfUrl, previewOf, thumbUrl, type SharedDoc } from "../data/docs";
 import { openPaidDoc } from "../lib/access";
-import { DOC_PRICE_LABEL } from "../lib/checkout";
 import { isLiked, recordDownload, recordView, toggleLike } from "../lib/docStats";
 import type { DocStats } from "../lib/rankDocs";
 
@@ -13,9 +12,9 @@ type Props = {
   index: number;
   stats: DocStats | null; // null while loading or if Firestore is unreachable
   onCount: (slug: string, counter: keyof DocStats, by: number) => void;
-  locked: boolean; // paid doc the visitor hasn't bought
+  locked: boolean; // paid doc and the visitor has no lifetime access
   onRead: () => void; // opens the reader: every page of a free doc, the preview of a locked one
-  onBuy: () => void; // opens the offer for this doc
+  onBuy: () => void; // opens the Pro dialog
 };
 
 function LockIcon() {
@@ -89,7 +88,7 @@ export default function DocCard({ doc, index, stats, onCount, locked, onRead, on
     if (recordView(doc.slug)) onCount(doc.slug, "views", 1);
   };
 
-  // Bought docs open through a 10-minute signed link
+  // Pro members open paid docs through a 10-minute signed link
   const openPaid = async (download: boolean) => {
     if (opening) return;
     setOpening(true);
@@ -186,8 +185,8 @@ export default function DocCard({ doc, index, stats, onCount, locked, onRead, on
             <button type="button" className="doc-btn" onClick={read}>
               View
             </button>
-            <button type="button" className="doc-btn doc-btn-primary doc-btn-icon" onClick={onBuy} aria-label={`Buy for ${DOC_PRICE_LABEL}`}>
-              <LockIcon /> {DOC_PRICE_LABEL}
+            <button type="button" className="doc-btn doc-btn-primary doc-btn-icon" onClick={onBuy}>
+              <LockIcon /> Download
             </button>
           </div>
         ) : doc.free ? (

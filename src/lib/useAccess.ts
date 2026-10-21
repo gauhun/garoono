@@ -27,13 +27,9 @@ function writePending(paymentId: string | null) {
 export type Access = {
   user: User | null;
   ready: boolean;
-  lifetime: boolean; // bought before per-doc pricing: every paid doc
-  docs: string[]; // slugs bought one at a time
-  owns: (slug: string) => boolean;
-  justPaid: boolean;
-  unlocked: string | null; // what the payment just confirmed unlocked: "lifetime" or a slug
-  dismissUnlocked: () => void;
+  lifetime: boolean;
   checking: boolean;
+  justPaid: boolean;
   error: string | null;
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -45,8 +41,6 @@ export function useAccess(): Access {
   const [user, setUser] = useState<User | null>(null);
   const [ready, setReady] = useState(false);
   const [lifetime, setLifetime] = useState(false);
-  const [docs, setDocs] = useState<string[]>([]);
-  const [unlocked, setUnlocked] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
   const [justPaid, setJustPaid] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,13 +60,11 @@ export function useAccess(): Access {
     try {
       const result = await claimAccess(paymentId);
       setLifetime(result.lifetime);
-      setDocs(result.docs);
-      if (result.paid) {
+      if (result.lifetime) {
         writePending(null);
         setJustPaid(false);
-        if (paymentId) setUnlocked(result.paid);
       }
-      return result.paid !== null;
+      return result.lifetime;
     } catch {
       setError("Couldn't check your access. Try again in a moment.");
       return false;
@@ -88,10 +80,7 @@ export function useAccess(): Access {
       setUser(u);
       setReady(true);
       if (u) void check(readPending());
-      else {
-        setLifetime(false);
-        setDocs([]);
-      }
+      else setLifetime(false);
     }).then((fn) => {
       if (cancelled) fn();
       else unsubscribe = fn;
@@ -115,12 +104,8 @@ export function useAccess(): Access {
     user,
     ready,
     lifetime,
-    docs,
-    owns: (slug) => lifetime || docs.includes(slug),
-    justPaid,
-    unlocked,
-    dismissUnlocked: () => setUnlocked(null),
     checking,
+    justPaid,
     error,
     signIn,
     signOut: signOutUser,

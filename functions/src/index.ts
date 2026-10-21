@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
-import { FieldPath, FieldValue, getFirestore } from "firebase-admin/firestore";
+import { FieldValue, getFirestore } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
 import { logger } from "firebase-functions";
 import { defineSecret, defineString } from "firebase-functions/params";
 import { setGlobalOptions } from "firebase-functions/v2";
 import { HttpsError, onCall, onRequest, type CallableRequest } from "firebase-functions/v2/https";
-import { canClaim, firstName, normalizeEmail, PAYMENT_ID_RE, purchaseKind, revocationFor, SLUG_RE, type DodoPayment } from "./lib/payments.js";
+import { canClaim, firstName, isQualifyingPayment, normalizeEmail, PAYMENT_ID_RE, revocationFor, SLUG_RE, type DodoPayment } from "./lib/payments.js";
 import { verifyWebhook } from "./lib/webhook.js";
 
 initializeApp();
@@ -21,16 +21,12 @@ setGlobalOptions({
 const DODO_API_KEY = defineSecret("DODO_API_KEY_LIVE");
 const DODO_WEBHOOK_SECRET = defineSecret("DODO_WEBHOOK_SECRET_LIVE");
 const DODO_API_BASE = defineString("DODO_API_BASE");
-// Lifetime is no longer sold, but its past payments still unlock and can still be refunded
 const DODO_PRODUCT_ID = defineString("DODO_PRODUCT_ID");
-const DODO_DOC_PRODUCT_ID = defineString("DODO_DOC_PRODUCT_ID");
 const PAID_DOCS_BUCKET = defineString("PAID_DOCS_BUCKET");
 
 const db = getFirestore();
 const purchases = db.collection("purchases");
 const entitlements = db.collection("entitlements");
-// One doc per user: { docs: { [slug]: paymentId } } for docs bought one at a time
-const docAccess = db.collection("docAccess");
 const proWall = db.collection("proWall");
 // Public counter shown on /docs; only functions write it
 const proCount = db.collection("publicStats").doc("pro");
@@ -51,8 +47,7 @@ async function fetchPayment(paymentId: string): Promise<DodoPayment | null> {
 // Re-checks the payment with Dodo and stores it once; never touches an existing record's status
 async function recordVerifiedPayment(paymentId: string): Promise<DodoPayment | null> {
   const payment = await fetchPayment(paymentId);
-  const kind = payment && purchaseKind(payment, { lifetime: DODO_PRODUCT_ID.value(), doc: DODO_DOC_PRODUCT_ID.value() });
-  if (!payment || !kind) return null;
+  if (!payment || !isQualifyingPayment(payment, DODO_PRODUCT_ID.value())) return null;
 
   const ref = purchases.doc(payment.payment_id);
   await db.runTransaction(async (tx) => {
@@ -63,19 +58,12 @@ async function recordVerifiedPayment(paymentId: string): Promise<DodoPayment | n
       currency: payment.currency,
       status: "paid",
       claimedBy: null,
-      // Records from before per-doc pricing have no kind and are lifetime
-      kind: kind.kind,
-      slug: kind.kind === "doc" ? kind.slug : null,
       createdAt: FieldValue.serverTimestamp(),
     });
   });
   return payment;
 }
 
-const docSlug = (purchase: FirebaseFirestore.DocumentData | undefined) =>
-  purchase?.kind === "doc" && typeof purchase.slug === "string" ? (purchase.slug as string) : null;
-
-// Gives the purchase to this user: a lifetime pass, or the one doc it paid for
 async function claim(paymentId: string, uid: string, email: string) {
   const ref = purchases.doc(paymentId);
   return db.runTransaction(async (tx) => {
@@ -84,20 +72,10 @@ async function claim(paymentId: string, uid: string, email: string) {
     const alreadyPro = (await tx.get(entRef)).exists;
     if (!canClaim(snap.data(), uid)) return false;
     tx.update(ref, { claimedBy: uid, updatedAt: FieldValue.serverTimestamp() });
-    const slug = docSlug(snap.data());
-    if (slug) {
-      tx.set(docAccess.doc(uid), { email, docs: { [slug]: paymentId } }, { merge: true });
-      return true;
-    }
     tx.set(entRef, { lifetime: true, paymentId, email, grantedAt: FieldValue.serverTimestamp() });
     if (!alreadyPro) tx.set(proCount, { count: FieldValue.increment(1) }, { merge: true });
     return true;
   });
-}
-
-async function accessOf(uid: string) {
-  const [ent, owned] = await Promise.all([entitlements.doc(uid).get(), docAccess.doc(uid).get()]);
-  return { lifetime: ent.exists, docs: Object.keys((owned.data()?.docs as Record<string, string> | undefined) ?? {}) };
 }
 
 // Every Pro member appears on the public wall unless they chose to hide
@@ -121,19 +99,9 @@ async function setRevoked(paymentId: string, revoked: boolean) {
     const owner = data.claimedBy as string | null;
     const entRef = owner ? entitlements.doc(owner) : null;
     const ent = entRef ? await tx.get(entRef) : null;
-    // Transactions must finish every read before the first write
-    const slug = docSlug(data);
-    const accessRef = owner && slug ? docAccess.doc(owner) : null;
-    const current = accessRef ? (await tx.get(accessRef)).data()?.docs?.[slug!] : undefined;
 
     tx.update(ref, { status: revoked ? "revoked" : "paid", updatedAt: FieldValue.serverTimestamp() });
     if (!entRef || !owner) return;
-
-    if (slug && accessRef) {
-      if (revoked && current === paymentId) tx.update(accessRef, new FieldPath("docs", slug), FieldValue.delete());
-      if (!revoked && !current) tx.set(accessRef, { docs: { [slug]: paymentId } }, { merge: true });
-      return;
-    }
     if (revoked && ent?.data()?.paymentId === paymentId) {
       tx.delete(entRef);
       tx.delete(proWall.doc(owner));
@@ -211,31 +179,34 @@ function requireVerifiedUser(req: CallableRequest) {
   return { uid, email: normalizeEmail(email) };
 }
 
-// Claims the given payment and any unclaimed ones bought with this email, then reports what the user owns.
-// `paid` is what the given payment unlocked for this user, so the page can open it straight away.
 export const claimAccess = onCall({ secrets: [DODO_API_KEY] }, async (req) => {
   const { uid, email } = requireVerifiedUser(req);
   const rawId = (req.data as { paymentId?: unknown } | undefined)?.paymentId;
-  let paid: string | null = null;
 
   if (typeof rawId === "string" && rawId.trim()) {
     const paymentId = rawId.trim();
     if (!PAYMENT_ID_RE.test(paymentId)) throw new HttpsError("invalid-argument", "That doesn't look like a payment ID.");
     // Covers the gap between the buyer landing back and the webhook arriving
     if (!(await purchases.doc(paymentId).get()).exists) await recordVerifiedPayment(paymentId);
-    await claim(paymentId, uid, email);
-    const purchase = (await purchases.doc(paymentId).get()).data();
-    if (purchase?.status === "paid" && purchase.claimedBy === uid) paid = docSlug(purchase) ?? "lifetime";
+    if (await claim(paymentId, uid, email)) {
+      await syncWall(uid);
+      return { lifetime: true };
+    }
   }
 
-  const matches = await purchases.where("email", "==", email).where("status", "==", "paid").limit(50).get();
+  if ((await entitlements.doc(uid).get()).exists) {
+    await syncWall(uid);
+    return { lifetime: true };
+  }
+
+  const matches = await purchases.where("email", "==", email).where("status", "==", "paid").limit(10).get();
   for (const doc of matches.docs) {
-    if (!doc.data().claimedBy) await claim(doc.id, uid, email);
+    if (await claim(doc.id, uid, email)) {
+      await syncWall(uid);
+      return { lifetime: true };
+    }
   }
-
-  const access = await accessOf(uid);
-  if (access.lifetime) await syncWall(uid);
-  return { ...access, paid };
+  return { lifetime: false };
 });
 
 export const getDocLink = onCall(async (req) => {
@@ -243,9 +214,8 @@ export const getDocLink = onCall(async (req) => {
   const { slug, download } = (req.data ?? {}) as { slug?: unknown; download?: unknown };
   if (typeof slug !== "string" || !SLUG_RE.test(slug)) throw new HttpsError("invalid-argument", "Unknown doc.");
 
-  const access = await accessOf(uid);
-  if (!access.lifetime && !access.docs.includes(slug)) {
-    throw new HttpsError("permission-denied", "Buy this doc first.");
+  if (!(await entitlements.doc(uid).get()).exists) {
+    throw new HttpsError("permission-denied", "Lifetime access required.");
   }
 
   const file = getStorage().bucket(PAID_DOCS_BUCKET.value()).file(`${slug}.pdf`);
