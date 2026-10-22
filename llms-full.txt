@@ -1,0 +1,1386 @@
+# Garoono
+
+> Garoono is the site of Gautam Singh Rathor, a senior software engineer in Delhi who builds mobile apps after his 9 to 5. It lists his apps, sells playbooks and checklists for indie app makers, and has a blog about shipping apps solo next to a day job.
+
+14 apps shipped, 100,000+ users across them, mostly Flutter. Some playbooks are free PDFs, the rest open with a one-time lifetime purchase on the docs page.
+
+## Apps
+- [Dress Mirror](https://garoono.in/apps/dressmirror/): Try sarees, lehengas, kurtis and western outfits on your own photo before you buy, on Android and iPhone. [App Store](https://apps.apple.com/us/app/dressmirror-ai-shoot-try-on/id6781407057), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.dressmirror)
+- [PushPass](https://garoono.in/apps/pushpass/): Block distracting apps and unlock them with pushups, squats, planks or jumping jacks your camera counts. [App Store](https://apps.apple.com/in/app/pushpass-screen-time-blocker/id6780573210), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.pushpass)
+- [XLSheet AI](https://garoono.in/apps/xlsheetai/): Turn plain words into spreadsheet formulas, macros, SQL and regex, and photos of tables into XLSX files. [App Store](https://apps.apple.com/in/app/xlsheetai-excel-formula-sql/id6755627033), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.xlsheetai)
+- [JapMala](https://garoono.in/apps/japmala/): Count mantras on a 108 bead digital mala, track your daily jaap streak and read devotional kathas offline. [App Store](https://apps.apple.com/in/app/japmala-naam-jaap-counter/id6782950756), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.japmala)
+- [Fitess](https://garoono.in/apps/fitess/): Log sets, scan your body for a score, spot weak zones on a muscle map and get a daily plan from an AI coach. [Google Play](https://play.google.com/store/apps/details?id=in.garoono.fitess)
+- [GetUp](https://garoono.in/apps/getup/): An alarm that won't stop until you do push ups, solve math or take a photo, with bedtime app lock and streaks. [App Store](https://apps.apple.com/in/app/getup-push-up-alarm-clock/id6789959109), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.getup)
+- [Habitide](https://garoono.in/apps/habitide/): Track habits with photo proof, streaks with friends and a growth radar that shows how you are changing. [App Store](https://apps.apple.com/in/app/habitide-daily-habit-tracker/id6745226793), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.habitide)
+- [SnapPDF Pro](https://garoono.in/apps/snappdfpro/): Scan documents, convert photos to PDF, merge, split, compress, sign and lock PDFs offline on Android and iPhone. [App Store](https://apps.apple.com/in/app/pdf-scanner-editor-snappdf/id6772768385), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.snappdf)
+- [FocusOn](https://garoono.in/apps/focuson/): A minimal flip clock Pomodoro timer that tracks how focused you felt and shows your deep work hours. [App Store](https://apps.apple.com/in/app/focuson-flip-clock-pomodoro/id6751473488), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.focuson)
+- [Shots](https://garoono.in/apps/shots/): Add backgrounds, frames and shadows to screenshots and export them at the right size for every platform. [App Store](https://apps.apple.com/in/app/shots-screenshot-beautifier/id6763390178), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.shots)
+- [SparkMate](https://garoono.in/apps/sparkmate/): Chat, call and video call with an AI companion who has her own personality and remembers you. [Google Play](https://play.google.com/store/apps/details?id=in.garoono.sparkmate)
+- [Apna RSS](https://garoono.in/apps/apnarss/): History, ideas, geet and service work of the Rashtriya Swayamsevak Sangh, explained simply in Hindi. [Google Play](https://play.google.com/store/apps/details?id=com.garoono.apnarss)
+- [XML Viewer](https://garoono.in/apps/xmlviewer/): View XML with a tree view and syntax highlighting, fix errors with the validator and convert to PDF or JSON. [Google Play](https://play.google.com/store/apps/details?id=in.garoono.xmlviewer)
+- [JSON View : Editor](https://garoono.in/apps/jsonview/): Open JSON files in a tree view, edit with syntax highlighting, format and validate, offline with no ads. [App Store](https://apps.apple.com/in/app/json-view-editor-formatter/id6762811010), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.jsonviewer)
+- [NailMirror](https://garoono.in/apps/nailmirror/): See chrome, french, gel and trending nail designs on your own hand before your salon appointment. [App Store](https://apps.apple.com/in/app/nailmirror-ai-nail-try-on-art/id6788501057), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.nailmirror)
+- [BhaktiDhun](https://garoono.in/apps/bhaktidhun/): Bhajans, aartis and chalisas sorted by deity, with kathas and leelas to read, in one simple devotional app. [Google Play](https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan)
+
+## Guides
+- [Account Deletion Requirement on the App Store and Google Play](https://garoono.in/blog/account-deletion-requirement-app-store/): If your app has sign-in, Apple and Google both want a real Delete account button inside the app, here is what it must do and how to show it to review
+- [App Rejected for Guideline 4.3 Spam? What It Means and What to Do](https://garoono.in/blog/app-rejected-guideline-4-3-spam/): Guideline 4.3 Spam means Apple sees your app as a duplicate, of your own apps or of the store, here is what the rule says and the three ways out
+- [Google Play 12 Testers 14 Days Requirement: How Solo Devs Pass](https://garoono.in/blog/google-play-12-testers-14-days-requirement/): New personal Play accounts need 12 testers opted in for 14 days in a row before production, here is the exact rule and a plan that passes first time
+- [Privacy Policy for App Store Submission: Apple and Google Rules](https://garoono.in/blog/privacy-policy-for-app-store-submission/): Both stores want a public privacy policy URL, a link inside the app and a data form that matches it, here is exactly what Apple and Google check
+- [Apple Blocked My Flutter Apps 3 Times: My App Store Checklist](https://garoono.in/blog/flutter-app-store-checklist/): An AI data question, a missing EULA link and a Screen Time entitlement, the three App Store blockers I hit in 2026 and the checklist I run now
+- [100,000 Downloads, $216 a Month: My Flutter Apps Revenue](https://garoono.in/blog/flutter-apps-revenue-honest-numbers/): One app pays most of the bills, iOS users are worth 12x Android and my ads made $3.40 last month, the honest numbers behind 16 Flutter apps
+- [Android Developer Verification for Indie Developers: 2026 Guide](https://garoono.in/blog/android-developer-verification-for-indie-developers/): Android now requires verified developers for installs in 4 countries and globally from 2027, here is what indie devs in India and elsewhere must do
+- [How to Get Your First 100 App Users Without Ads](https://garoono.in/blog/how-to-get-your-first-100-app-users/): The zero budget playbook I use for every launch, from app store search to Reddit to 20 direct messages, written for builders with a day job
+- [Supabase RLS Checklist for Vibe Coded Apps After 16,326 Leaks](https://garoono.in/blog/supabase-rls-checklist-for-vibe-coded-apps/): Researchers found 16,326 Supabase databases with readable tables, here is the 9 step RLS checklist to run on your AI built app tonight
+
+## Playbooks
+- [Crack Your Flutter, React Native and Full Stack Interview](https://garoono.in/docs/#crack-dev-interviews): The questions that keep coming up, short answers you can say out loud, and a 3 week plan that fits next to a job (free PDF)
+- [Stop Making App Store Screenshots in Figma](https://garoono.in/docs/#html-screenshots-not-figma): One HTML page per screenshot, one command for every iPhone and iPad size. Template included. (free PDF)
+- [Find Your Niche and Prove People Want It](https://garoono.in/docs/#find-your-niche): A data-first way to pick an app idea people search for, pay for, and can't find a good version of yet.
+- [Build It Fast with AI](https://garoono.in/docs/#build-it-fast-with-ai): What to write before you prompt, the order to build in, and a paywall Apple won't reject.
+- [Your First 100 Users](https://garoono.in/docs/#first-100-users): Without an ad budget, and without waiting for the App Store to notice you.
+- [Ship v1 in 30 Days, Next to a Day Job](https://garoono.in/docs/#ship-v1-in-30-days): One core feature, a fixed weekly time budget, and a build order you don't break.
+- [Subscriptions with RevenueCat](https://garoono.in/docs/#subscriptions-with-revenuecat): Flutter, App Store and Google Play subscriptions, set up once and done right.
+- [Track What Matters](https://garoono.in/docs/#track-what-matters): Firebase, PostHog and RevenueCat joined into one funnel, so you know where people drop off.
+- [Price Your App](https://garoono.in/docs/#price-your-app): Paywall type, plan length, trials, and what to actually charge.
+- [Keep the 30%](https://garoono.in/docs/#keep-the-30-percent): Web payments for iOS apps in the US: what's allowed in 2026, and how to set it up from India.
+- [The Prompt to Secure Your App](https://garoono.in/docs/#secure-your-app-prompt): One copy-paste prompt that makes your AI tool audit your app like a senior security engineer.
+- [Stop Building the Same App Twice](https://garoono.in/docs/#flutter-starter-kit-blueprint): The Flutter starter kit blueprint: build onboarding, paywall and reminders once, reuse them forever.
+- [3 Slideshows a Day, Zero Filming](https://garoono.in/docs/#slideshows-for-app-installs): The slideshow system that turns short-video posts into app installs, without filming.
+- [5 Ways Your Vibe-Coded App Can Bankrupt You Tonight](https://garoono.in/docs/#vibe-coded-app-cloud-bill-traps): Find the cloud billing traps in your app before the invoice finds you.
+- [The Free Stack to Launch an App](https://garoono.in/docs/#free-stack-to-launch-an-app): The tools that cost nothing until you have real users, for a Flutter app and a web app.
+- [Grow on TikTok: Reach the US From India](https://garoono.in/docs/#grow-on-tiktok-playbook): The setup I use to run a US-facing TikTok account, from warm-up and hooks to turning views into installs.
+- [Stuck at 12 Testers? Get Play Production Access](https://garoono.in/docs/#stuck-at-12-testers): Get Google Play production access on the first try, with testers who actually test.
+- [Will Your App Get Rejected? The 30 Minute Audit](https://garoono.in/docs/#will-your-app-get-rejected-audit): 36 checks for the App Store and Google Play, with a score that tells you when to submit. (free PDF)
+- [Steal Your Competitors' Best Keywords](https://garoono.in/docs/#steal-competitor-keywords): ASO from competitor listings, 1-star reviews and real comments, researched with parallel AI chats. (free PDF)
+- [They Didn't Cancel. Their Card Did.](https://garoono.in/docs/#failed-payments-win-back): Win back the subscribers you lose to failed payments without noticing. (free PDF)
+- [Don't Spend on Ads Until You Read This](https://garoono.in/docs/#before-you-spend-on-ads): Apple Ads, the break-even math, and when paid installs actually pay you back.
+- [From 3.9 to 4.7 Stars](https://garoono.in/docs/#app-rating-3-9-to-4-7): Ask for reviews at the right moment, fix what 1-star reviews say, and reply like a human.
+- [Your AI App Might Lose Money on Every User](https://garoono.in/docs/#ai-app-loses-money): Price and build AI features so your heaviest users don't eat your profit.
+- [Your AI-Built App Is Leaking](https://garoono.in/docs/#secure-your-vibe-coded-app): Find the 8 holes AI leaves in Flutter and Firebase apps, before someone else does.
+- [Build Paid Apps on Free AI Models](https://garoono.in/docs/#build-paid-apps-on-free-ai-models): How developers turn free AI research into apps people pay for.
+- [20 Security Checks Before You Launch](https://garoono.in/docs/#20-security-checks-before-launch): What each check means, how to test it, and notes if you build on Firebase.
+- [Six Documents Before You Let AI Build Your App](https://garoono.in/docs/#six-documents-before-you-prompt): What to write down first, without wasting a weekend on paperwork.
+- [App SEO Playbook](https://garoono.in/docs/#app-seo-playbook): Get downloads from Google without paying for ads. What really works in 2026.
+- [Before You Submit: Legal Checklist](https://garoono.in/docs/#legal-checklist-before-you-submit): The 7 things stores check before approving an AI-built app, with prompts for each.
+- [Don't Get Rejected: App Store Launch Guide](https://garoono.in/docs/#app-store-launch-guide): The 5 reasons new apps get rejected, and the step-by-step way to ship yours.
+
+---
+Source: https://garoono.in/blog/account-deletion-requirement-app-store/
+Date: 2026-10-22
+
+# Account Deletion Requirement on the App Store and Google Play
+
+If people can create an account in your app, both stores want them to be able to delete it from inside the app
+Apple checks it under guideline 5.1.1(v), Google checks it through its User Data policy and the Data safety form
+Deactivating the account does not count on either store
+Deleting must remove the account and the data tied to it, and Google also wants a web link that works without the app
+
+That's the whole rule
+The rest of this post is how to build it once, properly, and how to prove it to App Review
+
+In October 2026 one of my apps got rejected under 5.1.1(v) for exactly this
+It had sign-in and no in-app account deletion
+After I added it, Apple asked for a screen recording on a physical device showing the full flow
+So this is written from the fix, not from theory
+
+## What Apple requires
+
+Guideline 5.1.1(v) says that if your app supports account creation, you must also offer account deletion within the app ([App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#data-collection-and-storage))
+
+Apple's account deletion page spells out the details ([Apple](https://developer.apple.com/help/app-review/guideline-reference/5-1-1-account-deletion))
+
+- Make the option easy to find, usually in account settings
+- Delete the entire account record and the personal data tied to it
+- Only offering to deactivate or disable the account is not enough
+- If deletion finishes on your website, link straight to that page, not your home page
+- If deletion takes time, tell the user how long and confirm when it's done
+- If the law makes you keep some data, say what you keep and what you delete
+
+Two details catch indie devs
+
+Guest accounts count
+Apple says people should be able to delete automatically generated accounts and their data too ([Apple](https://developer.apple.com/help/app-review/guideline-reference/5-1-1-account-deletion))
+
+Subscriptions need a warning
+If the user has an auto-renewable subscription, Apple wants you to tell them billing continues through Apple and ask them to cancel first ([Apple](https://developer.apple.com/help/app-review/guideline-reference/5-1-1-account-deletion))
+
+You may ask the user to confirm, or enter a code sent to their email
+But Apple says apps that make deletion unnecessarily difficult will not pass review, and unless you're in a highly regulated industry, don't make people call, email or chat with support to delete ([Apple](https://developer.apple.com/help/app-review/guideline-reference/5-1-1-account-deletion))
+
+## What Google Play requires
+
+Google's rule is close, with one extra piece
+
+Its User Data policy says apps that allow account creation must offer deletion both inside the app and through a web resource outside it ([Google Play policy](https://support.google.com/googleplay/android-developer/answer/10144311))
+The same policy says temporary deactivation, disabling or freezing the account does not qualify as deletion
+
+Google's help page on the requirement adds what the web link needs ([Google Play Help](https://support.google.com/googleplay/android-developer/answer/13327111))
+
+- It must load without errors
+- It must reference your app or developer name as shown on your Play listing
+- The user must be able to actually request deletion through it
+- You put the link in the Data safety form in Play Console
+
+Why a web link if the app already has a button?
+Google's answer is that a user who already uninstalled your app shouldn't have to download it again just to delete their account ([Google Play Help](https://support.google.com/googleplay/android-developer/answer/13327111))
+
+You can keep some data for security, fraud prevention or legal reasons, as long as you tell users clearly what you keep ([Google Play Help](https://support.google.com/googleplay/android-developer/answer/13327111))
+
+A simple page on your site with a short form, or a page that tells signed in users to tap Delete account and logged out users how to request it, is enough for a small app
+
+## What a deletion flow must actually do
+
+The button is the easy part
+What happens after the tap is what makes it real
+
+### 1 Confirm and warn
+One screen, one clear button, and a line about active subscriptions with a link to manage them
+
+### 2 Re-authenticate
+Firebase says deleting an account is a security-sensitive action that needs a recent sign-in, and fails with an error otherwise ([Firebase docs](https://firebase.google.com/docs/auth/web/manage-users))
+So ask the user to sign in again right before deleting, instead of waiting for the error
+
+### 3 Revoke Sign in with Apple
+Apple says apps that support Sign in with Apple should use its REST API to revoke user tokens ([Apple](https://developer.apple.com/help/app-review/guideline-reference/5-1-1-account-deletion))
+Firebase does not store Apple tokens, so the user signs in with Apple again, you take the fresh authorization code, and Firebase revokes it for you ([Firebase docs](https://firebase.google.com/docs/auth/ios/apple))
+
+### 4 Delete the server data
+Firestore documents, Storage files, anything the user posted
+Apple says people expect shared content like photos, posts and reviews to go too ([Apple](https://developer.apple.com/help/app-review/guideline-reference/5-1-1-account-deletion))
+
+### 5 Delete the auth user
+Last, because your security rules probably check `request.auth` before letting anyone delete those documents
+
+Here's the short Flutter version for an Apple sign-in user
+
+```dart
+Future<void> deleteAccount() async {
+  final auth = FirebaseAuth.instance;
+  final user = auth.currentUser!;
+
+  // Fresh sign-in: satisfies recent-login and gives a new Apple auth code
+  final cred = await user.reauthenticateWithProvider(AppleAuthProvider());
+  final code = cred.additionalUserInfo?.authorizationCode;
+  if (code != null) await auth.revokeTokenWithAuthorizationCode(code);
+
+  // Server data before the auth user, while rules still see request.auth
+  await FirebaseFirestore.instance.doc('users/${user.uid}').delete();
+
+  await user.delete();
+}
+```
+
+The `revokeTokenWithAuthorizationCode` call is straight from the FlutterFire docs ([Firebase docs](https://firebase.google.com/docs/auth/flutter/federated-auth))
+For Google or email users, swap the reauthenticate step for that provider and skip the revoke
+
+If a user has subcollections or Storage files, one document delete is not enough
+Move the data part into a Cloud Function that deletes everything under the user's ID, and call it from the app
+
+## How to show it to App Review
+
+This is the part Apple came back to me about
+
+Apple's review prep page says to give working demo account credentials in App Store Connect, and to use the Notes field for anything extra reviewers need ([Apple](https://developer.apple.com/help/app-review/before-submitting-for-review/complete-review))
+For account deletion, add these to Review Notes before Apple asks
+
+- A demo account that is safe to delete, and a second one in case they delete the first
+- The exact path, for example Settings, Account, Delete account
+- What gets deleted and how long it takes
+- A screen recording on a real iPhone: sign in, find Delete account, finish the deletion
+
+In my case Apple asked for that recording after the rejection
+Recording it up front costs five minutes and can save you a full review cycle
+
+> Deleting the account, not hiding it, is the rule on both stores
+
+## Pre-submit checklist
+
+| Check | Pass when |
+|---|---|
+| In-app button | Delete account is easy to find in account settings |
+| Real deletion | Account record and user data are gone, not just flagged |
+| Re-auth | Fresh sign-in happens before the delete call |
+| Apple token | Revoked for Sign in with Apple users |
+| Subscriptions | User is told billing continues and how to cancel |
+| Google web link | Loads, names the app, accepts a request, is in Data safety |
+| Review Notes | Demo account, path to the button and a device recording |
+
+If you want the other legal checks stores run before approving an app, they're in [Before You Submit: Legal Checklist](/docs/#legal-checklist-before-you-submit)
+And my [App Store checklist](/blog/flutter-app-store-checklist/) covers three other blockers that a clean build never catches
+
+## FAQ
+
+### Is account deletion required on the App Store?
+
+Yes, if your app lets people create an account
+Guideline 5.1.1(v) requires that those apps also let people delete the account from inside the app
+
+### Is deactivating an account enough?
+
+No
+Apple and Google both say that only deactivating, disabling or freezing an account does not count as deletion
+
+### Does Google Play need a web link for account deletion?
+
+Yes
+Google wants a working web page where users can request deletion without reinstalling the app, and that link goes in the Data safety form in Play Console
+
+### Do I have to revoke Sign in with Apple tokens when deleting an account?
+
+Apple says apps that support Sign in with Apple should revoke user tokens through its REST API
+With Firebase, sign the user in with Apple again and pass the new authorization code to the revoke method before deleting the user
+
+### Can I keep some user data after the account is deleted?
+
+Yes, if the law or fraud prevention requires it
+Both stores want you to tell users clearly what you keep
+
+---
+Source: https://garoono.in/blog/app-rejected-guideline-4-3-spam/
+Date: 2026-10-22
+
+# App Rejected for Guideline 4.3 Spam? What It Means and What to Do
+
+A guideline 4.3 Spam rejection means Apple thinks your app is a duplicate
+Either a copy of another app on your own account, or one more variant of something the store already has plenty of
+Fixing a bug won't help, because nothing is broken
+You get out in one of three ways: merge it into an app you already have, change it until it's clearly different, or answer Apple's questions honestly and show why it isn't spam
+
+I got this one on October 13, 2026
+Two of my apps were rejected one minute apart, both under 4.3 Spam plus 4.2.6
+One of them overlapped with another app on the same account
+Here's what the rules actually say and what I'd do differently
+
+## What guideline 4.3 Spam says
+
+Guideline 4.3 has two parts, and it helps to know which one you hit ([App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#spam))
+
+### 4.3(a): your own duplicates
+Apple's words: "Don't create multiple Bundle IDs of the same app"
+The example is a separate map app for every city instead of one map app that searches any city
+Apple's suggested fix is right in the rule: submit a single app and provide the variations using in-app purchase
+
+### 4.3(b): the store's duplicates
+Apple's words: "Don't submit apps that are indistinguishable from what's already widely available"
+It names categories it considers saturated: dating, flashlight, sound effects, wallpaper, simple timers and fortune telling
+New apps there are only accepted if they offer "a meaningfully different or improved experience"
+And the same paragraph warns that repeated submissions of low-effort apps may lead to removal from the Apple Developer Program
+
+### 4.2.6: template apps
+This one sits under Minimum Functionality ([App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#minimum-functionality))
+It says apps "created from a commercialized template or app generation service will be rejected" unless the provider of the app's content submits them
+The allowed alternative is one app that hosts every client's content, like a restaurant finder with a page per restaurant
+
+## What my rejection said
+
+Apple's message on my two apps used three phrases that stuck with me
+
+- The app "duplicates functionality" already on the App Store
+- It "could be an in-app purchase in another app on your account"
+- It "shares code with your other apps"
+
+Read those again and you'll notice none of them are about the app alone
+They compare it to my other apps
+
+That's the part most indie devs miss
+4.3(a) is about your account, so Apple looks at your app next to everything else you've shipped
+Two rejections landing one minute apart told me the reviewer was looking at my catalogue, not at one binary
+
+## Why indie devs get hit
+
+You don't need to be a spammer to look like one
+
+- **Several similar apps**, a viewer for one file type, then another viewer for a similar one, each in its own listing
+- **A shared starter kit**, same onboarding, same paywall, same settings screen, same code underneath
+- **Template or white label apps**, one codebase, many clients, many bundle IDs, which is exactly what 4.2.6 describes
+- **Crowded categories**, a simple timer or wallpaper app built fast with AI lands in a list Apple already called full
+- **Copy paste metadata**, same description structure and release notes across apps make the overlap even easier to spot
+
+Reusing code is normal, every solo dev does it
+The problem is when the reused code is also the whole product
+
+## What to do after a 4.3 rejection
+
+### Option 1: merge it into an app you already have
+If the rejected app does the same job for the same people as one of your other apps, this is the honest answer
+Apple's own rule suggests shipping variations as in-app purchases inside a single app
+You keep one listing, one set of reviews and one codebase to maintain, which is less work anyway
+
+### Option 2: make substantial changes
+If the app really is its own product, make that visible
+New core features, a different interface, its own onboarding and screenshots, a description that isn't a copy of your other listings
+Renaming the app and swapping colours is not substantial
+
+### Option 3: answer Apple's questions honestly
+My rejection came with a list of questions from Apple
+Answer every one of them, plainly, with no spin
+If the app shares code with your other apps, say so, and explain what is different for the user
+Then submit an appeal if you think Apple misread the app
+
+Apple says you can appeal to the App Review Board if you feel they misunderstood your app's concept and functionality ([Apple](https://developer.apple.com/distribute/app-review/))
+Its tips: give specific reasons the app complies, submit only one appeal per rejected submission, and answer any requests for information first
+You can also book a 30 minute App Review appointment over Webex to ask about guidelines and common rejections ([Apple](https://developer.apple.com/distribute/app-review/))
+
+> Resubmitting the same build unchanged gets the same rejection
+
+That last line isn't just my opinion
+One developer on Apple's forums reports two 4.3(a) rejections in a row and then a warning about account removal for repeated noncompliance ([Apple Developer Forums](https://developer.apple.com/forums/thread/847013))
+
+## Check this before you build the next app
+
+| Question | If yes |
+|---|---|
+| Does one of my apps already do this job? | Add it as a feature or in-app purchase there |
+| Is it a timer, wallpaper, flashlight or similar? | Find a real difference first, or skip it |
+| Is it built from a template I sell or reuse for clients? | Ship one app that hosts every client |
+| Are screens and paywall copied from my starter kit? | Change the core flow, not just the colours |
+| Does the description read like my other listings? | Rewrite it for this app's users |
+
+I now run this table before I start a new app, not after review
+It's cheaper to kill an idea at the start than to argue for it later
+
+For the other reasons new apps get rejected and the step by step way to ship, see [Don't Get Rejected: App Store Launch Guide](/docs/#app-store-launch-guide)
+My [App Store checklist](/blog/flutter-app-store-checklist/) covers three blockers a clean build never catches, and [the account deletion post](/blog/account-deletion-requirement-app-store/) covers the 5.1.1(v) one
+
+## FAQ
+
+### What does guideline 4.3 Spam mean?
+
+It means Apple thinks your app duplicates another app
+Under 4.3(a) that's multiple bundle IDs of the same app on your account, and under 4.3(b) it's an app indistinguishable from what's already widely available on the store
+
+### What is the difference between 4.3(a) and 4.3(b)?
+
+4.3(a) is about your own apps, for example one app per city instead of one app for all cities
+4.3(b) is about the whole store, for example another simple flashlight or wallpaper app without a meaningfully different experience
+
+### What is guideline 4.2.6?
+
+It is the rule against apps made from a commercialized template or app generation service
+Those apps are rejected unless the provider of the app's content submits them, or all clients live inside one app
+
+### Can I fix a 4.3 rejection by resubmitting?
+
+Not with the same build
+Merge the app into one you already have, make substantial changes, or answer Apple's questions honestly and appeal if they misread the app
+
+### Can a 4.3 rejection affect my developer account?
+
+It can if it keeps happening
+Apple's guideline says repeated submissions of low-effort apps may lead to removal from the Apple Developer Program
+
+---
+Source: https://garoono.in/blog/google-play-12-testers-14-days-requirement/
+Date: 2026-10-22
+
+# Google Play 12 Testers 14 Days Requirement: How Solo Devs Pass
+
+If you made a personal Google Play developer account after November 13, 2023, you can't go straight to production
+You first run a closed test with at least 12 testers who stay opted in for at least 14 days in a row ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en))
+Then you apply for production access from the Play Console Dashboard and answer questions about that test
+Google reviews your answers, and if the test looks thin, it asks you to keep testing
+
+Finding 12 names is the easy part
+Keeping 12 real people opted in, and showing they actually used the app, is where solo devs lose weeks
+Here's the exact rule, what counts, why access gets refused, and a plan that fits into 1 to 2 hours a night
+
+## Who the rule applies to
+
+The testing requirement covers personal developer accounts created after November 13, 2023 ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/6112435?hl=en))
+Google's account setup page labels that section "Personal accounts only" ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/6112435?hl=en))
+
+So three cases:
+
+| Your account | Closed test needed before production? |
+|---|---|
+| Personal, created after November 13, 2023 | Yes, 12 testers for 14 days in a row |
+| Personal, created on or before November 13, 2023 | No, the rule is for newer accounts |
+| Organization | Not covered by the rule as Google writes it |
+
+Organization accounts come with their own paperwork, so don't switch types just to skip testing
+I covered which account type fits a solo dev in [Android developer verification for indie developers](/blog/android-developer-verification-for-indie-developers/)
+
+Until you get production access, Production and Pre-registration stay locked in Play Console ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en))
+
+## The exact rule, in Google's words
+
+Google asks for a closed test with "a minimum of 12 testers who have been opted in continuously for at least 14 days" ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en))
+
+The word that trips people up is continuously
+Google's FAQ says testers who opt in, test for fewer than 14 days and then opt out don't count ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en))
+And if a tester opts out and later opts back in, only a fresh run of 14 consecutive days counts
+
+So 15 testers who drift in and out can still leave you short
+12 who join on day one and never leave is a pass on the numbers
+
+## What counts as an opted in tester
+
+Adding an email to a list is not the same as having a tester
+Each tester has to open your opt-in link and accept it ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/9845334?hl=en))
+
+A few details from Google's testing setup page:
+
+- You add testers by email list or by Google Group
+- Testers need a Google Account or a Google Workspace account
+- With a Google Group, people must join the group before they can opt in
+- The opt-in link only shows once the closed track status is Published
+- After your first publish, the link can take several hours to work for testers
+
+All of that is on the same [Play Console Help page](https://support.google.com/googleplay/android-developer/answer/9845334?hl=en)
+
+> A tester only counts after they tap your opt-in link and accept, and only while they stay opted in
+
+My advice: ask each tester to send you a screenshot of the "you're a tester" screen
+It takes them ten seconds and it saves you guessing on day 14
+
+## Why production access gets refused
+
+Google names two reasons for asking you to keep testing: fewer than 12 opted in testers, or not enough tester engagement ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en))
+
+The first is just counting
+The second is where the form matters
+
+When you apply, Google asks three groups of questions ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en)):
+
+- About your closed test: how easy recruiting was, whether testers used all the features, how usage compared to what you expect in production, and a summary of the feedback and how you collected it
+- About your app: who it's for, why it's useful, and how many installs you expect in year one
+- About production readiness: what you changed because of the test, and how you decided it was ready
+
+Read that list again
+Google wants evidence that people used the app and that you acted on what they said
+A test where 12 strangers installed once and never opened it again gives you nothing to write
+
+That's why I'm wary of tester swap groups and paid tester packages
+They can get you to 12, but they rarely give you feedback worth putting in the form
+
+## A plan that fits after work
+
+### Before day 0, line up 15 to 20 people
+Ask more than 12 so one or two dropping out doesn't reset you
+Start with people who would use the app anyway: friends, coworkers, family, people who asked you about the idea
+If you already have apps live, a short note to those users can find people who like your work
+The same channels I use to find [the first 100 app users](/blog/how-to-get-your-first-100-app-users/) work here too
+
+### Day 0, publish the closed track and send the link
+Use a Google Group, it's easier to manage than a list of emails
+Send one message with the group link, the opt-in link, and what to try first
+Collect the opt-in screenshots the same evening
+
+### Days 1 to 14, give testers a reason to open it
+Set up a feedback channel, Google suggests email, a website or a messaging group
+Ask for one small thing every few days, like trying a single feature
+Ship at least one update during the test, Google itself recommends updating your app in closed testing before production
+Keep a simple note of every piece of feedback and what you changed
+
+### Day 15, apply with real answers
+Count opted in testers in Play Console before you click Apply for production
+Fill the form from your notes, name the features people used and the fixes you shipped
+Then wait, Google says review usually takes seven days or less ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en))
+
+## Quick checklist
+
+- [ ] Personal account created after November 13, 2023, so the rule applies
+- [ ] 15 to 20 people lined up before you publish the closed track
+- [ ] Every tester accepted the opt-in link, with a screenshot to prove it
+- [ ] Nobody opted out for 14 days in a row
+- [ ] A feedback channel testers actually use
+- [ ] At least one update shipped during the test
+- [ ] Form answers written from real feedback, not guesses
+
+## Get past it in one go
+
+I wrote down how to get Play production access on the first try, with testers who actually test, in [Stuck at 12 Testers](/docs/#stuck-at-12-testers)
+
+## FAQ
+
+### Does the 12 testers rule apply to organization accounts?
+
+Google's rule covers personal developer accounts created after November 13, 2023
+Organization accounts are not covered by it as Google writes it
+
+### What happens if a tester opts out before 14 days?
+
+That tester stops counting toward the requirement
+If they opt back in, they need a new run of 14 consecutive days to count
+
+### Do testers have to install the app or just join the list?
+
+Each tester has to accept your opt-in link, being on the email list or Google Group is not enough
+Google also checks engagement, so testers should install the app and use it
+
+### Can I use paid testers or tester exchange groups?
+
+They can get you to 12 opted in testers
+Google asks about tester engagement and feedback when you apply, so testers who never use the app make it harder to get access
+
+### How long does the production access review take?
+
+Google says review usually takes seven days or less, and occasionally longer
+If Google asks you to keep testing, run the closed test longer and apply again
+
+---
+Source: https://garoono.in/blog/privacy-policy-for-app-store-submission/
+Date: 2026-10-22
+
+# Privacy Policy for App Store Submission: Apple and Google Rules
+
+Every app needs a privacy policy to get through review on the App Store and Google Play, even one that collects nothing
+Both stores want the link in two places: a field in the developer console, and inside the app itself
+Then each has its own data form, App Privacy details on Apple and the Data safety form on Google, and the policy has to agree with it
+If your app has accounts, both stores also want account deletion, and Google wants a web link for it
+
+The rest is the detail, so your policy passes on the first round
+
+## What Apple checks
+
+### The rule
+Guideline 5.1.1(i) says all apps must include a privacy policy link "in the App Store Connect metadata field and within the app in an easily accessible manner" ([App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#data-collection-and-storage))
+
+The same guideline lists what the policy must say ([App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#data-collection-and-storage)):
+
+- What data the app collects, how it collects it, and every use of it
+- That any third party you share data with, like analytics tools, ad networks and SDKs, gives the same protection your policy promises
+- How long you keep data, how you delete it, and how a user can revoke consent or ask for deletion
+
+Free templates often skip that last point, so check yours
+
+### Where the URL goes
+In App Store Connect, open your app, pick App privacy in the sidebar, and click Edit next to Privacy Policy ([App Store Connect Help](https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy))
+Apple says a privacy policy URL is required for all apps, and the user privacy choices URL next to it is optional ([App Store Connect Help](https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy))
+One catch: a change to these URLs goes live with your next app version
+
+### App Privacy details
+This is the privacy label on your product page
+Apple says it's required to submit new apps and app updates, and it must include the practices of third-party partners whose code is in your app ([Apple](https://developer.apple.com/app-store/app-privacy-details/))
+
+Apple defines collect as sending data off the device in a way that lets you or your partners access it for longer than it takes to handle the request in real time ([Apple](https://developer.apple.com/app-store/app-privacy-details/))
+So the Firebase, crash reporting or ads SDK you added in ten minutes counts, even if you never look at that data
+
+You can update these answers any time without shipping a new build ([Apple](https://developer.apple.com/app-store/app-privacy-details/))
+And guideline 2.3 asks that your metadata, privacy information included, matches what the app really does ([App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#accurate-metadata))
+
+AI features add one more step on Apple, see [my App Store checklist](/blog/flutter-app-store-checklist/)
+
+## What Google checks
+
+### The rule
+Google's User Data policy says all apps must post a privacy policy link in the designated field in Play Console, and a link or the text inside the app ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en))
+Apps that don't access any personal or sensitive data still need one ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en))
+
+Google's list of what the policy must cover ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en)):
+
+- Who you are, and a way to contact you about privacy
+- The types of personal and sensitive data the app accesses, collects, uses and shares, and who it's shared with
+- How you handle that data securely
+- How long you keep data and how you delete it
+- A clear label, like a title that says privacy policy
+
+### The URL rules
+Google wants the policy on an active, public, non-geofenced URL, not a PDF, and not editable by visitors ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en))
+The developer name on your Play listing has to appear in the policy, or the app has to be named in it ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en))
+
+### The Data safety form
+Every app published on Google Play needs a Data safety form, even if it collects no user data ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en))
+It has to include data handled by third-party libraries and SDKs in your app ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en))
+
+Google says you alone are responsible for complete and accurate declarations, and apps that don't comply face enforcement ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en))
+
+## If your app has accounts
+
+Apple says apps that support account creation must let people start account deletion inside the app ([Apple](https://developer.apple.com/support/offering-account-deletion-in-your-app/))
+Only offering to deactivate or disable the account is not enough, and the option should be easy to find, usually in account settings ([Apple](https://developer.apple.com/support/offering-account-deletion-in-your-app/))
+With Sign in with Apple, Apple also asks you to revoke the user's tokens through its REST API
+
+Google wants the same in-app option, plus a way to request deletion outside the app, like a page on your website ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en))
+That web link goes into the Data safety form in Play Console ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en))
+
+Google's rules for that page ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en)):
+
+- It loads without errors
+- It names the app or developer as shown on your Play listing
+- The deletion steps are easy to find on the page
+- Users can request deletion without reinstalling the app
+- It says what data you keep, if any, and why
+
+Freezing or deactivating the account doesn't count as deletion, and you must delete the user data tied to the account too ([Play Console Help](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en))
+
+> Your privacy policy, your data form and your app have to tell the same story, a policy that's fine on its own still fails if the form says something else
+
+## Where solo devs slip
+
+None of these are hard, just easy to forget at 1am
+
+- The policy came from a generator and never mentions the SDKs you added later
+- The data forms say "no data collected" while Firebase Analytics or an ads SDK runs in the background
+- The policy is a PDF or a doc link, which Google rules out
+- The policy names a different developer than your store listing
+- The in-app link is buried three screens deep, or missing from the logged out state
+
+If your policy promises secure data handling, make it true first with [the RLS checklist](/blog/supabase-rls-checklist-for-vibe-coded-apps/)
+
+## The checklist
+
+| Check | Apple | Google |
+|---|---|---|
+| Public policy URL in the console | App privacy page in App Store Connect | Privacy policy field in Play Console |
+| Link inside the app | Easy to reach | Link or text in the app |
+| Says what you collect and why | Required | Required |
+| Covers third-party SDKs | Required | Required |
+| Retention and deletion explained | Required | Required |
+| Contact details and policy title | Good practice | Required |
+| Format | Public web page | Public web page, no PDF, not geofenced |
+| Data form filled and matches | App Privacy details | Data safety form |
+| Account deletion, if you have accounts | In the app | In the app, plus a web URL in Data safety |
+
+Run it once per app, then again any time you add an SDK
+
+## The full legal pass
+
+The privacy policy is one of seven things stores check before approving an app, all seven are in [Before You Submit: Legal Checklist](/docs/#legal-checklist-before-you-submit)
+
+## FAQ
+
+### Do I need a privacy policy if my app collects no data?
+
+Yes, Apple requires a privacy policy link for all apps
+Google says apps that do not access any personal or sensitive user data must still submit a privacy policy
+
+### Where do I add the privacy policy URL in App Store Connect?
+
+Open your app in App Store Connect, select App privacy in the sidebar, and click Edit next to Privacy Policy
+Changes to the URL go live with your next app version
+
+### Can my privacy policy be a PDF or a Google Doc?
+
+Not for Google Play, the policy must be on an active, public, non-geofenced URL, no PDFs, and not editable
+A plain page on your own website works for both stores
+
+### Does the privacy policy have to mention third-party SDKs?
+
+Yes, Apple asks you to confirm that third parties like analytics tools, ad networks and SDKs give user data the same protection
+Apple's App Privacy details and Google's Data safety form must also include data collected by SDKs in your app
+
+### Do I need an account deletion link for Google Play?
+
+Only if your app lets users create an account
+Then you need a delete option inside the app and a web link for deletion requests, entered in the Data safety form
+
+---
+Source: https://garoono.in/blog/flutter-app-store-checklist/
+Date: 2026-10-14
+
+# Apple Blocked My Flutter Apps 3 Times: My App Store Checklist
+
+All three builds compiled, signed and uploaded without a single warning
+Then App Review stopped them anyway
+
+I'm a solo dev with about 16 Flutter apps live on iOS and Android
+This year two of them, PushPass and GetUp, ran into three different App Store blockers
+No crashes, no bugs Flutter could have caught
+Just policy, metadata and one entitlement Xcode never complained about
+
+Apple says over 40% of unresolved issues relate to guideline 2.1, App Completeness ([Apple](https://developer.apple.com/distribute/app-review/))
+That matches my year, so here's what each blocker looked like, and the checklist that now runs before every iOS release
+
+## The 30 second version
+
+If your app sends user data to any AI model, answer "who, what, where" in App Review Notes and ask for consent in the app before the first upload
+
+If you sell auto-renewable subscriptions, every App Store description in every locale ends with a Terms of Use (EULA) link
+
+If you use Screen Time APIs, request the Family Controls Distribution entitlement for the app and every extension on the day you add the feature
+
+## Blocker 1: Information Needed on an AI feature
+
+GetUp 1.1.2, October 2026
+Not a hard rejection, a Guideline 2.1 "Information Needed" message
+
+Apple asked three things:
+
+- Who hosts the AI model?
+- Is it third-party AI?
+- Does user data go to it?
+
+It lines up with a rule Apple changed on November 13, 2025 ([Apple](https://developer.apple.com/news/?id=ey6d8onl))
+Guideline 5.1.2(i) now says you must disclose where personal data is shared with third parties, "including with third-party AI, and obtain explicit permission before doing so" ([App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/#data-use-and-sharing))
+
+That sentence has two jobs in it
+Disclosure, and permission
+
+Here's what I now put in App Review Notes for any app that touches a model, before Apple has to ask:
+
+- Which parts run on device and which run in the cloud
+- The provider's name, for example Google's Gemini through Firebase AI Logic
+- Exactly what data is sent, field by field
+- How long the provider keeps it and whether it's used for training
+- Where the consent screen is and how a reviewer reaches it
+
+Then the in-app part
+The AI provider goes into the third-party list in your privacy policy, by name
+And the user agrees before the first upload, on a screen that says what goes where
+
+> A Settings toggle that's on by default is not consent
+
+One more lesson from that review
+When you reply to an Information Needed message, describe the build Apple actually reviewed, not the one on your laptop
+If that build has no consent screen, don't promise one in your reply
+Remove it from review, ship the fixed build, and put the answer in its Review Notes
+
+Here's a minimal consent gate with `flutter_bloc`, default is false, always
+
+```dart
+class AiConsentCubit extends Cubit<bool> {
+  AiConsentCubit(this._prefs) : super(_prefs.getBool(_key) ?? false);
+  static const _key = 'ai_consent_v1';
+  final SharedPreferences _prefs;
+
+  Future<void> grant() async {
+    await _prefs.setBool(_key, true);
+    emit(true);
+  }
+}
+
+Future<void> analyzePhoto(BuildContext context, Uint8List photo) async {
+  final consent = context.read<AiConsentCubit>();
+  final ai = context.read<AiRepository>();
+  if (!consent.state) {
+    final agreed = await showAiConsentSheet(context);
+    if (agreed != true) return;
+    await consent.grant();
+  }
+  await ai.analyze(photo);
+}
+```
+
+Every call to the model goes through that one function
+If someone adds a second path that skips it, code review catches it because it's the only place `AiRepository` gets called
+
+## Blocker 2: The EULA link nobody puts in the description
+
+This one is boring and it still blocked a submission
+
+If your app has auto-renewable subscriptions, Apple says your app and your App Store metadata must include links to your Terms of Use and Privacy Policy ([Apple](https://developer.apple.com/app-store/subscriptions/))
+
+Privacy has its own field in App Store Connect
+Terms of Use, if you use Apple's standard EULA, doesn't
+So it goes at the end of the App Store description
+
+Miss it and automated review blocks the submission before a human ever looks
+
+The trap is the words "every locale"
+Localize into eight languages and you have eight descriptions
+Someone rewrites the German one for a keyword push and drops the footer, and that's enough
+
+So don't paste it by hand
+Bake the link into your listing source, and let a tiny script check every locale before upload
+If you keep metadata in fastlane, it's this:
+
+```dart
+import 'dart:io';
+
+const eula =
+    'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
+
+void main() {
+  final missing = Directory('fastlane/metadata')
+      .listSync()
+      .whereType<Directory>()
+      .map((d) => File('${d.path}/description.txt'))
+      .where((f) => f.existsSync() && !f.readAsStringSync().contains(eula))
+      .map((f) => f.parent.path)
+      .toList();
+  if (missing.isNotEmpty) {
+    stderr.writeln('EULA link missing in: ${missing.join(', ')}');
+    exit(1);
+  }
+  stdout.writeln('EULA link found in every locale');
+}
+```
+
+That's the standard Apple EULA URL
+If you wrote your own terms, check for your URL instead
+
+And don't forget the paywall
+The same Apple page lists what the sign-up screen itself must show: the subscription name and length, the full renewal price, and a way to restore purchases ([Apple](https://developer.apple.com/app-store/subscriptions/))
+Put the two links there too
+
+## Blocker 3: Family Controls, the entitlement that sails through TestFlight
+
+This is the nasty one, it hit both PushPass and GetUp
+
+If your app uses Screen Time APIs (FamilyControls, ManagedSettings, DeviceActivity, shield extensions), you need the Family Controls entitlement
+There's a Development version and a Distribution version
+
+The Development capability builds, it signs, it uploads, and TestFlight is happy
+Then App Review blocks it
+
+Apple's Family Controls setup guide covers the part people miss: the Screen Time extensions, like Device Activity Monitor, Device Activity Report, Shield Action and Shield Configuration, need the capability on their own App IDs too ([Apple](https://developer.apple.com/documentation/xcode/configuring-family-controls))
+A blocker app can easily have four bundle IDs, which can mean four requests through the [distribution request form](https://developer.apple.com/contact/request/family-controls-distribution)
+
+Flutter makes this easy to miss
+Those extensions live in the `ios` folder as native targets
+`flutter build ipa` builds them, signs them, and never says a word about distribution
+
+And approvals are not fast
+Developers on Apple's forums report requests sitting in "Submitted" for weeks ([Apple Developer Forums](https://developer.apple.com/forums/thread/824193))
+
+One update worth knowing
+In a 2026 forum reply, Apple said approval can now be scoped to the whole team instead of each bundle ID ([Apple Developer Forums](https://developer.apple.com/forums/thread/828085))
+That wasn't how mine went, so don't assume either way
+Open Certificates, Identifiers & Profiles and check that every single identifier shows Family Controls as assigned for distribution
+
+My rule now: request it the same day the Screen Time feature gets added, not the day before submitting
+
+## The checklist I run before every iOS submit
+
+| Check | Pass when |
+|---|---|
+| AI calls | Review Notes answer is written and the provider is in the privacy policy |
+| AI consent | Fresh install shows consent before the first upload, and "no" means no upload |
+| Toggles | No consent toggle defaults to on |
+| EULA script | Every locale ends with the Terms of Use link and the privacy link |
+| Paywall | Plan name, length, full price, restore and both links are visible |
+| Screen Time | Every bundle ID, app and each extension, shows Family Controls Distribution |
+| Login | Demo account details are in Review Notes |
+| Replies | An Information Needed answer describes the build under review, not the next one |
+
+Eight lines, much cheaper than another round of review
+
+## Quick answers
+
+### Does on-device AI count as third-party AI?
+
+The rule is about sharing personal data with third parties
+Data that never leaves the phone isn't shared
+But say in Review Notes which parts run on device and which don't, it answers the question before it's asked
+
+### Can I just use Apple's standard EULA?
+
+Yes, link the standard EULA URL in the description
+If you wrote custom terms, you can add them in App Store Connect instead
+
+### Is Family Controls approval per app or per team?
+
+Apple's setup guide puts the capability on each extension, and a newer forum reply talks about team-wide approval
+Check the portal for every identifier before you submit
+
+### Will TestFlight catch any of this?
+
+No
+TestFlight tests your binary
+These were about metadata, consent and entitlements, and the Family Controls build installs and runs fine from TestFlight
+
+## My takeaway
+
+None of these were hard
+Each one was a single line, a single link or a single form
+
+What made them expensive was finding out at review time
+So the checklist runs before the upload, every time, for every app
+
+I put the full 30 minute pre-submit audit, with every check that gets small apps rejected, into one doc
+
+---
+Source: https://garoono.in/blog/flutter-apps-revenue-honest-numbers/
+Date: 2026-10-13
+
+# 100,000 Downloads, $216 a Month: My Flutter Apps Revenue
+
+I have about 16 Flutter apps live on iOS and Android
+Together they've been installed around 100,000 times
+
+They make about $216 a month in recurring revenue
+Not per app, in total
+
+Most indie income posts show the chart that went up and to the right
+This is the other kind
+I pulled my RevenueCat, PostHog and AdMob numbers on October 12, 2026
+They're rounded and approximate, but they're real
+
+## The 30 second version
+
+100,000 installs sounds like a business, it isn't one yet
+One app makes most of the money, iOS users pay about 12 times more than Android users, and my full-screen ads barely show
+So I'm going iOS first, aiming at richer markets, fixing one paywall and freezing the apps that don't earn
+
+## The numbers, no filter
+
+| Metric | Value |
+|---|---|
+| Apps live | About 16, all Flutter, most on Firebase |
+| Lifetime installs | About 100,000 |
+| Revenue, last 28 days | About $256 |
+| MRR | About $216 from 104 active subscriptions |
+| XLSheetAI share of MRR | About $140, roughly two thirds |
+| Revenue per 1,000 new iOS users | About $234 |
+| Revenue per 1,000 new Android users | About $19 |
+| India | Almost two thirds of new users, under a third of revenue |
+| AdMob, last month | About $3.40 across every app |
+
+## What worked
+
+### One app found a real job to do
+
+XLSheetAI is an AI helper for spreadsheets
+People open it when they're stuck on a formula at work
+That's a problem with money attached, and it's the only app in my portfolio that earns something every month
+
+### Retention can be built
+
+JapMala, a prayer bead counter, keeps about 1 in 3 users on day one and about 1 in 5 into week two
+That's my best retention by far
+
+It earns almost nothing
+But it proved I can make an app people come back to on their own
+
+### Flutter was never the problem
+
+One codebase let me ship 16 apps on two stores as a solo dev
+No regrets there
+Every problem below is a business problem, not a tech one
+
+## What didn't work
+
+### Counting installs instead of buyers
+
+I chased downloads for years
+Most of mine came from Android and from India
+Those users are real, and I like building for them
+But in my apps, one new iOS user is worth about 12 new Android users
+
+It's not just me
+RevenueCat's State of Subscription Apps 2026 puts median 14 day revenue per install at $0.38 in North America and $0.08 in India and Southeast Asia ([RevenueCat](https://www.revenuecat.com/state-of-subscription-apps))
+
+### Shipping wide instead of deep
+
+16 apps means 16 paywalls, 16 store listings and 16 sets of reviews to answer
+Most of mine got one launch and then nothing
+Eight of them make close to zero
+
+### Trusting ads to fill the gap
+
+I added interstitial and rewarded ads to pay for free users
+They loaded fine, then they were shown about once in every 50 loads
+
+So almost all my ad money came from small banners
+And most of my ad traffic came from India, where my eCPM was about $0.16
+In the US it was about $12.39
+
+> Ads don't pay when they don't show, and when they do show, they pay by where your users live
+
+### A paywall that loses buyers at the very last step
+
+In XLSheetAI, 1,109 people saw the paywall in 30 days
+275 tapped buy
+About 26 finished
+
+Roughly 5 out of every 6 of those purchase starts were cancelled on Apple's or Google's own payment sheet
+These people wanted it enough to tap the button
+Then something on that last screen changed their mind
+I'm writing that funnel up in detail next
+
+### Flying blind for a while
+
+In PushPass, the PostHog key came from `--dart-define` only
+From `v1.2.2` on, builds went out without it, `String.fromEnvironment` returned an empty string, and the SDK quietly switched itself off
+Every analytics event after that was lost
+
+Now release builds fall back to a bundled `.env` and shout when a key is missing:
+
+```dart
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+const _fromDefine = String.fromEnvironment('POSTHOG_KEY');
+
+String posthogKey() {
+  final key = _fromDefine.isNotEmpty
+      ? _fromDefine
+      : (dotenv.env['POSTHOG_KEY'] ?? '');
+  if (key.isEmpty) debugPrint('POSTHOG_KEY MISSING: analytics is OFF');
+  return key;
+}
+```
+
+If you take one thing from this post, take that
+You can't fix a funnel you can't see
+
+## What I'm changing next
+
+- **iOS first**, new features and new apps ship on iOS first, and Android follows once the iOS version earns
+- **Tier 1 markets**, listings, screenshots and tests aimed at the US, UK and Europe, instead of wherever installs happen to come from
+- **Fix the one paywall that matters**, XLSheetAI gets a free trial on the yearly plan, a clearer price on the paywall itself and a cheaper intro offer, before I touch any other app
+- **Freeze the tail**, Fitess, Forma, Repvolve, JSON View, NailMirror, Focuson, SparkMate and Habitide stay live, but get bug fixes only
+
+Number 4 is the hard one
+Each of those apps was a weekend I was proud of
+But 16 half-loved apps lost to one app that people actually need
+
+## Quick answers
+
+### Should Flutter devs skip Android?
+
+No
+Android still brought most of my users and some of my revenue
+One codebase means it costs almost nothing extra
+I just stop building for it first
+
+### Are ads worth it in a small Flutter app?
+
+Only if full-screen ads actually show, and only if your users live in markets that pay
+Check the show rate in AdMob, not just the match rate
+
+### Why freeze apps instead of deleting them?
+
+Live apps still pick up a few installs and cost me almost nothing to keep
+Freezing stops the time drain without throwing anything away
+
+### What would you do differently from day one?
+
+Put events on the paywall before launch: paywall view, purchase start, purchase cancelled, purchase success
+Launch on iOS
+Build one app deep before starting a second
+
+## The takeaway
+
+100,000 downloads didn't make me a business
+One app with a real job, users in markets that pay and a paywall that doesn't scare people at the last step might
+
+Next goal: $500 MRR, mostly from iOS
+I'll post the honest numbers again when I get there, or when I don't
+
+The events I track in week one, and the ones I ignore, are all in one doc
+
+---
+Source: https://garoono.in/blog/android-developer-verification-for-indie-developers/
+Date: 2026-09-30
+
+# Android Developer Verification for Indie Developers: 2026 Guide
+
+From today, some Android phones will refuse to install apps from developers Google has not verified
+Next year that goes global, India included
+If you only publish on Google Play, you are probably fine, but "probably" is not a plan
+
+Here is what changed, what you actually need to do, and the one mistake that can lock you out of your own app
+
+## What changed on September 30, 2026
+
+Google now requires apps to be registered by verified developers before they can be installed or updated on certified Android devices in Brazil, Indonesia, Singapore and Thailand ([Android Developers Blog](https://android-developers.googleblog.com/2026/03/android-developer-verification-rolling-out-to-all-developers.html))
+Google says it will roll the requirement out globally from 2027 ([Android Developers Blog](https://android-developers.googleblog.com/2026/03/android-developer-verification-rolling-out-to-all-developers.html))
+
+For now it covers installs from the participating stores, Google Play among them
+Apps sideloaded directly or shipped through other stores are not affected yet, but Google recommends verifying before the global rollout ([Android developer verification FAQ](https://developer.android.com/developer-verification/guides/faq))
+
+## Do you need to do anything?
+
+### If you publish only on Google Play
+Google says that if you have completed Play Console's developer verification, your identity is already verified and eligible Play apps are registered for you automatically ([Android Developers Blog](https://android-developers.googleblog.com/2026/03/android-developer-verification-rolling-out-to-all-developers.html))
+Open Play Console, confirm your account verification is complete, and check that each app shows as registered
+That is a two minute job, do it today
+
+### If you use Play App Signing
+Good news, Google says apps using Play App Signing are part of the automatic registration ([Android developer verification FAQ](https://developer.android.com/developer-verification/guides/faq))
+
+### If you share APKs outside Play
+This is where indie devs get caught
+Direct APK downloads from your website, betas shared on Telegram, or builds on other stores all need a verified developer once the global rollout reaches your users
+
+> The mistake that locks you out: Google says if you lose your signing key, you won't be able to register your packages ([Android developer verification FAQ](https://developer.android.com/developer-verification/guides/faq))
+
+Back up your signing and upload keys somewhere safe tonight
+If an old app was never enrolled in Play App Signing, check where its key lives before 2027
+
+## Which account type do you need?
+
+| Your situation | What to use | Cost |
+|---|---|---|
+| Apps only on Google Play | Your existing Play Console account | Nothing new |
+| APKs on your site or other stores | Full distribution Android Developer Console account | $25 fee |
+| Apps for family, friends or a small group | Limited distribution account, up to 20 devices, no government ID | Free |
+| Publishing as a company | Organisation account with a D-U-N-S number | Takes up to 28 days |
+
+Sources for the table: the $25 fee, the 20 device limit and the D-U-N-S timing all come from Google's help centre ([Android Developer Console Help](https://support.google.com/android-developer-console/answer/16561738?hl=en))
+If you plan to register as a company, start the D-U-N-S request now, not in December 2026
+
+## What developers in India should do now
+
+India is not in the first four countries, so nothing changes for your users this year
+It is part of the 2027 global rollout, so use the quiet months to get ready
+
+For individual developers in India, Google Play accepts an Indian passport, driving licence, voter ID or PAN card as photo ID ([Google Play Help](https://support.google.com/googleplay/android-developer/answer/15633622?hl=en&co=GENIE.CountryCode%3DIN))
+Your proof of address has to show your name and address exactly as they appear on your developer profile ([Google Play Help](https://support.google.com/googleplay/android-developer/answer/15633622?hl=en&co=GENIE.CountryCode%3DIN))
+A mismatch between the name on your PAN and your profile name is an easy way to get stuck, so fix that first
+
+## Can I still test and sideload?
+
+Yes, for development
+Google says developers are free to install apps without verification using ADB ([Android developer verification FAQ](https://developer.android.com/developer-verification/guides/faq))
+For a handful of real testers outside Play, the free limited distribution account covers up to 20 devices ([Android Developer Console Help](https://support.google.com/android-developer-console/answer/16561738?hl=en))
+
+## Why so many developers are angry
+
+Google frames this as anti malware, citing an analysis of apps from internet sideloaded sources
+F-Droid says it has not seen that analysis and calls developer verification an existential threat to free software distribution platforms like F-Droid and to emerging Play Store competitors ([F-Droid](https://f-droid.org/en/2025/10/28/sideloading.html))
+
+My take as someone shipping on Play: for Play only indies this is mostly paperwork
+The real cost lands on people who distribute outside Play, and on anyone who lost a signing key years ago
+
+## Your checklist before 2027
+
+- Confirm Play Console developer verification is complete
+- Check every app shows as registered
+- Back up signing and upload keys in two places
+- Enroll old apps in Play App Signing where possible
+- Match your profile name and address to your ID and address proof
+- Decide your account type if you ship APKs outside Play
+- Start a D-U-N-S request early if you publish as a company
+
+## Ship without surprises
+
+Verification is one more box between you and a live app
+I keep a full launch guide with the store rules that trip up solo developers most in the docs
+
+---
+Source: https://garoono.in/blog/how-to-get-your-first-100-app-users/
+Date: 2026-09-30
+
+# How to Get Your First 100 App Users Without Ads
+
+Your first 100 users are not a marketing problem
+They are a finding problem
+Somewhere there are 100 people who already feel the pain your app solves
+Your job is to stand where they already look, not to shout louder than everyone else
+
+I have shipped 14 apps next to a full time job and crossed 100K users across them
+None of that started with an ad budget
+This is the playbook I run for every launch now
+
+## Why the first 100 are a different game
+
+The first 100 users are not about scale
+They are about proof
+Proof that a stranger will install it, understand it and come back tomorrow
+
+That changes what you should spend time on
+Forget growth hacks built for apps with a million users
+Pick channels where a solo builder can win with effort instead of money
+
+> Rule of thumb: if a channel needs a budget to start, it is not a first 100 channel
+
+## Start where people already search
+
+Most people find apps by typing a problem into the store search bar
+Apple says almost 65% of App Store downloads happen directly after a search ([Apple Ads](https://ads.apple.com/app-store/))
+It also says 70% of App Store visitors use search to discover apps ([Apple Ads](https://ads.apple.com/app-store/))
+
+So before you post anywhere, fix the listing
+Put the main problem in the title and subtitle, in the words users actually use
+Read the 1 and 2 star reviews of the top 10 competing apps and steal their vocabulary
+Make the first two screenshots explain the outcome, not the features
+
+A listing that ranks for one long tail search can bring a trickle of users every single day
+That trickle is how most of my apps got their first users while I slept
+
+## Pick 2 channels, not 15
+
+The mistake I see most is trying every channel for one day each
+Nothing works in one day
+Pick two channels and give each of them two focused weeks
+
+Here is how I think about the options when I have 1 to 2 hours a night
+
+## The 5 channels that work at zero budget
+
+### 1 Your store listing
+Covered above, and it keeps working after you stop
+Revisit it every two weeks with what new users tell you
+
+### 2 Twenty direct messages
+Find 20 people who publicly complained about the exact problem
+Search X, Reddit and niche forums for the complaint in plain words
+Send each one a short, honest note with the link and ask for blunt feedback
+Most will ignore you
+The few who reply become your first loyal users and your best source of copy
+
+### 3 Reddit, done right
+Reddit hates promotion and loves useful people
+Answer questions in your niche for a week before you ever mention the app
+When you do share it, share the story of why you built it and what you learned
+Read every rule of the subreddit first, some ban self promotion completely
+
+### 4 Building in public
+Post what you shipped, what broke and the real numbers
+It is slow at the start because you have no audience
+It compounds, and it turns every future launch into a warm launch
+
+### 5 Your other apps
+If you have shipped before, your old users are the cheapest channel you own
+A small card inside an existing app can send more installs than a week of posting
+This is why I keep every app I ship alive, even the small ones
+
+## A 14 day plan you can run after work
+
+| Days | Focus | Done when |
+|---|---|---|
+| 1 to 3 | Fix the store listing | Title, subtitle and first two screenshots rewritten |
+| 4 to 7 | 20 direct messages | 20 sent, every reply logged |
+| 8 to 12 | One community | 5 genuinely useful answers, then one story post |
+| 13 to 14 | Review | You know which channel gets the next two weeks |
+
+Keep a simple sheet with the source of every install you can trace
+After 14 days the pattern is usually obvious
+
+## What not to do
+
+Do not buy installs
+They inflate the numbers and teach you nothing about real users
+Do not launch on ten directories on the same day and call it marketing
+Do not wait for the app to feel finished, it never will
+
+## Keep the loop short
+
+Ship, ask, fix, repeat
+Your first 100 users will tell you what the next 1,000 need
+Listen to them more than to any growth thread
+
+If you want the full list, I put every zero budget channel I have tested into one free doc, ranked by effort and return
+
+---
+Source: https://garoono.in/blog/supabase-rls-checklist-for-vibe-coded-apps/
+Date: 2026-09-30
+
+# Supabase RLS Checklist for Vibe Coded Apps After 16,326 Leaks
+
+Your AI agent built the app in a weekend
+It also may have left your users table open to anyone with a browser
+This is not a scare story, it is a fresh study, and the fix takes about an hour
+
+This post is the checklist I would run on any Supabase backed app before shipping it
+It works whether you wrote the code or Claude, Cursor or Lovable did
+
+## What the research found
+
+On September 25, 2026, UpGuard published a study of roughly 300,000 domains that use Supabase ([UpGuard](https://www.upguard.com/blog/everything-everywhere-systemic-data-exposure-in-supabase-apps))
+It found 16,326 databases exposing readable tables to anyone ([UpGuard](https://www.upguard.com/blog/everything-everywhere-systemic-data-exposure-in-supabase-apps))
+Over half of those databases had indicators of personal data ([UpGuard](https://www.upguard.com/blog/everything-everywhere-systemic-data-exposure-in-supabase-apps))
+
+Indie makers are not immune
+A January 2026 scan of 20,052 products listed on indie launch directories found 11.04% of domains exposing Supabase credentials ([SupaExplorer report](https://supaexplorer.com/cybersecurity-insight-report-january-2026))
+TrustMRR listings had the highest rate at 23.76% ([SupaExplorer report](https://supaexplorer.com/cybersecurity-insight-report-january-2026))
+
+> The pattern is almost always the same: a table without Row Level Security, reached with a key that was meant to be public
+
+## Why vibe coded apps leak
+
+Supabase turns on Row Level Security by default for tables you create in its Table Editor
+UpGuard points out the gap: tables created programmatically through the API, which is how coding agents talk to Supabase, do not get RLS by default ([UpGuard](https://www.upguard.com/blog/everything-everywhere-systemic-data-exposure-in-supabase-apps))
+
+So the agent creates `profiles`, `orders` and `messages`, the app works, and every row is readable
+Nothing looks broken, which is exactly why nobody notices
+
+## Is the Supabase anon key safe in my app?
+
+Yes, if RLS is on
+Supabase says the publishable key is safe to expose in a web page, a mobile app or source code, and that it only reaches what Row Level Security allows ([Supabase docs](https://supabase.com/docs/guides/api/api-keys))
+
+The secret key is a different animal
+Supabase says a secret key bypasses every Row Level Security policy you have, and to never put one in a browser, a shipped application or source control ([Supabase docs](https://supabase.com/docs/guides/api/api-keys))
+If your AI agent pasted a secret or `service_role` key into client code, treat it as leaked and rotate it
+
+## The October 30, 2026 change you should know about
+
+Until now, new tables in the `public` schema were automatically exposed to the `anon`, `authenticated` and `service_role` roles ([Supabase changelog](https://supabase.com/changelog/45329-breaking-change-tables-not-exposed-to-data-and-graphql-api-automatically))
+From October 30, 2026, existing projects stop getting those automatic grants, and new tables need explicit grants to be reachable through the API ([Supabase changelog](https://supabase.com/changelog/45329-breaking-change-tables-not-exposed-to-data-and-graphql-api-automatically))
+
+This is good for security, but it can break an app that silently relied on the old behaviour
+Add grants on purpose, table by table, and only the ones each role needs
+
+## The 9 step checklist
+
+### 1 Find every table without RLS
+Run this in the Supabase SQL editor
+
+```sql
+select tablename, rowsecurity
+from pg_tables
+where schemaname = 'public'
+order by rowsecurity, tablename;
+```
+
+Any row with `rowsecurity = false` is open to whatever the grants allow
+
+### 2 Turn RLS on for all of them
+
+```sql
+alter table public.profiles enable row level security;
+```
+
+With RLS on and no policies, the API returns nothing, which is the safe starting point
+
+### 3 Write the narrowest policy that works
+The most common one: a signed in user can read only their own rows
+
+```sql
+create policy "Users read own rows"
+on public.profiles for select
+to authenticated
+using ((select auth.uid()) = user_id);
+```
+
+### 4 Add separate policies for insert, update and delete
+Use `with check` so a user cannot write rows that belong to someone else
+Skip any operation your app does not need
+
+### 5 Grant access on purpose
+Give `anon` only what logged out users truly need, often nothing
+Give `authenticated` only the operations your policies cover
+
+### 6 Test like an attacker
+Call the REST endpoint for each table with only the publishable key and no user session
+
+```bash
+curl "https://YOUR_PROJECT.supabase.co/rest/v1/profiles?select=*" \
+  -H "apikey: YOUR_PUBLISHABLE_KEY"
+```
+
+You want an empty list or an error, never real rows
+
+### 7 Keep secret keys on the server
+Secret keys belong in Edge Functions or your own server, never in a Flutter build, a React bundle or a public repo
+Anything shipped inside an app can be extracted
+
+### 8 Move AI provider keys behind a function
+The same rule applies to OpenAI or Gemini keys in AI wrapper apps
+Even Firebase, whose normal API keys are fine to ship, says a Gemini Developer API key should never be included in your code or configuration files ([Firebase docs](https://firebase.google.com/docs/projects/api-keys))
+
+### 9 Tell your agent the rules up front
+Paste this into your project rules file so every new table starts locked
+
+> Every table you create in Supabase must have Row Level Security enabled in the same migration
+> Add an explicit policy for each operation the app uses, and explicit grants per role
+> Never use or print the service role key in client code
+
+## Quick reference
+
+| Check | Pass when |
+|---|---|
+| RLS on every public table | The SQL above shows no `false` rows |
+| Policies per operation | Select, insert, update and delete each have a policy or are not granted |
+| Anon test | Publishable key alone returns no real data |
+| Secret key | Only in server code, rotated if it was ever shipped |
+| AI keys | Called from a server function, not the app |
+| Grants after Oct 30 | Added on purpose for each table and role |
+
+## Using Firebase instead?
+
+The idea is the same with different names
+Firebase says its API keys do not need to be treated as secrets, and that data security is enforced by Firebase Security Rules, not by hiding the key ([Firebase docs](https://firebase.google.com/docs/projects/api-keys))
+So the Firebase version of this checklist is: no test mode rules in production, rules that check `request.auth` on every collection, and App Check for extra protection
+
+## Before you ship
+
+Run steps 1 and 6 tonight, they take ten minutes and catch most leaks
+Then work through the rest before your next release
+
+I put the 8 holes AI most often leaves in Flutter and Firebase apps into one doc, with the fix for each

@@ -1,0 +1,72 @@
+# Garoono
+
+> Garoono is the site of Gautam Singh Rathor, a senior software engineer in Delhi who builds mobile apps after his 9 to 5. It lists his apps, sells playbooks and checklists for indie app makers, and has a blog about shipping apps solo next to a day job.
+
+14 apps shipped, 100,000+ users across them, mostly Flutter. Some playbooks are free PDFs, the rest open with a one-time lifetime purchase on the docs page.
+
+## Apps
+- [Dress Mirror](https://garoono.in/apps/dressmirror/): Try sarees, lehengas, kurtis and western outfits on your own photo before you buy, on Android and iPhone. [App Store](https://apps.apple.com/us/app/dressmirror-ai-shoot-try-on/id6781407057), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.dressmirror)
+- [PushPass](https://garoono.in/apps/pushpass/): Block distracting apps and unlock them with pushups, squats, planks or jumping jacks your camera counts. [App Store](https://apps.apple.com/in/app/pushpass-screen-time-blocker/id6780573210), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.pushpass)
+- [XLSheet AI](https://garoono.in/apps/xlsheetai/): Turn plain words into spreadsheet formulas, macros, SQL and regex, and photos of tables into XLSX files. [App Store](https://apps.apple.com/in/app/xlsheetai-excel-formula-sql/id6755627033), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.xlsheetai)
+- [JapMala](https://garoono.in/apps/japmala/): Count mantras on a 108 bead digital mala, track your daily jaap streak and read devotional kathas offline. [App Store](https://apps.apple.com/in/app/japmala-naam-jaap-counter/id6782950756), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.japmala)
+- [Fitess](https://garoono.in/apps/fitess/): Log sets, scan your body for a score, spot weak zones on a muscle map and get a daily plan from an AI coach. [Google Play](https://play.google.com/store/apps/details?id=in.garoono.fitess)
+- [GetUp](https://garoono.in/apps/getup/): An alarm that won't stop until you do push ups, solve math or take a photo, with bedtime app lock and streaks. [App Store](https://apps.apple.com/in/app/getup-push-up-alarm-clock/id6789959109), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.getup)
+- [Habitide](https://garoono.in/apps/habitide/): Track habits with photo proof, streaks with friends and a growth radar that shows how you are changing. [App Store](https://apps.apple.com/in/app/habitide-daily-habit-tracker/id6745226793), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.habitide)
+- [SnapPDF Pro](https://garoono.in/apps/snappdfpro/): Scan documents, convert photos to PDF, merge, split, compress, sign and lock PDFs offline on Android and iPhone. [App Store](https://apps.apple.com/in/app/pdf-scanner-editor-snappdf/id6772768385), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.snappdf)
+- [FocusOn](https://garoono.in/apps/focuson/): A minimal flip clock Pomodoro timer that tracks how focused you felt and shows your deep work hours. [App Store](https://apps.apple.com/in/app/focuson-flip-clock-pomodoro/id6751473488), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.focuson)
+- [Shots](https://garoono.in/apps/shots/): Add backgrounds, frames and shadows to screenshots and export them at the right size for every platform. [App Store](https://apps.apple.com/in/app/shots-screenshot-beautifier/id6763390178), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.shots)
+- [SparkMate](https://garoono.in/apps/sparkmate/): Chat, call and video call with an AI companion who has her own personality and remembers you. [Google Play](https://play.google.com/store/apps/details?id=in.garoono.sparkmate)
+- [Apna RSS](https://garoono.in/apps/apnarss/): History, ideas, geet and service work of the Rashtriya Swayamsevak Sangh, explained simply in Hindi. [Google Play](https://play.google.com/store/apps/details?id=com.garoono.apnarss)
+- [XML Viewer](https://garoono.in/apps/xmlviewer/): View XML with a tree view and syntax highlighting, fix errors with the validator and convert to PDF or JSON. [Google Play](https://play.google.com/store/apps/details?id=in.garoono.xmlviewer)
+- [JSON View : Editor](https://garoono.in/apps/jsonview/): Open JSON files in a tree view, edit with syntax highlighting, format and validate, offline with no ads. [App Store](https://apps.apple.com/in/app/json-view-editor-formatter/id6762811010), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.jsonviewer)
+- [NailMirror](https://garoono.in/apps/nailmirror/): See chrome, french, gel and trending nail designs on your own hand before your salon appointment. [App Store](https://apps.apple.com/in/app/nailmirror-ai-nail-try-on-art/id6788501057), [Google Play](https://play.google.com/store/apps/details?id=in.garoono.nailmirror)
+- [BhaktiDhun](https://garoono.in/apps/bhaktidhun/): Bhajans, aartis and chalisas sorted by deity, with kathas and leelas to read, in one simple devotional app. [Google Play](https://play.google.com/store/apps/details?id=com.garoono.bhaktidhunsanatan)
+
+## Guides
+- [Account Deletion Requirement on the App Store and Google Play](https://garoono.in/blog/account-deletion-requirement-app-store/): If your app has sign-in, Apple and Google both want a real Delete account button inside the app, here is what it must do and how to show it to review
+- [App Rejected for Guideline 4.3 Spam? What It Means and What to Do](https://garoono.in/blog/app-rejected-guideline-4-3-spam/): Guideline 4.3 Spam means Apple sees your app as a duplicate, of your own apps or of the store, here is what the rule says and the three ways out
+- [Google Play 12 Testers 14 Days Requirement: How Solo Devs Pass](https://garoono.in/blog/google-play-12-testers-14-days-requirement/): New personal Play accounts need 12 testers opted in for 14 days in a row before production, here is the exact rule and a plan that passes first time
+- [Privacy Policy for App Store Submission: Apple and Google Rules](https://garoono.in/blog/privacy-policy-for-app-store-submission/): Both stores want a public privacy policy URL, a link inside the app and a data form that matches it, here is exactly what Apple and Google check
+- [Apple Blocked My Flutter Apps 3 Times: My App Store Checklist](https://garoono.in/blog/flutter-app-store-checklist/): An AI data question, a missing EULA link and a Screen Time entitlement, the three App Store blockers I hit in 2026 and the checklist I run now
+- [100,000 Downloads, $216 a Month: My Flutter Apps Revenue](https://garoono.in/blog/flutter-apps-revenue-honest-numbers/): One app pays most of the bills, iOS users are worth 12x Android and my ads made $3.40 last month, the honest numbers behind 16 Flutter apps
+- [Android Developer Verification for Indie Developers: 2026 Guide](https://garoono.in/blog/android-developer-verification-for-indie-developers/): Android now requires verified developers for installs in 4 countries and globally from 2027, here is what indie devs in India and elsewhere must do
+- [How to Get Your First 100 App Users Without Ads](https://garoono.in/blog/how-to-get-your-first-100-app-users/): The zero budget playbook I use for every launch, from app store search to Reddit to 20 direct messages, written for builders with a day job
+- [Supabase RLS Checklist for Vibe Coded Apps After 16,326 Leaks](https://garoono.in/blog/supabase-rls-checklist-for-vibe-coded-apps/): Researchers found 16,326 Supabase databases with readable tables, here is the 9 step RLS checklist to run on your AI built app tonight
+
+## Playbooks
+- [Crack Your Flutter, React Native and Full Stack Interview](https://garoono.in/docs/#crack-dev-interviews): The questions that keep coming up, short answers you can say out loud, and a 3 week plan that fits next to a job (free PDF)
+- [Stop Making App Store Screenshots in Figma](https://garoono.in/docs/#html-screenshots-not-figma): One HTML page per screenshot, one command for every iPhone and iPad size. Template included. (free PDF)
+- [Find Your Niche and Prove People Want It](https://garoono.in/docs/#find-your-niche): A data-first way to pick an app idea people search for, pay for, and can't find a good version of yet.
+- [Build It Fast with AI](https://garoono.in/docs/#build-it-fast-with-ai): What to write before you prompt, the order to build in, and a paywall Apple won't reject.
+- [Your First 100 Users](https://garoono.in/docs/#first-100-users): Without an ad budget, and without waiting for the App Store to notice you.
+- [Ship v1 in 30 Days, Next to a Day Job](https://garoono.in/docs/#ship-v1-in-30-days): One core feature, a fixed weekly time budget, and a build order you don't break.
+- [Subscriptions with RevenueCat](https://garoono.in/docs/#subscriptions-with-revenuecat): Flutter, App Store and Google Play subscriptions, set up once and done right.
+- [Track What Matters](https://garoono.in/docs/#track-what-matters): Firebase, PostHog and RevenueCat joined into one funnel, so you know where people drop off.
+- [Price Your App](https://garoono.in/docs/#price-your-app): Paywall type, plan length, trials, and what to actually charge.
+- [Keep the 30%](https://garoono.in/docs/#keep-the-30-percent): Web payments for iOS apps in the US: what's allowed in 2026, and how to set it up from India.
+- [The Prompt to Secure Your App](https://garoono.in/docs/#secure-your-app-prompt): One copy-paste prompt that makes your AI tool audit your app like a senior security engineer.
+- [Stop Building the Same App Twice](https://garoono.in/docs/#flutter-starter-kit-blueprint): The Flutter starter kit blueprint: build onboarding, paywall and reminders once, reuse them forever.
+- [3 Slideshows a Day, Zero Filming](https://garoono.in/docs/#slideshows-for-app-installs): The slideshow system that turns short-video posts into app installs, without filming.
+- [5 Ways Your Vibe-Coded App Can Bankrupt You Tonight](https://garoono.in/docs/#vibe-coded-app-cloud-bill-traps): Find the cloud billing traps in your app before the invoice finds you.
+- [The Free Stack to Launch an App](https://garoono.in/docs/#free-stack-to-launch-an-app): The tools that cost nothing until you have real users, for a Flutter app and a web app.
+- [Grow on TikTok: Reach the US From India](https://garoono.in/docs/#grow-on-tiktok-playbook): The setup I use to run a US-facing TikTok account, from warm-up and hooks to turning views into installs.
+- [Stuck at 12 Testers? Get Play Production Access](https://garoono.in/docs/#stuck-at-12-testers): Get Google Play production access on the first try, with testers who actually test.
+- [Will Your App Get Rejected? The 30 Minute Audit](https://garoono.in/docs/#will-your-app-get-rejected-audit): 36 checks for the App Store and Google Play, with a score that tells you when to submit. (free PDF)
+- [Steal Your Competitors' Best Keywords](https://garoono.in/docs/#steal-competitor-keywords): ASO from competitor listings, 1-star reviews and real comments, researched with parallel AI chats. (free PDF)
+- [They Didn't Cancel. Their Card Did.](https://garoono.in/docs/#failed-payments-win-back): Win back the subscribers you lose to failed payments without noticing. (free PDF)
+- [Don't Spend on Ads Until You Read This](https://garoono.in/docs/#before-you-spend-on-ads): Apple Ads, the break-even math, and when paid installs actually pay you back.
+- [From 3.9 to 4.7 Stars](https://garoono.in/docs/#app-rating-3-9-to-4-7): Ask for reviews at the right moment, fix what 1-star reviews say, and reply like a human.
+- [Your AI App Might Lose Money on Every User](https://garoono.in/docs/#ai-app-loses-money): Price and build AI features so your heaviest users don't eat your profit.
+- [Your AI-Built App Is Leaking](https://garoono.in/docs/#secure-your-vibe-coded-app): Find the 8 holes AI leaves in Flutter and Firebase apps, before someone else does.
+- [Build Paid Apps on Free AI Models](https://garoono.in/docs/#build-paid-apps-on-free-ai-models): How developers turn free AI research into apps people pay for.
+- [20 Security Checks Before You Launch](https://garoono.in/docs/#20-security-checks-before-launch): What each check means, how to test it, and notes if you build on Firebase.
+- [Six Documents Before You Let AI Build Your App](https://garoono.in/docs/#six-documents-before-you-prompt): What to write down first, without wasting a weekend on paperwork.
+- [App SEO Playbook](https://garoono.in/docs/#app-seo-playbook): Get downloads from Google without paying for ads. What really works in 2026.
+- [Before You Submit: Legal Checklist](https://garoono.in/docs/#legal-checklist-before-you-submit): The 7 things stores check before approving an AI-built app, with prompts for each.
+- [Don't Get Rejected: App Store Launch Guide](https://garoono.in/docs/#app-store-launch-guide): The 5 reasons new apps get rejected, and the step-by-step way to ship yours.
+
+## Optional
+- [Full text of the guides](https://garoono.in/llms-full.txt)
+- [Blog RSS](https://garoono.in/blog/rss.xml)
+- [Privacy Policy](https://garoono.in/privacy/)
+- [Terms](https://garoono.in/terms/)

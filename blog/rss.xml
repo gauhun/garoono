@@ -5,6 +5,34 @@
     <link>https://garoono.in/blog/</link>
     <description>Shipping apps solo, next to a day job. Real numbers, no fluff</description>
     <item>
+      <title>Account Deletion Requirement on the App Store and Google Play</title>
+      <link>https://garoono.in/blog/account-deletion-requirement-app-store/</link>
+      <guid>https://garoono.in/blog/account-deletion-requirement-app-store/</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <description>If your app has sign-in, Apple and Google both want a real Delete account button inside the app, here is what it must do and how to show it to review</description>
+    </item>
+    <item>
+      <title>App Rejected for Guideline 4.3 Spam? What It Means and What to Do</title>
+      <link>https://garoono.in/blog/app-rejected-guideline-4-3-spam/</link>
+      <guid>https://garoono.in/blog/app-rejected-guideline-4-3-spam/</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Guideline 4.3 Spam means Apple sees your app as a duplicate, of your own apps or of the store, here is what the rule says and the three ways out</description>
+    </item>
+    <item>
+      <title>Google Play 12 Testers 14 Days Requirement: How Solo Devs Pass</title>
+      <link>https://garoono.in/blog/google-play-12-testers-14-days-requirement/</link>
+      <guid>https://garoono.in/blog/google-play-12-testers-14-days-requirement/</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <description>New personal Play accounts need 12 testers opted in for 14 days in a row before production, here is the exact rule and a plan that passes first time</description>
+    </item>
+    <item>
+      <title>Privacy Policy for App Store Submission: Apple and Google Rules</title>
+      <link>https://garoono.in/blog/privacy-policy-for-app-store-submission/</link>
+      <guid>https://garoono.in/blog/privacy-policy-for-app-store-submission/</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Both stores want a public privacy policy URL, a link inside the app and a data form that matches it, here is exactly what Apple and Google check</description>
+    </item>
+    <item>
       <title>Apple Blocked My Flutter Apps 3 Times: My App Store Checklist</title>
       <link>https://garoono.in/blog/flutter-app-store-checklist/</link>
       <guid>https://garoono.in/blog/flutter-app-store-checklist/</guid>

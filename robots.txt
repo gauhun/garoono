@@ -1,4 +1,15 @@
 User-Agent: *
 Allow: /
 
+User-Agent: GPTBot
+User-Agent: OAI-SearchBot
+User-Agent: ChatGPT-User
+User-Agent: ClaudeBot
+User-Agent: Claude-SearchBot
+User-Agent: PerplexityBot
+User-Agent: Google-Extended
+User-Agent: Applebot-Extended
+User-Agent: Bingbot
+Allow: /
+
 Sitemap: https://garoono.in/sitemap.xml
