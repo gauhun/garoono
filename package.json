@@ -14,7 +14,8 @@
     "prebuild": "npm run web-images && npm run blog:lint",
     "add-doc": "node scripts/add-doc.mjs",
     "web-images": "node scripts/web-images.mjs",
-    "blog:lint": "node scripts/blog-lint.mjs"
+    "blog:lint": "node scripts/blog-lint.mjs",
+    "postdeploy": "sh indexnow.sh"
   },
   "dependencies": {
     "@fontsource/press-start-2p": "^5.2.7",

@@ -1298,7 +1298,7 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 .app-strip { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); }
 .app-strip-track { display: flex; width: max-content; animation: docs-marquee 50s linear infinite; }
 .app-strip:hover .app-strip-track { animation-play-state: paused; }
-.app-strip-track img { width: 180px; aspect-ratio: 720 / 1559; object-fit: cover; margin-right: 14px; border-radius: 20px; border: 1px solid var(--border); }
+.app-strip-track img { width: 180px; height: auto; aspect-ratio: 720 / 1559; object-fit: cover; margin-right: 14px; border-radius: 20px; border: 1px solid var(--border); }
 
 .app-cta {
   display: flex;

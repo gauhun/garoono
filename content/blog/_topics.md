@@ -10,14 +10,14 @@ Keywords are long tail, high intent searches from indie developers. Add new rows
 | done: android-developer-verification-for-indie-developers | android developer verification for indie developers | Sept 30, 2026 start, 2027 global rollout, India documents | app-store-launch-guide |
 | todo | google play billdesk kyc verification | RBI rule, 15 March 2027 deadline for existing merchants, international sales pause | legal-checklist-before-you-submit |
 | todo | app store third party ai consent screen | guideline 5.1.2(i) change of Nov 2025 and a consent screen that passes review | legal-checklist-before-you-submit |
-| todo | google play 12 testers 14 days requirement | how solo devs pass closed testing | stuck-at-12-testers |
+| done: google-play-12-testers-14-days-requirement | google play 12 testers 14 days requirement | how solo devs pass closed testing | stuck-at-12-testers |
 | todo | app store keyword research for indie developers | free method from 1 and 2 star reviews | app-seo-playbook |
-| todo | app rejected guideline 4.2 minimum functionality | what triggers it and how to fix before submitting | app-store-launch-guide |
-| todo | privacy policy for app store submission | what Apple and Google actually check | legal-checklist-before-you-submit |
+| done: app-rejected-guideline-4-3-spam | app rejected guideline 4.2 minimum functionality | what triggers it and how to fix before submitting | app-store-launch-guide |
+| done: privacy-policy-for-app-store-submission | privacy policy for app store submission | what Apple and Google actually check | legal-checklist-before-you-submit |
 | todo | firebase security rules checklist before launch | the rules that leak data most often | 20-security-checks-before-launch |
 | todo | how to build an app with ai without coding | the six documents to write first | six-documents-before-you-prompt |
 | todo | build a paid app on free ai models | wrap an open model in a simple paid app | build-paid-apps-on-free-ai-models |
-| todo | account deletion requirement app store | what Apple and Google require and how to add it | legal-checklist-before-you-submit |
+| done: account-deletion-requirement-app-store | account deletion requirement app store | what Apple and Google require and how to add it | legal-checklist-before-you-submit |
 | todo | app store screenshots that convert | outcome first screenshots for small apps | app-seo-playbook |
 | todo | how much does it cost to publish an app in india | Apple and Google fees in rupees, taxes, payouts | app-store-launch-guide |
 | todo | freemium vs paid app for indie developers | which model fits a solo builder | build-paid-apps-on-free-ai-models |

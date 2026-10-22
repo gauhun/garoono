@@ -48,7 +48,7 @@ export default async function AppPageRoute({ params }: Params) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": "MobileApplication",
     name: product.name,
     description: page.seoDescription,
     operatingSystem: page.appStoreUrl ? "Android, iOS" : "Android",
@@ -57,6 +57,7 @@ export default async function AppPageRoute({ params }: Params) {
     image: `https://garoono.in${product.icon}`,
     screenshot: page.screenshots.map((s) => `https://garoono.in${s}`),
     author: { "@type": "Person", name: "Gautam Singh Rathor", url: "https://garoono.in" },
+    installUrl: [page.appStoreUrl, page.playUrl].filter(Boolean),
     sameAs: [page.playUrl, page.appStoreUrl, page.websiteUrl].filter(Boolean),
   };
 

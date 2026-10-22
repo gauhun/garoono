@@ -52,6 +52,14 @@ export const metadata: Metadata = {
   },
 };
 
+const SOCIALS = [
+  "https://instagram.com/garoonoo",
+  "https://www.linkedin.com/in/gauhun/",
+  "https://medium.com/@garoono",
+  "https://twitter.com/xgaroono",
+  "https://github.com/gauhun",
+];
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -63,15 +71,24 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Gautam Singh Rathor",
-              url: "https://garoono.in",
-              jobTitle: "Indie App Maker",
-              worksFor: { "@type": "Organization", name: "Capgemini" },
-              sameAs: [
-                "https://twitter.com/xgaroono",
-                "https://www.linkedin.com/in/gauhun/",
-                "https://github.com/gauhun",
+              "@graph": [
+                {
+                  "@type": "Person",
+                  "@id": "https://garoono.in/#gautam",
+                  name: "Gautam Singh Rathor",
+                  url: "https://garoono.in",
+                  jobTitle: "Indie App Maker",
+                  worksFor: { "@type": "Organization", name: "Capgemini" },
+                  sameAs: SOCIALS,
+                },
+                {
+                  "@type": "Organization",
+                  name: "Garoono",
+                  url: "https://garoono.in",
+                  logo: "https://garoono.in/logos/garoono-latest-logo.jpg",
+                  founder: { "@id": "https://garoono.in/#gautam" },
+                  sameAs: SOCIALS,
+                },
               ],
             }),
           }}

@@ -31,6 +31,8 @@ function PhoneCarousel({ shots, name }: { shots: string[]; name: string }) {
             key={shots[index]}
             src={shots[index]}
             alt={`${name} screenshot ${index + 1}`}
+            width={720}
+            height={1559}
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
@@ -184,7 +186,7 @@ export default function AppLanding({
               {[0, 1].map((copy) =>
                 page.screenshots.map((shot) => (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img key={`${copy}-${shot}`} src={shot} alt="" aria-hidden={copy === 1 || undefined} loading="lazy" />
+                  <img key={`${copy}-${shot}`} src={shot} alt="" aria-hidden={copy === 1 || undefined} width={720} height={1559} loading="lazy" />
                 )),
               )}
             </div>

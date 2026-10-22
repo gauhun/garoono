@@ -1,6 +1,6 @@
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { getAllPosts, getPost, readingMinutes } from "./blog";
+import { faqOf, getAllPosts, getPost, readingMinutes } from "./blog";
 
 const dir = path.join(__dirname, "__fixtures__/blog");
 
@@ -27,5 +27,12 @@ describe("blog loader", () => {
   it("estimates reading time", () => {
     expect(readingMinutes(Array.from({ length: 460 }, () => "w").join(" "))).toBe(2);
     expect(readingMinutes("short")).toBe(1);
+  });
+
+  it("reads the visible FAQ section as question and answer pairs", () => {
+    const md = ["## Intro", "", "### Not a FAQ", "nope", "", "## FAQ", "", "### Is it free?", "Yes, see [the docs](/docs/)", "It costs **nothing**", "", "### Empty?", "", "## After", "x"].join("\n");
+    expect(faqOf(md)).toEqual([{ question: "Is it free?", answer: "Yes, see the docs It costs nothing" }]);
+    expect(faqOf("## Quick answers\n\n### Q?\nA")).toEqual([{ question: "Q?", answer: "A" }]);
+    expect(faqOf("## Nothing here")).toEqual([]);
   });
 });

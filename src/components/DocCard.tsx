@@ -134,8 +134,9 @@ export default function DocCard({ doc, index, stats, onCount, locked, onRead, on
       <DocIcon />
     </div>
   ) : (
+    // The first row is above the fold, so it loads straight away
     // eslint-disable-next-line @next/next/no-img-element
-    <img ref={thumbRef} src={thumbUrl(doc)} alt="" loading="lazy" onError={() => setThumbFailed(true)} />
+    <img ref={thumbRef} src={thumbUrl(doc)} alt="" width={600} height={848} loading={index < 3 ? undefined : "lazy"} onError={() => setThumbFailed(true)} />
   );
 
   return (

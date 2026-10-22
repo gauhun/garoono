@@ -44,17 +44,44 @@ export default async function BlogPost({ params }: Params) {
   if (!post) notFound();
 
   const related = post.relatedDoc ? docs.find((d) => d.slug === post.relatedDoc) : undefined;
+  const url = `https://garoono.in/blog/${post.slug}/`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    dateModified: post.date,
-    keywords: [post.keyword, ...post.tags].join(", "),
-    mainEntityOfPage: `https://garoono.in/blog/${post.slug}/`,
-    author: { "@type": "Person", name: "Gautam Singh Rathor", url: "https://garoono.in" },
-    publisher: { "@type": "Person", name: "Gautam Singh Rathor", url: "https://garoono.in" },
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.description,
+        datePublished: post.date,
+        dateModified: post.date,
+        keywords: [post.keyword, ...post.tags].join(", "),
+        image: "https://garoono.in/og.jpg",
+        mainEntityOfPage: url,
+        author: { "@type": "Person", name: "Gautam Singh Rathor", url: "https://garoono.in" },
+        publisher: { "@type": "Organization", name: "Garoono", url: "https://garoono.in" },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Garoono", item: "https://garoono.in/" },
+          { "@type": "ListItem", position: 2, name: "Blog", item: "https://garoono.in/blog/" },
+          { "@type": "ListItem", position: 3, name: post.title, item: url },
+        ],
+      },
+      // Only from the FAQ text shown on this page
+      ...(post.faq.length
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: post.faq.map((f) => ({
+                "@type": "Question",
+                name: f.question,
+                acceptedAnswer: { "@type": "Answer", text: f.answer },
+              })),
+            },
+          ]
+        : []),
+    ],
   };
 
   return (
