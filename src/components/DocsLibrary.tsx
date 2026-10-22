@@ -9,6 +9,7 @@ import { checkoutUrl } from "../lib/checkout";
 import { useAccess } from "../lib/useAccess";
 import { AuthChip, PaymentBanner, UnlockBanner, useInAppBrowser } from "./AccessPanel";
 import DocCard from "./DocCard";
+import MediumBanner from "./MediumBanner";
 import DocReader from "./DocReader";
 import DocsWelcome, { markWelcomeSeen, ProofStats, shouldShowWelcome } from "./DocsWelcome";
 import { ProDialog } from "./ProOffer";
@@ -122,6 +123,8 @@ export default function DocsLibrary() {
       <Link href="/" className="docs-back">
         ← Gautam
       </Link>
+
+      <MediumBanner />
 
       <header className="docs-header">
         <div>

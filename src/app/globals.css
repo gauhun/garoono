@@ -1370,3 +1370,89 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 .app-ba-card li { font-size: 13.5px; line-height: 1.4; padding-left: 22px; }
 .app-ba-label { font-size: 11px; }
 .app-ba-arrow { font-size: 22px; }
+
+/* ─── Medium banner (top of /docs) ───────────────────────────────── */
+@property --medium-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.medium-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 24px;
+  padding: 14px 16px;
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  color: var(--text-primary);
+  /* Card fill, then a slowly rotating accent ring as the border */
+  background:
+    linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+    conic-gradient(from var(--medium-angle), var(--accent), #FFC9A8, var(--text-primary), #FFC9A8, var(--accent)) border-box;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  animation: medium-spin 6s linear infinite, medium-rise 0.6s ease-out both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.medium-banner:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+
+/* A light sweep across the card every few seconds */
+.medium-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 107, 53, 0.12) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: medium-sweep 4s ease-in-out 1s infinite;
+  pointer-events: none;
+}
+
+.medium-logo {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--text-primary);
+  color: #fff;
+  animation: medium-pulse 2.4s ease-in-out infinite;
+}
+
+.medium-copy { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.medium-copy strong { font-size: 15px; font-weight: 600; line-height: 1.3; }
+.medium-copy span { font-size: 13px; color: var(--text-secondary); }
+
+.medium-cta {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: var(--radius-btn);
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.medium-banner:hover .medium-cta { background: var(--accent-hover); }
+.medium-arrow { display: inline-block; animation: medium-nudge 1.6s ease-in-out infinite; }
+
+@keyframes medium-spin { to { --medium-angle: 360deg; } }
+@keyframes medium-rise { from { opacity: 0; transform: translateY(8px); } }
+@keyframes medium-sweep { 0%, 60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+@keyframes medium-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes medium-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+
+@media (max-width: 560px) {
+  .medium-banner { flex-wrap: wrap; }
+  .medium-cta { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medium-banner, .medium-banner::after, .medium-logo, .medium-arrow { animation: none; }
+}
