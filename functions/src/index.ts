@@ -246,8 +246,9 @@ export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECR
 
   try {
     if (test) {
-      // Test payments only ever book calls, never open the docs pass
-      const fetched = event.type === "payment.succeeded" && paymentId ? await fetchPayment(paymentId, testDodo()) : null;
+      // Test payments only book calls, and only while calls are in test mode; they never open the docs pass
+      const testing = DODO_CALL_MODE.value() === "test";
+      const fetched = testing && event.type === "payment.succeeded" && paymentId ? await fetchPayment(paymentId, testDodo()) : null;
       if (fetched && isQualifyingPayment(fetched, DODO_CALL_PRODUCT_ID_TEST.value())) await bookCall(fetched, testDodo());
     } else if (event.type === "payment.succeeded" && paymentId) {
       const fetched = await fetchPayment(paymentId);
