@@ -28,6 +28,11 @@ const DODO_API_BASE = defineString("DODO_API_BASE");
 const DODO_PRODUCT_ID = defineString("DODO_PRODUCT_ID");
 const PAID_DOCS_BUCKET = defineString("PAID_DOCS_BUCKET");
 const DODO_CALL_PRODUCT_ID = defineString("DODO_CALL_PRODUCT_ID");
+// Calls can run on the Dodo test pair (DODO_CALL_MODE=test) while the docs pass stays live
+const DODO_API_KEY_TEST = defineSecret("DODO_API_KEY");
+const DODO_WEBHOOK_SECRET_TEST = defineSecret("DODO_WEBHOOK_SECRET");
+const DODO_CALL_MODE = defineString("DODO_CALL_MODE", { default: "live" });
+const DODO_CALL_PRODUCT_ID_TEST = defineString("DODO_CALL_PRODUCT_ID_TEST", { default: "" });
 // OAuth refresh token for garoonotech@gmail.com (scripts/calendar-token.mjs)
 const GOOGLE_CAL_CLIENT_ID = defineSecret("GOOGLE_CAL_CLIENT_ID");
 const GOOGLE_CAL_CLIENT_SECRET = defineSecret("GOOGLE_CAL_CLIENT_SECRET");
@@ -43,9 +48,13 @@ const proCount = db.collection("publicStats").doc("pro");
 
 // ─── Dodo ────────────────────────────────────────────────────────────────────
 
-async function fetchPayment(paymentId: string): Promise<DodoPayment | null> {
-  const res = await fetch(`${DODO_API_BASE.value()}/payments/${encodeURIComponent(paymentId)}`, {
-    headers: { Authorization: `Bearer ${DODO_API_KEY.value()}` },
+type Dodo = { base: string; key: string };
+const liveDodo = (): Dodo => ({ base: DODO_API_BASE.value(), key: DODO_API_KEY.value() });
+const testDodo = (): Dodo => ({ base: "https://test.dodopayments.com", key: DODO_API_KEY_TEST.value() });
+
+async function fetchPayment(paymentId: string, dodo = liveDodo()): Promise<DodoPayment | null> {
+  const res = await fetch(`${dodo.base}/payments/${encodeURIComponent(paymentId)}`, {
+    headers: { Authorization: `Bearer ${dodo.key}` },
   });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`Dodo API ${res.status}`);
@@ -148,17 +157,17 @@ const calCreds = (): CalendarCreds => ({
   refreshToken: GOOGLE_CAL_REFRESH_TOKEN.value(),
 });
 
-async function refundPayment(paymentId: string, reason: string) {
-  const res = await fetch(`${DODO_API_BASE.value()}/refunds`, {
+async function refundPayment(paymentId: string, reason: string, dodo: Dodo) {
+  const res = await fetch(`${dodo.base}/refunds`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${DODO_API_KEY.value()}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${dodo.key}`, "Content-Type": "application/json" },
     body: JSON.stringify({ payment_id: paymentId, reason }),
   });
   if (!res.ok) throw new Error(`Dodo refund ${res.status}`);
 }
 
 // Runs on every payment.succeeded for the call product; safe to repeat on webhook retries
-async function bookCall(payment: DodoPayment) {
+async function bookCall(payment: DodoPayment, dodo: Dodo) {
   const paymentId = payment.payment_id;
   const slotId = payment.metadata?.slot;
   const holdId = payment.metadata?.hold;
@@ -192,7 +201,7 @@ async function bookCall(payment: DodoPayment) {
 
   if (decision === "refund") {
     logger.warn("Call slot lost, refunding", { paymentId, slotId });
-    await refundPayment(paymentId, "The call slot you picked was taken before your payment arrived");
+    await refundPayment(paymentId, "The call slot you picked was taken before your payment arrived", dodo);
     await bookingRef.update({ status: "refunded", updatedAt: FieldValue.serverTimestamp() });
     return;
   }
@@ -215,19 +224,18 @@ async function bookCall(payment: DodoPayment) {
 
 // ─── Webhook ─────────────────────────────────────────────────────────────────
 
-export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECRET, ...CAL_SECRETS] }, async (req, res) => {
+export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECRET, DODO_API_KEY_TEST, DODO_WEBHOOK_SECRET_TEST, ...CAL_SECRETS] }, async (req, res) => {
   if (req.method !== "POST") {
     res.status(405).end();
     return;
   }
 
-  const valid = verifyWebhook(
-    { id: req.header("webhook-id"), timestamp: req.header("webhook-timestamp"), signature: req.header("webhook-signature") },
-    req.rawBody.toString("utf8"),
-    DODO_WEBHOOK_SECRET.value(),
-    Math.floor(Date.now() / 1000),
-  );
-  if (!valid) {
+  const headers = { id: req.header("webhook-id"), timestamp: req.header("webhook-timestamp"), signature: req.header("webhook-signature") };
+  const body = req.rawBody.toString("utf8");
+  const nowSec = Math.floor(Date.now() / 1000);
+  const live = verifyWebhook(headers, body, DODO_WEBHOOK_SECRET.value(), nowSec);
+  const test = !live && verifyWebhook(headers, body, DODO_WEBHOOK_SECRET_TEST.value(), nowSec);
+  if (!live && !test) {
     logger.warn("Rejected webhook with bad signature");
     res.status(401).end();
     return;
@@ -237,10 +245,14 @@ export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECR
   const paymentId = event.data?.payment_id;
 
   try {
-    if (event.type === "payment.succeeded" && paymentId) {
+    if (test) {
+      // Test payments only ever book calls, never open the docs pass
+      const fetched = event.type === "payment.succeeded" && paymentId ? await fetchPayment(paymentId, testDodo()) : null;
+      if (fetched && isQualifyingPayment(fetched, DODO_CALL_PRODUCT_ID_TEST.value())) await bookCall(fetched, testDodo());
+    } else if (event.type === "payment.succeeded" && paymentId) {
       const fetched = await fetchPayment(paymentId);
       if (fetched && isQualifyingPayment(fetched, DODO_CALL_PRODUCT_ID.value())) {
-        await bookCall(fetched);
+        await bookCall(fetched, liveDodo());
         res.status(200).json({ received: true });
         return;
       }
@@ -380,7 +392,9 @@ export const holdCallSlot = onCall({ secrets: CAL_SECRETS }, async (req) => {
     tx.set(ref, { status: "held", holdId, holdUntil: now + HOLD_MS, name, email, topic });
   });
 
-  const host = DODO_API_BASE.value().includes("test") ? "https://test.checkout.dodopayments.com" : "https://checkout.dodopayments.com";
+  const test = DODO_CALL_MODE.value() === "test";
+  const host = test ? "https://test.checkout.dodopayments.com" : "https://checkout.dodopayments.com";
+  const product = test ? DODO_CALL_PRODUCT_ID_TEST.value() : DODO_CALL_PRODUCT_ID.value();
   const query = new URLSearchParams({
     quantity: "1",
     redirect_url: "https://garoono.in/call/",
@@ -388,7 +402,7 @@ export const holdCallSlot = onCall({ secrets: CAL_SECRETS }, async (req) => {
     metadata_slot: slot,
     metadata_hold: holdId,
   });
-  return { url: `${host}/buy/${DODO_CALL_PRODUCT_ID.value()}?${query}`, holdUntil: now + HOLD_MS };
+  return { url: `${host}/buy/${product}?${query}`, holdUntil: now + HOLD_MS };
 });
 
 // ─── Course waitlist ─────────────────────────────────────────────────────────

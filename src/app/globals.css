@@ -1487,19 +1487,55 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 
 .call-page { max-width: 640px; }
 .call-banner { margin: 16px 0; padding: 12px 14px; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border); }
-.call-days { margin: 24px 0 12px; }
-.call-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
-.call-time {
-  padding: 12px 0;
+.call-card {
+  margin-top: 28px;
+  padding: 20px;
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+/* Days scroll sideways with no visible scrollbar */
+.call-days { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 -20px; padding: 0 20px; scroll-snap-type: x proximity; }
+.call-days::-webkit-scrollbar { display: none; }
+.call-day {
+  flex: 0 0 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-page);
+  font: inherit;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: border-color .15s, background .15s;
+}
+.call-day small { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.call-day b { font-size: 20px; line-height: 1.15; color: var(--text-primary); }
+.call-day:hover { border-color: var(--border-hover); }
+.call-day.is-active { background: var(--text-primary); border-color: var(--text-primary); color: rgba(255,255,255,.7); }
+.call-day.is-active b { color: #fff; }
+.call-times, .call-form { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
+.call-times { display: flex; flex-wrap: wrap; gap: 8px; }
+.call-time {
+  padding: 9px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
   background: var(--bg-card);
   font: inherit;
   font-size: 14px;
   font-weight: 600;
+  text-transform: uppercase;
   color: var(--text-primary);
   cursor: pointer;
+  transition: border-color .15s, background .15s;
 }
 .call-time:hover { border-color: var(--border-hover); }
-.call-time.is-active { border-color: var(--text-primary); background: var(--text-primary); color: #fff; }
-.call-form { margin-top: 16px; width: 100%; }
+.call-time.is-active { border-color: var(--accent-ink); background: var(--accent-light); color: var(--accent-ink); }
+.call-form { display: grid; gap: 10px; }
+.call-form .pro-offer-buy { width: 100%; }
+.call-form .offer-input { border-radius: 12px; }
