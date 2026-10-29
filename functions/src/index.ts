@@ -399,6 +399,7 @@ export const holdCallSlot = onCall({ secrets: CAL_SECRETS }, async (req) => {
     quantity: "1",
     redirect_url: "https://garoono.in/call/",
     email,
+    fullName: name,
     metadata_slot: slot,
     metadata_hold: holdId,
   });
