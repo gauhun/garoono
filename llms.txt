@@ -65,6 +65,10 @@
 - [Before You Submit: Legal Checklist](https://garoono.in/docs/#legal-checklist-before-you-submit): The 7 things stores check before approving an AI-built app, with prompts for each.
 - [Don't Get Rejected: App Store Launch Guide](https://garoono.in/docs/#app-store-launch-guide): The 5 reasons new apps get rejected, and the step-by-step way to ship yours.
 
+## Products
+- [Products](https://garoono.in/products/): Ship mobile apps with Claude Code (course, ₹999), kits, the docs pass and 1:1 calls
+- [Book a call](https://garoono.in/call/): 30 minutes with Gautam on Google Meet, ₹199, 8 to 10 PM IST, every day
+
 ## Optional
 - [Full text of the guides](https://garoono.in/llms-full.txt)
 - [Blog RSS](https://garoono.in/blog/rss.xml)
