@@ -10,7 +10,7 @@ export const COURSE = {
   international: "$29",
 };
 
-export const CALL = { price: "₹199", minutes: 30, hours: "8 to 10 PM IST, every day" };
+export const CALL = { price: "₹199", minutes: 30, hours: "Tue, Thu, Sat, Sun 2 to 10 PM, Mon, Wed, Fri 8 to 10:30 PM IST" };
 
 export const KITS = [
   { title: "App Store Rejection Playbook", line: "Every rejection I got and what fixed it" },

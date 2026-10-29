@@ -84,12 +84,9 @@ export default function CallBooking() {
       <Link href="/products/" className="docs-back">
         ← Products
       </Link>
-      <h1 className="font-serif docs-title">Book a call</h1>
-      <p className="offer-price">
-        {CALL.price}{" "}
-        <span>
-          · {CALL.minutes} min on Google Meet · {CALL.hours}
-        </span>
+      <h1 className="font-serif docs-title">Book a 1:1 call</h1>
+      <p className="call-meta">
+        {CALL.price} · {CALL.minutes} min on Google Meet · {CALL.hours}
       </p>
 
       {returned === "paid" && (
@@ -190,7 +187,7 @@ export default function CallBooking() {
               >
                 {sending
                   ? "Holding your time…"
-                  : `Pay ${CALL.price} · ${dayLabel(slot)}, ${timeLabel(slot).toUpperCase()}`}
+                  : `Pay ${CALL.price} · ${dayLabel(slot)}, ${timeLabel(slot)}`}
               </button>
               {error && <p className="offer-error">{error}</p>}
             </form>
