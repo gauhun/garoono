@@ -45,6 +45,9 @@ export default function DocsMarquee() {
       <Link href="/docs/" className="doc-chip doc-chip-all">
         View all docs →
       </Link>
+      <Link href="/products/" className="doc-chip doc-chip-all">
+        Course + 1:1 calls →
+      </Link>
     </div>
   );
 }

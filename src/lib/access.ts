@@ -26,3 +26,12 @@ export async function openPaidDoc(slug: string, download: boolean) {
     throw e;
   }
 }
+
+// ─── Paid calls and course waitlist (no sign-in needed) ──────────────────────
+
+export const getCallSlots = () => call<{ slots: string[] }>("getCallSlots", {});
+
+export const holdCallSlot = (hold: { slot: string; name: string; email: string; topic: string }) =>
+  call<{ url: string; holdUntil: number }>("holdCallSlot", hold);
+
+export const joinWaitlist = (email: string) => call<{ ok: boolean }>("joinWaitlist", { email });

@@ -1456,3 +1456,50 @@ button.doc-cover { position: relative; width: 100%; padding: 0; border: none; bo
 @media (prefers-reduced-motion: reduce) {
   .medium-banner, .medium-banner::after, .medium-logo, .medium-arrow { animation: none; }
 }
+
+/* ─── Products + paid calls ─────────────────────────────────────────────── */
+.offer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
+}
+.offer-course { margin: 24px 0 16px; border-color: var(--accent); }
+.offer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.offer-grid .offer-card .btn-primary { margin-top: auto; }
+.offer-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); }
+.offer-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 26px; font-weight: 400; line-height: 1.15; }
+.offer-line { font-size: 14px; color: var(--text-secondary); }
+.offer-includes { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
+.offer-includes li { padding: 4px 10px; border-radius: var(--radius-btn); background: var(--accent-light); font-size: 12px; font-weight: 600; }
+.offer-price { font-size: 20px; font-weight: 700; }
+.offer-price > span { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+.offer-form { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+.offer-input { margin-left: 0; max-width: none; width: 100%; resize: vertical; }
+.offer-form .offer-input { flex: 1; width: auto; }
+.offer-done { font-size: 14px; font-weight: 600; color: #15803D; }
+.offer-error { width: 100%; font-size: 13px; color: #B91C1C; }
+
+.call-page { max-width: 640px; }
+.call-banner { margin: 16px 0; padding: 12px 14px; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border); }
+.call-days { margin: 24px 0 12px; }
+.call-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+.call-time {
+  padding: 12px 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-card);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.call-time:hover { border-color: var(--border-hover); }
+.call-time.is-active { border-color: var(--text-primary); background: var(--text-primary); color: #fff; }
+.call-form { margin-top: 16px; width: 100%; }

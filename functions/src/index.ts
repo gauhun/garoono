@@ -6,7 +6,11 @@ import { logger } from "firebase-functions";
 import { defineSecret, defineString } from "firebase-functions/params";
 import { setGlobalOptions } from "firebase-functions/v2";
 import { HttpsError, onCall, onRequest, type CallableRequest } from "firebase-functions/v2/https";
+import { createHash, randomUUID } from "node:crypto";
+import { FieldPath } from "firebase-admin/firestore";
+import { busyIntervals, createCallEvent, type CalendarCreds } from "./lib/calendar.js";
 import { canClaim, firstName, isQualifyingPayment, normalizeEmail, PAYMENT_ID_RE, revocationFor, SLUG_RE, type DodoPayment } from "./lib/payments.js";
+import { bookingDecision, EMAIL_RE, generateSlots, HOLD_MS, isTaken, SLOT_MS, type SlotDoc } from "./lib/slots.js";
 import { verifyWebhook } from "./lib/webhook.js";
 
 initializeApp();
@@ -23,6 +27,12 @@ const DODO_WEBHOOK_SECRET = defineSecret("DODO_WEBHOOK_SECRET_LIVE");
 const DODO_API_BASE = defineString("DODO_API_BASE");
 const DODO_PRODUCT_ID = defineString("DODO_PRODUCT_ID");
 const PAID_DOCS_BUCKET = defineString("PAID_DOCS_BUCKET");
+const DODO_CALL_PRODUCT_ID = defineString("DODO_CALL_PRODUCT_ID");
+// OAuth refresh token for garoonotech@gmail.com (scripts/calendar-token.mjs)
+const GOOGLE_CAL_CLIENT_ID = defineSecret("GOOGLE_CAL_CLIENT_ID");
+const GOOGLE_CAL_CLIENT_SECRET = defineSecret("GOOGLE_CAL_CLIENT_SECRET");
+const GOOGLE_CAL_REFRESH_TOKEN = defineSecret("GOOGLE_CAL_REFRESH_TOKEN");
+const CAL_SECRETS = [GOOGLE_CAL_CLIENT_ID, GOOGLE_CAL_CLIENT_SECRET, GOOGLE_CAL_REFRESH_TOKEN];
 
 const db = getFirestore();
 const purchases = db.collection("purchases");
@@ -45,8 +55,8 @@ async function fetchPayment(paymentId: string): Promise<DodoPayment | null> {
 // ─── Purchases ───────────────────────────────────────────────────────────────
 
 // Re-checks the payment with Dodo and stores it once; never touches an existing record's status
-async function recordVerifiedPayment(paymentId: string): Promise<DodoPayment | null> {
-  const payment = await fetchPayment(paymentId);
+async function recordVerifiedPayment(paymentId: string, fetched?: DodoPayment | null): Promise<DodoPayment | null> {
+  const payment = fetched === undefined ? await fetchPayment(paymentId) : fetched;
   if (!payment || !isQualifyingPayment(payment, DODO_PRODUCT_ID.value())) return null;
 
   const ref = purchases.doc(payment.payment_id);
@@ -127,9 +137,85 @@ async function findOwner(payment: DodoPayment): Promise<string | null> {
   return user?.emailVerified ? user.uid : null;
 }
 
+// ─── Paid calls ──────────────────────────────────────────────────────────────
+
+const callSlots = db.collection("callSlots");
+const callBookings = db.collection("callBookings");
+
+const calCreds = (): CalendarCreds => ({
+  clientId: GOOGLE_CAL_CLIENT_ID.value(),
+  clientSecret: GOOGLE_CAL_CLIENT_SECRET.value(),
+  refreshToken: GOOGLE_CAL_REFRESH_TOKEN.value(),
+});
+
+async function refundPayment(paymentId: string, reason: string) {
+  const res = await fetch(`${DODO_API_BASE.value()}/refunds`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${DODO_API_KEY.value()}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ payment_id: paymentId, reason }),
+  });
+  if (!res.ok) throw new Error(`Dodo refund ${res.status}`);
+}
+
+// Runs on every payment.succeeded for the call product; safe to repeat on webhook retries
+async function bookCall(payment: DodoPayment) {
+  const paymentId = payment.payment_id;
+  const slotId = payment.metadata?.slot;
+  const holdId = payment.metadata?.hold;
+  const bookingRef = callBookings.doc(paymentId);
+
+  const decision = await db.runTransaction(async (tx) => {
+    const booking = (await tx.get(bookingRef)).data();
+    if (booking?.status === "refunded") return "done";
+    if (typeof slotId !== "string" || typeof holdId !== "string" || !slotId) {
+      tx.set(bookingRef, { status: "refunding", createdAt: FieldValue.serverTimestamp() }, { merge: true });
+      return "refund";
+    }
+    const slotRef = callSlots.doc(slotId);
+    const slot = (await tx.get(slotRef)).data() as (SlotDoc & { name?: string; email?: string; topic?: string }) | undefined;
+    const d = bookingDecision(slot, holdId, paymentId);
+    if (d === "book") {
+      tx.update(slotRef, { status: "booked", paymentId });
+      tx.set(bookingRef, {
+        status: "booked",
+        slot: slotId,
+        name: slot?.name ?? "",
+        email: slot?.email ?? "",
+        topic: slot?.topic ?? "",
+        createdAt: FieldValue.serverTimestamp(),
+      });
+    } else if (d === "refund") {
+      tx.set(bookingRef, { status: "refunding", slot: slotId, createdAt: FieldValue.serverTimestamp() }, { merge: true });
+    }
+    return d;
+  });
+
+  if (decision === "refund") {
+    logger.warn("Call slot lost, refunding", { paymentId, slotId });
+    await refundPayment(paymentId, "The call slot you picked was taken before your payment arrived");
+    await bookingRef.update({ status: "refunded", updatedAt: FieldValue.serverTimestamp() });
+    return;
+  }
+  if (decision === "done") return;
+
+  const booking = (await bookingRef.get()).data();
+  if (!booking || booking.eventId) return;
+  const start = Date.parse(booking.slot);
+  const { eventId, meetLink } = await createCallEvent(calCreds(), {
+    // Calendar event ids allow 0-9a-v only; hex fits
+    id: createHash("sha256").update(paymentId).digest("hex"),
+    start,
+    end: start + SLOT_MS,
+    name: booking.name,
+    email: booking.email,
+    topic: booking.topic,
+  });
+  await bookingRef.update({ eventId, meetLink, updatedAt: FieldValue.serverTimestamp() });
+}
+
 // ─── Webhook ─────────────────────────────────────────────────────────────────
 
-export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECRET] }, async (req, res) => {
+export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECRET, ...CAL_SECRETS] }, async (req, res) => {
   if (req.method !== "POST") {
     res.status(405).end();
     return;
@@ -152,7 +238,13 @@ export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECR
 
   try {
     if (event.type === "payment.succeeded" && paymentId) {
-      const payment = await recordVerifiedPayment(paymentId);
+      const fetched = await fetchPayment(paymentId);
+      if (fetched && isQualifyingPayment(fetched, DODO_CALL_PRODUCT_ID.value())) {
+        await bookCall(fetched);
+        res.status(200).json({ received: true });
+        return;
+      }
+      const payment = await recordVerifiedPayment(paymentId, fetched);
       const owner = payment && (await findOwner(payment));
       if (payment && owner && (await claim(payment.payment_id, owner, normalizeEmail(payment.customer?.email ?? "")))) {
         await syncWall(owner);
@@ -246,4 +338,67 @@ export const setProWall = onCall(async (req) => {
   if (show) await syncWall(uid);
   else await proWall.doc(uid).delete();
   return { onWall: show };
+});
+
+// ─── Calls: slots and holds ──────────────────────────────────────────────────
+
+async function takenSlots(now: number) {
+  const snap = await callSlots.where(FieldPath.documentId(), ">=", new Date(now).toISOString()).get();
+  return new Set(snap.docs.filter((d) => isTaken(d.data() as SlotDoc, now)).map((d) => d.id));
+}
+
+export const getCallSlots = onCall({ secrets: CAL_SECRETS }, async () => {
+  const now = Date.now();
+  const [busy, taken] = await Promise.all([busyIntervals(calCreds(), now, now + 15 * 86_400_000), takenSlots(now)]);
+  return { slots: generateSlots(now, busy, taken) };
+});
+
+const clean = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+
+// shortcut: no sign-in, so fake emails could hold every slot for 15 min; add App Check if that happens
+export const holdCallSlot = onCall({ secrets: CAL_SECRETS }, async (req) => {
+  const d = (req.data ?? {}) as Record<string, unknown>;
+  const slot = clean(d.slot, 40);
+  const name = clean(d.name, 80);
+  const email = normalizeEmail(clean(d.email, 254));
+  const topic = clean(d.topic, 500);
+  if (!name || !EMAIL_RE.test(email) || !topic) throw new HttpsError("invalid-argument", "Add your name, email and what you want to talk about.");
+
+  const now = Date.now();
+  // Only real, still bookable slot ids get through
+  if (!generateSlots(now, [], new Set()).includes(slot)) throw new HttpsError("invalid-argument", "That time is no longer available.");
+  const start = Date.parse(slot);
+  const busy = await busyIntervals(calCreds(), start, start + SLOT_MS);
+  if (busy.length) throw new HttpsError("already-exists", "That time was just taken. Pick another one.");
+
+  const holdId = randomUUID();
+  const ref = callSlots.doc(slot);
+  await db.runTransaction(async (tx) => {
+    if (isTaken((await tx.get(ref)).data() as SlotDoc | undefined, now)) {
+      throw new HttpsError("already-exists", "That time was just taken. Pick another one.");
+    }
+    tx.set(ref, { status: "held", holdId, holdUntil: now + HOLD_MS, name, email, topic });
+  });
+
+  const host = DODO_API_BASE.value().includes("test") ? "https://test.checkout.dodopayments.com" : "https://checkout.dodopayments.com";
+  const query = new URLSearchParams({
+    quantity: "1",
+    redirect_url: "https://garoono.in/call/",
+    email,
+    metadata_slot: slot,
+    metadata_hold: holdId,
+  });
+  return { url: `${host}/buy/${DODO_CALL_PRODUCT_ID.value()}?${query}`, holdUntil: now + HOLD_MS };
+});
+
+// ─── Course waitlist ─────────────────────────────────────────────────────────
+
+export const joinWaitlist = onCall(async (req) => {
+  const email = normalizeEmail(clean((req.data as { email?: unknown } | undefined)?.email, 254));
+  if (!EMAIL_RE.test(email)) throw new HttpsError("invalid-argument", "That email doesn't look right.");
+  const ref = db.collection("courseWaitlist").doc(email);
+  await ref.create({ email, createdAt: FieldValue.serverTimestamp() }).catch((e: { code?: number }) => {
+    if (e.code !== 6) throw e; // 6 = ALREADY_EXISTS: joining twice is fine
+  });
+  return { ok: true };
 });

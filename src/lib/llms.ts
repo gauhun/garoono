@@ -1,5 +1,6 @@
 import { appPages } from "../data/appPages";
 import { docs } from "../data/docs";
+import { CALL, COURSE, COURSE_STAGE } from "../data/offers";
 import { products } from "../data/products";
 import { getAllPosts, getPost } from "./blog";
 
@@ -29,6 +30,10 @@ ${guides.join("\n")}
 
 ## Playbooks
 ${playbooks.join("\n")}
+
+## Products
+- [Products](${ORIGIN}/products/): ${COURSE.title} (course, ${COURSE.price[COURSE_STAGE]}), kits, the docs pass and 1:1 calls
+- [Book a call](${ORIGIN}/call/): ${CALL.minutes} minutes with Gautam on Google Meet, ${CALL.price}, ${CALL.hours}
 
 ## Optional
 - [Full text of the guides](${ORIGIN}/llms-full.txt)

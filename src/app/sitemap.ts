@@ -13,6 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${base}/`, lastModified: today, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/docs/`, lastModified: newestDoc, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/products/`, lastModified: today, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/call/`, lastModified: today, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/blog/`, lastModified: posts[0]?.date ?? today, changeFrequency: "daily", priority: 0.9 },
     ...posts.map((p) => ({ url: `${base}/blog/${p.slug}/`, lastModified: p.date, changeFrequency: "monthly" as const, priority: 0.7 })),
     ...appPages.map((p) => ({ url: `${base}/apps/${p.slug}/`, lastModified: today, changeFrequency: "monthly" as const, priority: 0.8 })),

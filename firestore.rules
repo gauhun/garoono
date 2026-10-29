@@ -47,6 +47,17 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // Paid calls and course waitlist: written only by Cloud Functions; no client access
+    match /callSlots/{slotId} {
+      allow read, write: if false;
+    }
+    match /callBookings/{paymentId} {
+      allow read, write: if false;
+    }
+    match /courseWaitlist/{email} {
+      allow read, write: if false;
+    }
+
     // Opt-in Pro wall (first name + photo); written only by the setProWall function
     match /proWall/{uid} {
       allow read: if true;
