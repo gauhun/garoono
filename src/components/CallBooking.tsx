@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { getCallSlots, holdCallSlot } from "../lib/access";
-import { CALL } from "../data/offers";
+import { CALL, CALLS_DONE } from "../data/offers";
 
 const IST = "Asia/Kolkata";
 const dayLabel = (iso: string) =>
@@ -114,86 +114,106 @@ export default function CallBooking() {
         </p>
       )}
 
-      {slots && slots.length > 0 && (
-        <div className="call-card">
-          <div className="call-days" role="tablist" aria-label="Day">
-            {[...byDay.entries()].map(([d, [first]]) => (
-              <button
-                key={d}
-                type="button"
-                role="tab"
-                aria-selected={day === d}
-                aria-label={d}
-                className={`call-day ${day === d ? "is-active" : ""}`}
-                onClick={() => {
-                  setDay(d);
-                  setSlot(null);
-                }}
-              >
-                <small>{dayPart(first, "weekday")}</small>
-                <b>{dayPart(first, "day")}</b>
-                <small>{dayPart(first, "month")}</small>
-              </button>
-            ))}
-          </div>
-          <div className="call-times">
-            {(byDay.get(day ?? "") ?? []).map((s) => (
-              <button
-                key={s}
-                type="button"
-                className={`call-time ${slot === s ? "is-active" : ""}`}
-                aria-pressed={slot === s}
-                onClick={() => setSlot(s)}
-              >
-                {timeLabel(s)}
-              </button>
-            ))}
-          </div>
+      <div className="call-layout">
+        <div>
+          {slots && slots.length > 0 && (
+            <div className="call-card">
+              <div className="call-days" role="tablist" aria-label="Day">
+                {[...byDay.entries()].map(([d, [first]]) => (
+                  <button
+                    key={d}
+                    type="button"
+                    role="tab"
+                    aria-selected={day === d}
+                    aria-label={d}
+                    className={`call-day ${day === d ? "is-active" : ""}`}
+                    onClick={() => {
+                      setDay(d);
+                      setSlot(null);
+                    }}
+                  >
+                    <small>{dayPart(first, "weekday")}</small>
+                    <b>{dayPart(first, "day")}</b>
+                    <small>{dayPart(first, "month")}</small>
+                  </button>
+                ))}
+              </div>
+              <div className="call-times">
+                {(byDay.get(day ?? "") ?? []).map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    className={`call-time ${slot === s ? "is-active" : ""}`}
+                    aria-pressed={slot === s}
+                    onClick={() => setSlot(s)}
+                  >
+                    {timeLabel(s)}
+                  </button>
+                ))}
+              </div>
 
-          {slot && (
-            <form className="call-form" onSubmit={pay}>
-              <input
-                className="docs-search offer-input"
-                required
-                maxLength={80}
-                placeholder="Your name"
-                aria-label="Your name"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-              />
-              <input
-                className="docs-search offer-input"
-                type="email"
-                required
-                placeholder="you@email.com"
-                aria-label="Email for the invite"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-              />
-              <textarea
-                className="docs-search offer-input"
-                required
-                maxLength={500}
-                rows={3}
-                placeholder="What do you want to talk about?"
-                aria-label="What do you want to talk about?"
-                value={form.topic}
-                onChange={(e) => setForm({ ...form, topic: e.target.value })}
-              />
-              <button
-                type="submit"
-                className="btn-primary pro-offer-buy"
-                disabled={sending}
-              >
-                {sending
-                  ? "Holding your time…"
-                  : `Pay ${CALL.price} · ${dayLabel(slot)}, ${timeLabel(slot)}`}
-              </button>
-              {error && <p className="offer-error">{error}</p>}
-            </form>
+              {slot && (
+                <form className="call-form" onSubmit={pay}>
+                  <input
+                    className="docs-search offer-input"
+                    required
+                    maxLength={80}
+                    placeholder="Your name"
+                    aria-label="Your name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  />
+                  <input
+                    className="docs-search offer-input"
+                    type="email"
+                    required
+                    placeholder="you@email.com"
+                    aria-label="Email for the invite"
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
+                  />
+                  <textarea
+                    className="docs-search offer-input"
+                    required
+                    maxLength={500}
+                    rows={3}
+                    placeholder="What do you want to talk about?"
+                    aria-label="What do you want to talk about?"
+                    value={form.topic}
+                    onChange={(e) =>
+                      setForm({ ...form, topic: e.target.value })
+                    }
+                  />
+                  <button
+                    type="submit"
+                    className="btn-primary pro-offer-buy"
+                    disabled={sending}
+                  >
+                    {sending
+                      ? "Holding your time…"
+                      : `Pay ${CALL.price} · ${dayLabel(slot)}, ${timeLabel(slot)}`}
+                  </button>
+                  {error && <p className="offer-error">{error}</p>}
+                </form>
+              )}
+            </div>
           )}
         </div>
-      )}
+        <aside className="call-done" aria-label="Calls done">
+          <p className="call-done-count">{CALLS_DONE.length}</p>
+          <p className="call-done-label">calls done so far</p>
+          <ul>
+            {CALLS_DONE.map((c) => (
+              <li key={c.name}>
+                <b>{c.name}</b>
+                {c.topic}
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
     </div>
   );
 }
