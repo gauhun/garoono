@@ -15,6 +15,13 @@ export type SharedDoc = {
 
 export const docs: SharedDoc[] = [
   {
+    slug: "app-idea-to-income",
+    title: "Build an App From Idea to Income",
+    blurb: "The whole path in order: find apps that already earn, read their bad reviews, build, pass review, price per country, grow. With every lesson that cost me",
+    free: false,
+    addedOn: "2026-10-30",
+  },
+  {
     slug: "crack-dev-interviews",
     title: "Crack Your Flutter, React Native and Full Stack Interview",
     blurb: "The questions that keep coming up, short answers you can say out loud, and a 3 week plan that fits next to a job",
