@@ -15,6 +15,13 @@ export type SharedDoc = {
 
 export const docs: SharedDoc[] = [
   {
+    slug: "meta-muse-explained",
+    title: "Meta Muse, Explained",
+    blurb: "Meta's new AI agent that does the work for you. What it is, how to set it up, and how founders, freelancers and students get their money's worth.",
+    free: true,
+    addedOn: "2026-10-31",
+  },
+  {
     slug: "app-idea-to-income",
     title: "Build an App From Idea to Income",
     blurb: "The whole path in order: find apps that already earn, read their bad reviews, build, pass review, price per country, grow. With every lesson that cost me",
