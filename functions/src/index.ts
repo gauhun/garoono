@@ -51,7 +51,8 @@ const proCount = db.collection("publicStats").doc("pro");
 
 type Dodo = { base: string; key: string };
 const liveDodo = (): Dodo => ({ base: DODO_API_BASE.value(), key: DODO_API_KEY.value() });
-const testDodo = (): Dodo => ({ base: "https://test.dodopayments.com", key: DODO_API_KEY_TEST.value() });
+const TEST_DODO_BASE = "https://test.dodopayments.com";
+const testDodo = (): Dodo => ({ base: TEST_DODO_BASE, key: DODO_API_KEY_TEST.value() });
 
 async function fetchPayment(paymentId: string, dodo = liveDodo()): Promise<DodoPayment | null> {
   const res = await fetch(`${dodo.base}/payments/${encodeURIComponent(paymentId)}`, {
@@ -192,6 +193,8 @@ async function bookCall(payment: DodoPayment, dodo: Dodo) {
         name: slot?.name ?? "",
         email: slot?.email ?? "",
         topic: slot?.topic ?? "",
+        // Test-mode bookings stay out of the public list on /call
+        test: dodo.base === TEST_DODO_BASE,
         createdAt: FieldValue.serverTimestamp(),
       });
     } else if (d === "refund") {
@@ -363,10 +366,22 @@ async function takenSlots(now: number) {
   return new Set(snap.docs.filter((d) => isTaken(d.data() as SlotDoc, now)).map((d) => d.id));
 }
 
+// Calls went live on this day; older bookings were test payments made before the `test` flag existed
+const CALLS_LIVE_SINCE = Date.parse("2026-10-30T00:00:00+05:30");
+
+// Public list on /call: first name and times only, never the email or topic the buyer typed
+async function recentCalls() {
+  const snap = await callBookings.orderBy("createdAt", "desc").limit(30).get();
+  return snap.docs
+    .map((d) => d.data())
+    .filter((b) => b.status === "booked" && !b.test && b.createdAt && b.createdAt.toMillis() >= CALLS_LIVE_SINCE)
+    .map((b) => ({ name: String(b.name ?? "").trim().split(/\s+/)[0].slice(0, 30), bookedAt: b.createdAt.toMillis() as number, slot: String(b.slot) }));
+}
+
 export const getCallSlots = onCall({ secrets: CAL_SECRETS }, async () => {
   const now = Date.now();
-  const [busy, taken] = await Promise.all([busyIntervals(calCreds(), now, now + 15 * 86_400_000), takenSlots(now)]);
-  return { slots: generateSlots(now, busy, taken) };
+  const [busy, taken, recent] = await Promise.all([busyIntervals(calCreds(), now, now + 15 * 86_400_000), takenSlots(now), recentCalls()]);
+  return { slots: generateSlots(now, busy, taken), recent };
 });
 
 const clean = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");

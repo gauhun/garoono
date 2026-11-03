@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { getCallSlots, holdCallSlot } from "../lib/access";
+import { getCallSlots, holdCallSlot, type RecentCall } from "../lib/access";
 import { CALL, CALLS_DONE } from "../data/offers";
 
 const IST = "Asia/Kolkata";
@@ -29,6 +29,7 @@ type Return = "paid" | "failed" | null;
 
 export default function CallBooking() {
   const [slots, setSlots] = useState<string[] | null>(null);
+  const [recent, setRecent] = useState<RecentCall[]>([]);
   const [loadError, setLoadError] = useState(false);
   const [day, setDay] = useState<string | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
@@ -50,6 +51,7 @@ export default function CallBooking() {
     getCallSlots()
       .then((r) => {
         setSlots(r.slots);
+        setRecent(r.recent ?? []);
         if (r.slots[0]) setDay(dayLabel(r.slots[0]));
       })
       .catch(() => setLoadError(true));
@@ -202,9 +204,18 @@ export default function CallBooking() {
           )}
         </div>
         <aside className="call-done" aria-label="Calls done">
-          <p className="call-done-count">{CALLS_DONE.length}</p>
-          <p className="call-done-label">calls done so far</p>
+          <p className="call-done-count">
+            {CALLS_DONE.length + recent.length}
+          </p>
+          <p className="call-done-label">calls booked so far</p>
           <ul>
+            {recent.map((c) => (
+              <li key={c.bookedAt}>
+                <b>{c.name}</b>
+                Call on {dayLabel(c.slot)}, {timeLabel(c.slot)}
+                <small>Booked {dayLabel(new Date(c.bookedAt).toISOString())}</small>
+              </li>
+            ))}
             {CALLS_DONE.map((c) => (
               <li key={c.name}>
                 <b>{c.name}</b>

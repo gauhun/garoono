@@ -29,7 +29,8 @@ export async function openPaidDoc(slug: string, download: boolean) {
 
 // ─── Paid calls and course waitlist (no sign-in needed) ──────────────────────
 
-export const getCallSlots = () => call<{ slots: string[] }>("getCallSlots", {});
+export type RecentCall = { name: string; bookedAt: number; slot: string };
+export const getCallSlots = () => call<{ slots: string[]; recent?: RecentCall[] }>("getCallSlots", {});
 
 export const holdCallSlot = (hold: { slot: string; name: string; email: string; topic: string }) =>
   call<{ url: string; holdUntil: number }>("holdCallSlot", hold);
