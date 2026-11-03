@@ -33,6 +33,7 @@ const DODO_API_KEY_TEST = defineSecret("DODO_API_KEY");
 const DODO_WEBHOOK_SECRET_TEST = defineSecret("DODO_WEBHOOK_SECRET");
 const DODO_CALL_MODE = defineString("DODO_CALL_MODE", { default: "live" });
 const DODO_CALL_PRODUCT_ID_TEST = defineString("DODO_CALL_PRODUCT_ID_TEST", { default: "" });
+const CALL_NOTIFY_EMAIL = defineString("CALL_NOTIFY_EMAIL", { default: "" });
 // OAuth refresh token for garoonotech@gmail.com (scripts/calendar-token.mjs)
 const GOOGLE_CAL_CLIENT_ID = defineSecret("GOOGLE_CAL_CLIENT_ID");
 const GOOGLE_CAL_CLIENT_SECRET = defineSecret("GOOGLE_CAL_CLIENT_SECRET");
@@ -218,6 +219,8 @@ async function bookCall(payment: DodoPayment, dodo: Dodo) {
     name: booking.name,
     email: booking.email,
     topic: booking.topic,
+    paymentId,
+    notify: CALL_NOTIFY_EMAIL.value() || undefined,
   });
   await bookingRef.update({ eventId, meetLink, updatedAt: FieldValue.serverTimestamp() });
 }
