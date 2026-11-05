@@ -32,7 +32,7 @@ export async function openPaidDoc(slug: string, download: boolean) {
 export type RecentCall = { name: string; bookedAt: number; slot: string };
 export const getCallSlots = () => call<{ slots: string[]; recent?: RecentCall[] }>("getCallSlots", {});
 
-export const holdCallSlot = (hold: { slot: string; name: string; email: string; topic: string }) =>
+export const holdCallSlot = (hold: { slot: string; name: string; email: string; topic: string; kind: "call" | "help" }) =>
   call<{ url: string; holdUntil: number }>("holdCallSlot", hold);
 
 export const joinWaitlist = (email: string) => call<{ ok: boolean }>("joinWaitlist", { email });

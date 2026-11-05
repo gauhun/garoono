@@ -3,11 +3,20 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { joinWaitlist } from "../lib/access";
-import { CALL, COURSE, COURSE_STAGE, KIT_PRICE, KITS } from "../data/offers";
+import {
+  CALL,
+  HELP_CALL,
+  COURSE,
+  COURSE_STAGE,
+  KIT_PRICE,
+  KITS,
+} from "../data/offers";
 
 function WaitlistForm() {
   const [email, setEmail] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "done" | "error">(
+    "idle",
+  );
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -20,7 +29,13 @@ function WaitlistForm() {
     }
   }
 
-  if (state === "done") return <p className="offer-done">You&apos;re on the list. I&apos;ll email you the {COURSE.price.waitlist} code</p>;
+  if (state === "done")
+    return (
+      <p className="offer-done">
+        You&apos;re on the list. I&apos;ll email you the {COURSE.price.waitlist}{" "}
+        code
+      </p>
+    );
   return (
     <form className="offer-form" onSubmit={submit}>
       <input
@@ -32,10 +47,16 @@ function WaitlistForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button type="submit" className="btn-primary" disabled={state === "sending"}>
+      <button
+        type="submit"
+        className="btn-primary"
+        disabled={state === "sending"}
+      >
         {state === "sending" ? "Joining…" : "Join waitlist"}
       </button>
-      {state === "error" && <p className="offer-error">Couldn&apos;t join. Try again</p>}
+      {state === "error" && (
+        <p className="offer-error">Couldn&apos;t join. Try again</p>
+      )}
     </form>
   );
 }
@@ -49,7 +70,13 @@ export default function Products() {
       <h1 className="font-serif docs-title">Products</h1>
 
       <section className="offer-card offer-course">
-        <span className="offer-tag">{COURSE_STAGE === "waitlist" ? "Waitlist open" : COURSE_STAGE === "presale" ? "Presale" : "Course"}</span>
+        <span className="offer-tag">
+          {COURSE_STAGE === "waitlist"
+            ? "Waitlist open"
+            : COURSE_STAGE === "presale"
+              ? "Presale"
+              : "Course"}
+        </span>
         <h2 className="offer-title">{COURSE.title}</h2>
         <p className="offer-line">{COURSE.line}</p>
         <ul className="offer-includes">
@@ -59,7 +86,9 @@ export default function Products() {
         </ul>
         <p className="offer-price">
           {COURSE.price[COURSE_STAGE]}
-          {COURSE_STAGE === "waitlist" && <span> for the waitlist · then {COURSE.price.presale}</span>}
+          {COURSE_STAGE === "waitlist" && (
+            <span> for the waitlist · then {COURSE.price.presale}</span>
+          )}
           <span> · {COURSE.international} outside India</span>
         </p>
         {/* Presale/launch checkout is the next build; until then the stage stays "waitlist" */}
@@ -75,6 +104,17 @@ export default function Products() {
           <p className="offer-price">{CALL.price}</p>
           <Link href="/call/" className="btn-primary">
             Book a call
+          </Link>
+        </section>
+
+        <section className="offer-card">
+          <h2 className="offer-title">{HELP_CALL.title}</h2>
+          <p className="offer-line">
+            {HELP_CALL.line} · {CALL.minutes} min
+          </p>
+          <p className="offer-price">{HELP_CALL.price}</p>
+          <Link href="/call/?type=help" className="btn-primary">
+            Book help
           </Link>
         </section>
 

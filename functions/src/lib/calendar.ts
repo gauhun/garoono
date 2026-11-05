@@ -33,7 +33,7 @@ export async function busyIntervals(c: CalendarCreds, from: number, to: number):
 
 export async function createCallEvent(
   c: CalendarCreds,
-  call: { id: string; start: number; end: number; name: string; email: string; topic: string; paymentId: string; notify?: string },
+  call: { id: string; start: number; end: number; name: string; email: string; topic: string; paymentId: string; help?: boolean; notify?: string },
 ) {
   const res = await fetch(
     "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1&sendUpdates=all",
@@ -43,8 +43,8 @@ export async function createCallEvent(
       body: JSON.stringify({
         // Fixed id per payment: a webhook retry gets 409 instead of a second event
         id: call.id,
-        summary: `Call with ${call.name} · garoono.in`,
-        description: `30 minute call booked on garoono.in/call\n\nName: ${call.name}\nEmail: ${call.email}\nPayment: ${call.paymentId}\n\nTopic:\n${call.topic}`,
+        summary: `${call.help ? "App help" : "Call"} with ${call.name} · garoono.in`,
+        description: `30 minute ${call.help ? "app building help call" : "call"} booked on garoono.in/call\n\nName: ${call.name}\nEmail: ${call.email}\nPayment: ${call.paymentId}\n\nTopic:\n${call.topic}`,
         start: { dateTime: new Date(call.start).toISOString(), timeZone: "Asia/Kolkata" },
         end: { dateTime: new Date(call.end).toISOString(), timeZone: "Asia/Kolkata" },
         // The organizer gets no email for events it creates, so the notify address is a guest and gets the invite too

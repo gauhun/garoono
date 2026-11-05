@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { getCallSlots, holdCallSlot, type RecentCall } from "../lib/access";
-import { CALL, CALLS_DONE } from "../data/offers";
+import { CALL, CALLS_DONE, HELP_CALL } from "../data/offers";
 
 const IST = "Asia/Kolkata";
 const dayLabel = (iso: string) =>
@@ -33,6 +33,7 @@ export default function CallBooking() {
   const [loadError, setLoadError] = useState(false);
   const [day, setDay] = useState<string | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
+  const [kind, setKind] = useState<"call" | "help">("call");
   const [form, setForm] = useState({ name: "", email: "", topic: "" });
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +42,7 @@ export default function CallBooking() {
   // Dodo sends buyers back to /call/?payment_id=…&status=…
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    if (params.get("type") === "help") setKind("help");
     if (params.get("payment_id")) {
       setReturned(params.get("status") === "succeeded" ? "paid" : "failed");
       window.history.replaceState(null, "", window.location.pathname);
@@ -70,7 +72,7 @@ export default function CallBooking() {
     setSending(true);
     setError(null);
     try {
-      const { url } = await holdCallSlot({ slot, ...form });
+      const { url } = await holdCallSlot({ slot, kind, ...form });
       window.location.href = url;
     } catch (err) {
       setError(
@@ -88,8 +90,28 @@ export default function CallBooking() {
       </Link>
       <h1 className="font-serif docs-title">Book a 1:1 call</h1>
       <p className="call-meta">
-        {CALL.price} · {CALL.minutes} min on Google Meet · {CALL.hours}
+        {CALL.minutes} min on Google Meet · {CALL.hours}
       </p>
+      <div className="call-kinds" role="radiogroup" aria-label="Call type">
+        {(
+          [
+            ["call", "1:1 call", CALL.price],
+            ["help", HELP_CALL.title, HELP_CALL.price],
+          ] as const
+        ).map(([k, title, price]) => (
+          <button
+            key={k}
+            type="button"
+            role="radio"
+            aria-checked={kind === k}
+            className={`call-kind ${kind === k ? "is-active" : ""}`}
+            onClick={() => setKind(k)}
+          >
+            <b>{title}</b>
+            <span>{price}</span>
+          </button>
+        ))}
+      </div>
 
       {returned === "paid" && (
         <p className="offer-done call-banner" role="status">
@@ -195,7 +217,7 @@ export default function CallBooking() {
                   >
                     {sending
                       ? "Holding your time…"
-                      : `Pay ${CALL.price} · ${dayLabel(slot)}, ${timeLabel(slot)}`}
+                      : `Pay ${kind === "help" ? HELP_CALL.price : CALL.price} · ${dayLabel(slot)}, ${timeLabel(slot)}`}
                   </button>
                   {error && <p className="offer-error">{error}</p>}
                 </form>
@@ -204,16 +226,16 @@ export default function CallBooking() {
           )}
         </div>
         <aside className="call-done" aria-label="Calls done">
-          <p className="call-done-count">
-            {CALLS_DONE.length + recent.length}
-          </p>
+          <p className="call-done-count">{CALLS_DONE.length + recent.length}</p>
           <p className="call-done-label">calls booked so far</p>
           <ul>
             {recent.map((c) => (
               <li key={c.bookedAt}>
                 <b>{c.name}</b>
                 Call on {dayLabel(c.slot)}, {timeLabel(c.slot)}
-                <small>Booked {dayLabel(new Date(c.bookedAt).toISOString())}</small>
+                <small>
+                  Booked {dayLabel(new Date(c.bookedAt).toISOString())}
+                </small>
               </li>
             ))}
             {CALLS_DONE.map((c) => (

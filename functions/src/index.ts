@@ -33,6 +33,7 @@ const DODO_API_KEY_TEST = defineSecret("DODO_API_KEY");
 const DODO_WEBHOOK_SECRET_TEST = defineSecret("DODO_WEBHOOK_SECRET");
 const DODO_CALL_MODE = defineString("DODO_CALL_MODE", { default: "live" });
 const DODO_CALL_PRODUCT_ID_TEST = defineString("DODO_CALL_PRODUCT_ID_TEST", { default: "" });
+const DODO_HELP_PRODUCT_ID = defineString("DODO_HELP_PRODUCT_ID", { default: "" });
 const CALL_NOTIFY_EMAIL = defineString("CALL_NOTIFY_EMAIL", { default: "" });
 // OAuth refresh token for garoonotech@gmail.com (scripts/calendar-token.mjs)
 const GOOGLE_CAL_CLIENT_ID = defineSecret("GOOGLE_CAL_CLIENT_ID");
@@ -193,6 +194,8 @@ async function bookCall(payment: DodoPayment, dodo: Dodo) {
         name: slot?.name ?? "",
         email: slot?.email ?? "",
         topic: slot?.topic ?? "",
+        // From the product paid for, so a swapped checkout link can't buy a ₹399 call at the ₹199 price
+        kind: payment.product_cart?.some((p) => p.product_id === DODO_HELP_PRODUCT_ID.value()) ? "help" : "call",
         // Test-mode bookings stay out of the public list on /call
         test: dodo.base === TEST_DODO_BASE,
         createdAt: FieldValue.serverTimestamp(),
@@ -222,6 +225,7 @@ async function bookCall(payment: DodoPayment, dodo: Dodo) {
     name: booking.name,
     email: booking.email,
     topic: booking.topic,
+    help: booking.kind === "help",
     paymentId,
     notify: CALL_NOTIFY_EMAIL.value() || undefined,
   });
@@ -258,7 +262,8 @@ export const dodoWebhook = onRequest({ secrets: [DODO_API_KEY, DODO_WEBHOOK_SECR
       if (fetched && isQualifyingPayment(fetched, DODO_CALL_PRODUCT_ID_TEST.value())) await bookCall(fetched, testDodo());
     } else if (event.type === "payment.succeeded" && paymentId) {
       const fetched = await fetchPayment(paymentId);
-      if (fetched && isQualifyingPayment(fetched, DODO_CALL_PRODUCT_ID.value())) {
+      const help = DODO_HELP_PRODUCT_ID.value();
+      if (fetched && (isQualifyingPayment(fetched, DODO_CALL_PRODUCT_ID.value()) || (help && isQualifyingPayment(fetched, help)))) {
         await bookCall(fetched, liveDodo());
         res.status(200).json({ received: true });
         return;
@@ -393,6 +398,7 @@ export const holdCallSlot = onCall({ secrets: CAL_SECRETS }, async (req) => {
   const name = clean(d.name, 80);
   const email = normalizeEmail(clean(d.email, 254));
   const topic = clean(d.topic, 500);
+  const kind = d.kind === "help" ? "help" : "call";
   if (!name || !EMAIL_RE.test(email) || !topic) throw new HttpsError("invalid-argument", "Add your name, email and what you want to talk about.");
 
   const now = Date.now();
@@ -408,12 +414,14 @@ export const holdCallSlot = onCall({ secrets: CAL_SECRETS }, async (req) => {
     if (isTaken((await tx.get(ref)).data() as SlotDoc | undefined, now)) {
       throw new HttpsError("already-exists", "That time was just taken. Pick another one.");
     }
-    tx.set(ref, { status: "held", holdId, holdUntil: now + HOLD_MS, name, email, topic });
+    tx.set(ref, { status: "held", holdId, holdUntil: now + HOLD_MS, name, email, topic, kind });
   });
 
   const test = DODO_CALL_MODE.value() === "test";
   const host = test ? "https://test.checkout.dodopayments.com" : "https://checkout.dodopayments.com";
-  const product = test ? DODO_CALL_PRODUCT_ID_TEST.value() : DODO_CALL_PRODUCT_ID.value();
+  // Test mode has one product for both kinds
+  const product = test ? DODO_CALL_PRODUCT_ID_TEST.value() : kind === "help" ? DODO_HELP_PRODUCT_ID.value() : DODO_CALL_PRODUCT_ID.value();
+  if (!product) throw new HttpsError("unavailable", "This call can't be booked yet. Try again later.");
   const query = new URLSearchParams({
     quantity: "1",
     redirect_url: "https://garoono.in/call/",

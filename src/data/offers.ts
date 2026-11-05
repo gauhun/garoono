@@ -10,6 +10,8 @@ export const COURSE = {
   international: "$29",
 };
 
+// Cheaper call for people building their first app; same hours and slots as CALL
+export const HELP_CALL = { title: "App building help", price: "₹199", line: "Stuck on your app? Idea, build, launch" };
 export const CALL = { price: "₹399", minutes: 30, hours: "Tue, Thu, Sat, Sun 2 to 10 PM, Mon, Wed, Fri 8 to 10:30 PM IST" };
 
 // Calls done before booking went live; first names only
