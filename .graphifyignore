@@ -1,0 +1,13 @@
+# stale static-export leftovers at repo root
+_next/
+/index.html
+/index.txt
+/404.html
+/404/
+# marketing images (screenshots, covers, logos): no graph value
+*.png
+*.jpg
+*.webp
+*.svg
+src/lib/__fixtures__/
+*app-ads.txt
