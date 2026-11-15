@@ -12,6 +12,15 @@ export interface Product {
 
 export const products: Product[] = [
   {
+    id: 19,
+    name: "Glowmetry",
+    description: "AI face score, skin routine and a daily glow up plan",
+    stat: "100+",
+    icon: "/logos/glowmetry.png",
+    link: "/glowmetry/",
+    color: "#6366F1",
+  },
+  {
     id: 13,
     name: "PushPass",
     description: "App blocker — do pushups, squats, planks or jumping jacks to unlock distracting apps.",
@@ -55,15 +64,6 @@ export const products: Product[] = [
     icon: "/logos/getup.png",
     link: "/apps/getup/",
     color: "#18181B",
-  },
-  {
-    id: 19,
-    name: "Glowmetry",
-    description: "AI face score, skin routine and a daily glow up plan",
-    stat: "New",
-    icon: "/logos/glowmetry.png",
-    link: "/glowmetry/",
-    color: "#6366F1",
   },
   {
     id: 12,
