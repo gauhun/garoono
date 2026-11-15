@@ -4,6 +4,7 @@
 
 export type AppPage = {
   slug: string;
+  path?: string; // public URL when it isn't /apps/<slug>/
   productId: number; // id in products.ts (name, icon, colour, user count come from there)
   tagline: string;
   problem: string[]; // "Before" card, one line each
@@ -555,8 +556,43 @@ export const appPages: AppPage[] = [
     seoTitle: "BhaktiDhun: Bhajans, Aartis, Chalisas and Kathas",
     seoDescription: "Bhajans, aartis and chalisas sorted by deity, with kathas and leelas to read, in one simple devotional app",
   },
+  {
+    slug: "glowmetry",
+    path: "/glowmetry/",
+    productId: 19,
+    tagline: "Rate your face and get a plan to glow up",
+    problem: [
+      "You keep checking the mirror but can't tell what to work on",
+      "Skin tips online don't fit your skin type",
+      "You try things for a week and never know if they worked",
+    ],
+    result: [
+      "A face score with ratings for symmetry, jawline, eyes and skin",
+      "A morning and night routine made for your skin",
+      "Scan again later and see what changed",
+    ],
+    steps: [
+      { title: "Answer a few questions", text: "Quick questions about you, no account or sign up" },
+      { title: "Scan your face", text: "Use the camera with guided photos, or upload a photo" },
+      { title: "Get your plan", text: "Your score, what to fix first and a daily plan in seconds" },
+    ],
+    benefits: [
+      { icon: "📐", title: "Face ratios", text: "Eye spacing, jaw width and the three facial thirds, measured on your phone" },
+      { icon: "🧴", title: "Skin analysis", text: "Clarity, texture, dark circles, oil balance and blemishes" },
+      { icon: "🎯", title: "Where to focus", text: "The few things that matter most for you, with a tip for each" },
+      { icon: "💇", title: "Hairstyle ideas", text: "Styles that suit your face shape" },
+      { icon: "🔥", title: "Daily quests", text: "Streaks and ranks to keep you going" },
+      { icon: "🔒", title: "Private", text: "No account, and your scan history stays on your phone" },
+    ],
+    playUrl: "https://play.google.com/store/apps/details?id=in.garoono.glowmetry",
+    screenshots: shots("glowmetry", 6),
+    category: "LifestyleApplication",
+    seoTitle: "Glowmetry: AI Face Score, Skin Routine and Glow Up Plan",
+    seoDescription: "Rate your face with AI, get a skin routine for your skin type and a daily glow up plan, on Android",
+  },
 ];
 
+export const appPath = (p: AppPage) => p.path ?? `/apps/${p.slug}/`;
 export const appPageBySlug = (slug: string) => appPages.find((p) => p.slug === slug);
 export const appPageByProduct = (productId: number) => appPages.find((p) => p.productId === productId);
 

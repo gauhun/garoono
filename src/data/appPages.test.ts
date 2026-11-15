@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { appPages, legacyAppSlugs } from "./appPages";
+import { appPages, appPath, legacyAppSlugs } from "./appPages";
 import { iconUrl, products } from "./products";
 
 // Store-copy rules: no em/en dashes, no full stop at the end of a line
@@ -21,7 +21,7 @@ describe("app pages", () => {
     for (const page of appPages) {
       const product = products.find((x) => x.id === page.productId);
       expect(product, page.slug).toBeDefined();
-      expect(product?.link).toBe(`/apps/${page.slug}/`);
+      expect(product?.link).toBe(appPath(page));
     }
   });
 

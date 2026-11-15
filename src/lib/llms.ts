@@ -1,4 +1,4 @@
-import { appPages } from "../data/appPages";
+import { appPages, appPath } from "../data/appPages";
 import { docs } from "../data/docs";
 import { CALL, COURSE, COURSE_STAGE } from "../data/offers";
 import { products } from "../data/products";
@@ -11,7 +11,7 @@ export function llmsTxt() {
   const apps = appPages.map((p) => {
     const name = products.find((x) => x.id === p.productId)?.name ?? p.slug;
     const stores = [p.appStoreUrl && `[App Store](${p.appStoreUrl})`, `[Google Play](${p.playUrl})`].filter(Boolean).join(", ");
-    return `- [${name}](${ORIGIN}/apps/${p.slug}/): ${p.seoDescription}. ${stores}`;
+    return `- [${name}](${ORIGIN}${appPath(p)}): ${p.seoDescription}. ${stores}`;
   });
   const guides = getAllPosts().map((p) => `- [${p.title}](${ORIGIN}/blog/${p.slug}/): ${p.description}`);
   const playbooks = docs.map((d) => `- [${d.title}](${ORIGIN}/docs/#${d.slug}): ${d.blurb}${d.free ? " (free PDF)" : ""}`);

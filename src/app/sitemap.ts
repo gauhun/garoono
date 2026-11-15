@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { appPages } from "../data/appPages";
+import { appPages, appPath } from "../data/appPages";
 import { docs } from "../data/docs";
 import { getAllPosts } from "../lib/blog";
 
@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/call/`, lastModified: today, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/blog/`, lastModified: posts[0]?.date ?? today, changeFrequency: "daily", priority: 0.9 },
     ...posts.map((p) => ({ url: `${base}/blog/${p.slug}/`, lastModified: p.date, changeFrequency: "monthly" as const, priority: 0.7 })),
-    ...appPages.map((p) => ({ url: `${base}/apps/${p.slug}/`, lastModified: today, changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...appPages.map((p) => ({ url: `${base}${appPath(p)}`, lastModified: today, changeFrequency: "monthly" as const, priority: 0.8 })),
     { url: `${base}/privacy/`, lastModified: today, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/terms/`, lastModified: today, changeFrequency: "yearly", priority: 0.2 },
   ];

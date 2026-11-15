@@ -93,7 +93,7 @@ export default function AppLanding({
               {page.tagline}
             </motion.p>
             <motion.p className="app-users font-mono" variants={rise} custom={3}>
-              👥 {users} people use it
+              {/^\d/.test(users) ? `👥 ${users} people use it` : `✨ ${users} on Google Play`}
             </motion.p>
             <motion.div variants={rise} custom={4}>
               <StoreButtons playUrl={page.playUrl} appStoreUrl={page.appStoreUrl} />

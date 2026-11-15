@@ -57,6 +57,15 @@ export const products: Product[] = [
     color: "#18181B",
   },
   {
+    id: 19,
+    name: "Glowmetry",
+    description: "AI face score, skin routine and a daily glow up plan",
+    stat: "New",
+    icon: "/logos/glowmetry.png",
+    link: "/glowmetry/",
+    color: "#6366F1",
+  },
+  {
     id: 12,
     name: "Dress Mirror",
     description: "Virtual trial room to try outfits instantly.",
