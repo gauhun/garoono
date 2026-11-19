@@ -129,7 +129,7 @@ export default async function BlogPost({ params }: Params) {
 
       <footer className="post-author">
         <p>
-          Written by <strong>Gautam</strong>, senior engineer by day and indie app maker by night. 14 apps shipped, 100K+ users
+          Written by <strong>Gautam</strong>, senior engineer by day and indie app maker by night. 17 apps shipped, 100K+ users
         </p>
       </footer>
     </main>

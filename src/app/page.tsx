@@ -483,7 +483,7 @@ export default function Home() {
           }}
         >
           {[
-            { value: "14+", label: "Apps Shipped" },
+            { value: "17+", label: "Apps Shipped" },
             { value: "100K+", label: "Total Users" },
             { value: "6+", label: "Years Building" },
             { value: "5", label: "Revenue Apps" },

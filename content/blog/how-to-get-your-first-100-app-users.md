@@ -12,7 +12,7 @@ They are a finding problem
 Somewhere there are 100 people who already feel the pain your app solves
 Your job is to stand where they already look, not to shout louder than everyone else
 
-I have shipped 14 apps next to a full time job and crossed 100K users across them
+I have shipped 17 apps next to a full time job and crossed 100K users across them
 None of that started with an ad budget
 This is the playbook I run for every launch now
 

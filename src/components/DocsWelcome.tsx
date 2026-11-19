@@ -4,7 +4,7 @@ import { useModal } from "../lib/useModal";
 
 // Gautam's own numbers, shown at the top of /docs and in the welcome dialog
 export const PROOF = [
-  { value: "14+", label: "apps shipped" },
+  { value: "17+", label: "apps shipped" },
   { value: "100k+", label: "installs" },
   { value: "$2k+", label: "revenue" },
 ];

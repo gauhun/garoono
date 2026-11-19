@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://garoono.in"),
   openGraph: {
     title: "Garoono | Indie Apps by Gautam Singh Rathor",
-    description: "14+ apps shipped, we build apps for you, building in public",
+    description: "17+ apps shipped, we build apps for you, building in public",
     url: "https://garoono.in",
     siteName: "Garoono",
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Garoono: apps Gautam builds after his 9 to 5, 14 apps and 100,000+ users",
+        alt: "Garoono: apps Gautam builds after his 9 to 5, 17 apps and 100,000+ users",
       },
     ],
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@xgaroono",
     title: "Garoono | Indie Apps by Gautam Singh Rathor",
-    description: "14+ apps shipped, we build apps for you, building in public",
+    description: "17+ apps shipped, we build apps for you, building in public",
     images: ["/og.jpg"],
   },
   icons: {

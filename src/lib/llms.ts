@@ -20,7 +20,7 @@ export function llmsTxt() {
 
 > Garoono is the site of Gautam Singh Rathor, a senior software engineer in Delhi who builds mobile apps after his 9 to 5. It lists his apps, sells playbooks and checklists for indie app makers, and has a blog about shipping apps solo next to a day job.
 
-14 apps shipped, 100,000+ users across them, mostly Flutter. Some playbooks are free PDFs, the rest open with a one-time lifetime purchase on the docs page.
+17 apps shipped, 100,000+ users across them, mostly Flutter. Some playbooks are free PDFs, the rest open with a one-time lifetime purchase on the docs page.
 
 ## Apps
 ${apps.join("\n")}

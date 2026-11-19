@@ -71,7 +71,7 @@ But it proved I can make an app people come back to on their own
 
 ### Flutter was never the problem
 
-One codebase let me ship 16 apps on two stores as a solo dev
+One codebase let me ship 17 apps on two stores as a solo dev
 No regrets there
 Every problem below is a business problem, not a tech one
 
@@ -89,7 +89,7 @@ RevenueCat's State of Subscription Apps 2026 puts median 14 day revenue per inst
 
 ### Shipping wide instead of deep
 
-16 apps means 16 paywalls, 16 store listings and 16 sets of reviews to answer
+17 apps means 17 paywalls, 17 store listings and 17 sets of reviews to answer
 Most of mine got one launch and then nothing
 Eight of them make close to zero
 

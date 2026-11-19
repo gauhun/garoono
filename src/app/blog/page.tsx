@@ -7,7 +7,7 @@ import { getAllPosts } from "../../lib/blog";
 export const metadata: Metadata = {
   title: "Blog · Gautam | Shipping apps solo, with real numbers",
   description:
-    "Practical posts for people building apps next to a day job. App store SEO, first users, pricing, Flutter and AI tools, from 14 shipped apps and 100K+ users.",
+    "Practical posts for people building apps next to a day job. App store SEO, first users, pricing, Flutter and AI tools, from 17 shipped apps and 100K+ users.",
   alternates: { canonical: "/blog/", types: { "application/rss+xml": "/blog/rss.xml" } },
 };
 
